@@ -12,12 +12,11 @@ namespace Bases_RM
         private MySqlConnectionStringBuilder Constructor_Conexion = new MySqlConnectionStringBuilder();
         private MySqlConnection Variable_Conexion;
         public Conexion_DB(){
-
             Constructor_Conexion.Server = "25.84.214.223";
             Constructor_Conexion.UserID = "root";
             Constructor_Conexion.Password = "@Sistemas2017";
             Constructor_Conexion.Database = "rm_db";
-
+            //creacion de variable de conexion
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());
         }
         public void Guardar()
