@@ -41,16 +41,31 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
-            if (Clave_Usuario.Equals(txtContraseña.Text))
+            InicioSesion();
+        }
+
+        private void txtContraseña_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                this.Hide();
-                Panel_Menu menu1 = new Panel_Menu();
-                menu1.Show();
+                InicioSesion();
             }
-            else
+        }
+        private void InicioSesion()
+        {
+            if ((txtUsuario.Text.Trim() != "") && (txtContraseña.Text.Trim() != ""))
             {
-                MessageBox.Show("Contraseña Incorrecta");
+                string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
+                if (Clave_Usuario.Equals(txtContraseña.Text))
+                {
+                    this.Hide();
+                    Panel_Menu menu1 = new Panel_Menu();
+                    menu1.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Contraseña Incorrecta","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
             }
         }
     }

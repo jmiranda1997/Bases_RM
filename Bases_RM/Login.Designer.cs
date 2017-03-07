@@ -40,20 +40,20 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(232, 206);
+            this.btnOK.Location = new System.Drawing.Point(43, 212);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(157, 46);
-            this.btnOK.TabIndex = 0;
+            this.btnOK.TabIndex = 2;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(44, 206);
+            this.btnCancelar.Location = new System.Drawing.Point(224, 212);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(165, 46);
-            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.button2_Click);
@@ -93,7 +93,7 @@
             this.txtUsuario.Location = new System.Drawing.Point(109, 133);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(280, 20);
-            this.txtUsuario.TabIndex = 5;
+            this.txtUsuario.TabIndex = 0;
             // 
             // txtContraseña
             // 
@@ -101,8 +101,9 @@
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(281, 20);
-            this.txtContraseña.TabIndex = 6;
+            this.txtContraseña.TabIndex = 1;
             this.txtContraseña.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txtContraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContraseña_KeyPress);
             // 
             // Login
             // 
