@@ -12,9 +12,11 @@ namespace Bases_RM
 {
     public partial class Login : Form
     {
+        private Conexion_DB Conexion;
         public Login()
         {
             InitializeComponent();
+            Conexion = new Conexion_DB();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -35,6 +37,18 @@ namespace Bases_RM
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
+            if(Clave_Usuario.Equals(txtContraseña.Text)){
+                MessageBox.Show("Contraseña Correcta");
+            }
+            else
+            {
+                MessageBox.Show("Contraseña Incorrecta");
+            }
         }
     }
 }
