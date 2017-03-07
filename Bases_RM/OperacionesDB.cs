@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Bases_RM
 {
-    class OperacionesDB
+    class OperacionesDB 
     {
+
 
     }
 }
