@@ -80,7 +80,7 @@
             // 
             // TxtDeuda
             // 
-            this.TxtDeuda.Location = new System.Drawing.Point(347, 112);
+            this.TxtDeuda.Location = new System.Drawing.Point(329, 112);
             this.TxtDeuda.Name = "TxtDeuda";
             this.TxtDeuda.Size = new System.Drawing.Size(125, 20);
             this.TxtDeuda.TabIndex = 3;
@@ -111,9 +111,9 @@
             this.lbDeuda.AutoSize = true;
             this.lbDeuda.Location = new System.Drawing.Point(272, 115);
             this.lbDeuda.Name = "lbDeuda";
-            this.lbDeuda.Size = new System.Drawing.Size(69, 13);
+            this.lbDeuda.Size = new System.Drawing.Size(34, 13);
             this.lbDeuda.TabIndex = 6;
-            this.lbDeuda.Text = "Deuda Total:";
+            this.lbDeuda.Text = "Saldo";
             // 
             // arbolClientes
             // 
@@ -125,17 +125,17 @@
             // lbSaldo
             // 
             this.lbSaldo.AutoSize = true;
-            this.lbSaldo.Location = new System.Drawing.Point(478, 115);
+            this.lbSaldo.Location = new System.Drawing.Point(460, 115);
             this.lbSaldo.Name = "lbSaldo";
-            this.lbSaldo.Size = new System.Drawing.Size(37, 13);
+            this.lbSaldo.Size = new System.Drawing.Size(38, 13);
             this.lbSaldo.TabIndex = 8;
-            this.lbSaldo.Text = "Saldo:";
+            this.lbSaldo.Text = "Abono";
             // 
             // TxtSaldo
             // 
-            this.TxtSaldo.Location = new System.Drawing.Point(521, 112);
+            this.TxtSaldo.Location = new System.Drawing.Point(504, 112);
             this.TxtSaldo.Name = "TxtSaldo";
-            this.TxtSaldo.Size = new System.Drawing.Size(117, 20);
+            this.TxtSaldo.Size = new System.Drawing.Size(134, 20);
             this.TxtSaldo.TabIndex = 9;
             this.TxtSaldo.Text = "0.00";
             // 
