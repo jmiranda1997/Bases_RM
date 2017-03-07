@@ -28,98 +28,99 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.lbUsuario = new System.Windows.Forms.Label();
+            this.lbConstraseña = new System.Windows.Forms.Label();
+            this.pixLogo = new System.Windows.Forms.PictureBox();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.txtContraseña = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pixLogo)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnOK
             // 
-            this.button1.Location = new System.Drawing.Point(232, 206);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(157, 46);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnOK.Location = new System.Drawing.Point(232, 206);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(157, 46);
+            this.btnOK.TabIndex = 0;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btnCancelar
             // 
-            this.button2.Location = new System.Drawing.Point(44, 206);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(165, 46);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnCancelar.Location = new System.Drawing.Point(44, 206);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(165, 46);
+            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label1
+            // lbUsuario
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 140);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Usuario";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lbUsuario.AutoSize = true;
+            this.lbUsuario.Location = new System.Drawing.Point(40, 140);
+            this.lbUsuario.Name = "lbUsuario";
+            this.lbUsuario.Size = new System.Drawing.Size(43, 13);
+            this.lbUsuario.TabIndex = 2;
+            this.lbUsuario.Text = "Usuario";
+            this.lbUsuario.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label2
+            // lbConstraseña
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(41, 168);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Contraseña";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.lbConstraseña.AutoSize = true;
+            this.lbConstraseña.Location = new System.Drawing.Point(41, 168);
+            this.lbConstraseña.Name = "lbConstraseña";
+            this.lbConstraseña.Size = new System.Drawing.Size(61, 13);
+            this.lbConstraseña.TabIndex = 3;
+            this.lbConstraseña.Text = "Contraseña";
+            this.lbConstraseña.Click += new System.EventHandler(this.label2_Click);
             // 
-            // pictureBox1
+            // pixLogo
             // 
-            this.pictureBox1.Image = global::Bases_RM.Properties.Resources.logoRM;
-            this.pictureBox1.Location = new System.Drawing.Point(7, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(433, 101);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.pixLogo.Image = global::Bases_RM.Properties.Resources.logoRM;
+            this.pixLogo.Location = new System.Drawing.Point(7, 6);
+            this.pixLogo.Name = "pixLogo";
+            this.pixLogo.Size = new System.Drawing.Size(433, 101);
+            this.pixLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pixLogo.TabIndex = 4;
+            this.pixLogo.TabStop = false;
             // 
-            // textBox1
+            // txtUsuario
             // 
-            this.textBox1.Location = new System.Drawing.Point(109, 133);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(280, 20);
-            this.textBox1.TabIndex = 5;
+            this.txtUsuario.Location = new System.Drawing.Point(109, 133);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(280, 20);
+            this.txtUsuario.TabIndex = 5;
             // 
-            // textBox2
+            // txtContraseña
             // 
-            this.textBox2.Location = new System.Drawing.Point(108, 165);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(281, 20);
-            this.textBox2.TabIndex = 6;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txtContraseña.Location = new System.Drawing.Point(108, 165);
+            this.txtContraseña.Name = "txtContraseña";
+            this.txtContraseña.PasswordChar = '*';
+            this.txtContraseña.Size = new System.Drawing.Size(281, 20);
+            this.txtContraseña.TabIndex = 6;
+            this.txtContraseña.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(447, 270);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtContraseña);
+            this.Controls.Add(this.txtUsuario);
+            this.Controls.Add(this.pixLogo);
+            this.Controls.Add(this.lbConstraseña);
+            this.Controls.Add(this.lbUsuario);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "Inicio de Sesión";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pixLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,12 +128,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lbUsuario;
+        private System.Windows.Forms.Label lbConstraseña;
+        private System.Windows.Forms.PictureBox pixLogo;
+        private System.Windows.Forms.TextBox txtUsuario;
+        private System.Windows.Forms.TextBox txtContraseña;
     }
 }
