@@ -21,7 +21,7 @@ namespace Bases_RM
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -42,8 +42,11 @@ namespace Bases_RM
         private void button1_Click(object sender, EventArgs e)
         {
             string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
-            if(Clave_Usuario.Equals(txtContraseña.Text)){
-                MessageBox.Show("Contraseña Correcta");
+            if (Clave_Usuario.Equals(txtContraseña.Text))
+            {
+                this.Hide();
+                Panel_Menu menu1 = new Panel_Menu();
+                menu1.Show();
             }
             else
             {
