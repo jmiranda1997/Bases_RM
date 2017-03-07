@@ -67,14 +67,13 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-
+    <Compile Include="OperacionesDB.cs" />
     <Compile Include="Panel_Menu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Panel_Menu.Designer.cs">
       <DependentUpon>Panel_Menu.cs</DependentUpon>
     </Compile>
-
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AbonoDeuda.resx">
