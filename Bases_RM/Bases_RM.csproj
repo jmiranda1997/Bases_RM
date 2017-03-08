@@ -61,6 +61,12 @@
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion_DB.cs" />
+    <Compile Include="IngresoClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IngresoClientes.Designer.cs">
+      <DependentUpon>IngresoClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IngresoClientes.resx">
+      <DependentUpon>IngresoClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
