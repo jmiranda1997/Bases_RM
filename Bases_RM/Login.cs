@@ -45,8 +45,7 @@ namespace Bases_RM
             if (Clave_Usuario.Equals(txtContraseña.Text))
             {
                 this.Hide();
-                Panel_Menu menu1 = new Panel_Menu();
-                menu1.Show();
+
             }
             else
             {

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>LinqToExcel</id>
+    <version>1.11.0</version>
+    <title>LinqToExcel</title>
+    <authors>Paul Yoder</authors>
+    <owners>Paul Yoder</owners>
+    <licenseUrl>https://github.com/paulyoder/LinqToExcel/blob/master/License.txt</licenseUrl>
+    <projectUrl>http://code.google.com/p/linqtoexcel/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Easily retrieve data from spreadsheets and csv files by using LINQ</description>
+    <summary />
+    <language>en-US</language>
+    <tags>Linq Excel spreadsheet csv</tags>
+  </metadata>
+</package>

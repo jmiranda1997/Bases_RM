@@ -9,17 +9,16 @@ namespace Bases_RM
 {
     class Conexion_DB
     {
-        private MySqlConnectionStringBuilder Constructor_Conexion = new MySqlConnectionStringBuilder();
-        private MySqlConnection Variable_Conexion;
-        private MySqlDataReader Variable_Lectura;
-        private MySqlCommand comando;
+        private MySqlConnectionStringBuilder Constructor_Conexion = new MySqlConnectionStringBuilder();//Constructor de la conexion
+        private MySqlConnection Variable_Conexion;//Variable que se utiliza para realizar la conexion
+        private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
+        private MySqlCommand comando;//Comando SQL para hacer las consultas
         public Conexion_DB(){
-            Constructor_Conexion.Server = "25.84.214.223";
-            Constructor_Conexion.UserID = "root";
-            Constructor_Conexion.Password = "@Sistemas2017";
-            Constructor_Conexion.Database = "rm_db";
-            //creacion de variable de conexion
-            Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());
+            Constructor_Conexion.Server = "25.84.214.223";//Direccion IP del servidor
+            Constructor_Conexion.UserID = "root";//Ususario de la base de datos
+            Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
+            Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
         public void Guardar()
         {
@@ -36,20 +35,22 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-
+        /**
+         * Metodo que obtiene la contraseña de un usuario de la base de datos
+         */
         public string Us_con(string usuario)
         {
-            string contraseña = "";
-            comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "SELECT Clave FROM usuario WHERE Nombre = '" + usuario + "';";
-            Variable_Conexion.Open();
-            Variable_Lectura = comando.ExecuteReader();
-            if (Variable_Lectura.Read() == true)
+            string contraseña = "";//Variable que guarda la contraseña obtenida de la base
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT Clave FROM usuario WHERE Nombre = '" + usuario + "';";//Consulta para la base
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda la contraseña en la variable de lectura
+            if (Variable_Lectura.Read() == true)//se verifica si se obtiene algun dato de la base
             {
-                contraseña = Variable_Lectura["Clave"].ToString();
+                contraseña = Variable_Lectura["Clave"].ToString();//se guarda la contraseña
             }
-            Variable_Conexion.Close();
-            return contraseña;
+            Variable_Conexion.Close();//se cierra la conexion
+            return contraseña;//regresa la contraseña obtenida de la base
         }
     }
     
