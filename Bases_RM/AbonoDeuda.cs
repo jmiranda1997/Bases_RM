@@ -33,12 +33,9 @@ namespace Bases_RM
             }
             else//si la bandera es falsa se usara el modo de ingreso de pagos (ocultar los campos de saldo)
             {
-                nombre_tabla = "Pagos";
-                lbSaldoactu.Visible = false;
-                lbSaldoant.Visible = false;
-                TxtSaldoA.Visible = false;
-                TxtSaldoA.Visible = false;
+                nombre_tabla = "Pago";
             }
+            this.Name = nombre_tabla;
         }
     }
 }
