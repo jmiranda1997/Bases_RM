@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Bases_RM
 {
-    public partial class Panel_Menu : Form
+    public partial class Prueva_Excel : Form
     {
-        public Panel_Menu()
+        public Prueva_Excel()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
