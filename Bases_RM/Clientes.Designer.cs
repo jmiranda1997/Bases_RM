@@ -251,12 +251,13 @@
             // 
             // btnAbono
             // 
-            this.btnAbono.Location = new System.Drawing.Point(269, 237);
+            this.btnAbono.Location = new System.Drawing.Point(269, 239);
             this.btnAbono.Name = "btnAbono";
             this.btnAbono.Size = new System.Drawing.Size(75, 23);
             this.btnAbono.TabIndex = 21;
             this.btnAbono.Text = "Abono";
             this.btnAbono.UseVisualStyleBackColor = true;
+            this.btnAbono.Click += new System.EventHandler(this.btnAbono_Click);
             // 
             // btnDeuda
             // 
@@ -266,6 +267,7 @@
             this.btnDeuda.TabIndex = 22;
             this.btnDeuda.Text = "Deuda";
             this.btnDeuda.UseVisualStyleBackColor = true;
+            this.btnDeuda.Click += new System.EventHandler(this.btnDeuda_Click);
             // 
             // Clientes
             // 
