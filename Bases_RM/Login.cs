@@ -68,5 +68,10 @@ namespace Bases_RM
                 }
             }
         }
+
+        private void pixLogo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

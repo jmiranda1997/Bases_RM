@@ -10,29 +10,14 @@ using System.Windows.Forms;
 
 namespace Bases_RM
 {
-    public partial class Panel_Menu : Form
+    public partial class Trabajadores : Form
     {
-        public Panel_Menu()
+        public Trabajadores()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
         {
 
         }
