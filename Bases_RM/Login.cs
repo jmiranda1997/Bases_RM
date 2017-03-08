@@ -48,6 +48,7 @@ namespace Bases_RM
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
+                this.Hide();
                 InicioSesion();
             }
         }
