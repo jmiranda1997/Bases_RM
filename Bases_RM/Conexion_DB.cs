@@ -112,10 +112,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void ingresoPagos(int id, DateTime fecha, double monto, int idPrestamo, int idDeuda)
+        public void ingresoPagos(int id, DateTime fecha, double monto, int idPrestamo, int idDeuda, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO pagos (ID, Fecha, Monto, Prestamo_ID, Deuda_ID) VALUES (" + id.ToString() + ",'" + fecha.ToShortDateString() + "'," + monto.ToString() + "," + idPrestamo.ToString() + "," + idDeuda.ToString() + ");";
+            comando.CommandText = "INSERT INTO pagos (ID, Fecha, Monto, Prestamo_ID, Deuda_ID, Fecha_Ingreso) VALUES (" + id.ToString() + ",'" + fecha.ToShortDateString() + "'," + monto.ToString() + "," + idPrestamo.ToString() + "," + idDeuda.ToString() + ",'"+fechaIngreso.ToShortDateString()+"');";
             Variable_Conexion.Open();
             try
             {
