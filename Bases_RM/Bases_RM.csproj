@@ -84,7 +84,7 @@
     </Compile>
 
     <Compile Include="OperacionesDB.cs" />
-    <Compile Include="Panel_Menu.cs">
+    <Compile Include="Panel_Menu.cs" />
 
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
