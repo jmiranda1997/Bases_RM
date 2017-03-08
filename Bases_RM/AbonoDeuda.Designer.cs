@@ -164,6 +164,7 @@
             this.Controls.Add(this.lbNom);
             this.Name = "AbonoDeuda";
             this.Text = "AbonoDeuda";
+            this.Load += new System.EventHandler(this.AbonoDeuda_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
