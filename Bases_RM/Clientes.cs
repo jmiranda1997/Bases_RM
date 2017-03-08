@@ -12,6 +12,7 @@ namespace Bases_RM
 {
     public partial class Clientes : Form
     {
+        private AbonoDeuda formulario=null;
         public Clientes()
         {
             InitializeComponent();
@@ -40,6 +41,16 @@ namespace Bases_RM
         private void lbNom_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAbono_Click(object sender, EventArgs e)
+        {
+            formulario = new AbonoDeuda(false);
+        }
+
+        private void btnDeuda_Click(object sender, EventArgs e)
+        {
+            formulario = new AbonoDeuda(true);
         }
 
     }
