@@ -112,7 +112,7 @@
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo ";
             // 
             // button1
@@ -141,6 +141,7 @@
             this.TxtSala.Size = new System.Drawing.Size(100, 20);
             this.TxtSala.TabIndex = 4;
             this.TxtSala.Text = "0.00";
+            this.TxtSala.TextChanged += new System.EventHandler(this.TxtSala_TextChanged);
             // 
             // Trabajadores
             // 

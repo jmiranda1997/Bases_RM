@@ -19,6 +19,12 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //algo
+            2135153
+        }
+
+        private void TxtSala_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
