@@ -154,4 +154,8 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+
+Class1.cs
+
 Bases_RM/Bases_RM.csproj
+

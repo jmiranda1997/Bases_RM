@@ -40,6 +40,8 @@
             this.TxtSaldoActu = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnguar = new System.Windows.Forms.Button();
+            this.lbSucursal = new System.Windows.Forms.Label();
+            this.cbSucursales = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lbNom
@@ -129,7 +131,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(316, 186);
+            this.btnCancel.Location = new System.Drawing.Point(316, 212);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 10;
@@ -138,18 +140,38 @@
             // 
             // btnguar
             // 
-            this.btnguar.Location = new System.Drawing.Point(397, 186);
+            this.btnguar.Location = new System.Drawing.Point(397, 212);
             this.btnguar.Name = "btnguar";
             this.btnguar.Size = new System.Drawing.Size(75, 23);
             this.btnguar.TabIndex = 11;
             this.btnguar.Text = "Guardar";
             this.btnguar.UseVisualStyleBackColor = true;
+            this.btnguar.Click += new System.EventHandler(this.btnguar_Click);
+            // 
+            // lbSucursal
+            // 
+            this.lbSucursal.AutoSize = true;
+            this.lbSucursal.Location = new System.Drawing.Point(12, 161);
+            this.lbSucursal.Name = "lbSucursal";
+            this.lbSucursal.Size = new System.Drawing.Size(51, 13);
+            this.lbSucursal.TabIndex = 12;
+            this.lbSucursal.Text = "Sucursal:";
+            // 
+            // cbSucursales
+            // 
+            this.cbSucursales.FormattingEnabled = true;
+            this.cbSucursales.Location = new System.Drawing.Point(94, 161);
+            this.cbSucursales.Name = "cbSucursales";
+            this.cbSucursales.Size = new System.Drawing.Size(127, 21);
+            this.cbSucursales.TabIndex = 13;
             // 
             // AbonoDeuda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 220);
+            this.ClientSize = new System.Drawing.Size(482, 247);
+            this.Controls.Add(this.cbSucursales);
+            this.Controls.Add(this.lbSucursal);
             this.Controls.Add(this.btnguar);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.TxtSaldoActu);
@@ -184,5 +206,7 @@
         private System.Windows.Forms.TextBox TxtSaldoActu;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnguar;
+        private System.Windows.Forms.Label lbSucursal;
+        private System.Windows.Forms.ComboBox cbSucursales;
     }
 }
