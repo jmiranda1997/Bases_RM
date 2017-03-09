@@ -10,19 +10,19 @@ using System.Windows.Forms;
 
 namespace Bases_RM
 {
-    public partial class Trabajadores : Form
+    public partial class Seguridad : Form
     {
-        public Trabajadores()
+        public Seguridad()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void TxtSala_TextChanged(object sender, EventArgs e)
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

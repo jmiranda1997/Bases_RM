@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace Bases_RM
 {
-    public partial class Trabajadores : Form
+    public partial class Pedidos : Form
     {
-        public Trabajadores()
+        public Pedidos()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtSala_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
