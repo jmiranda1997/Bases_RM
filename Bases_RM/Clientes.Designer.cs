@@ -117,7 +117,7 @@
             // 
             // arbolClientes
             // 
-            this.arbolClientes.Location = new System.Drawing.Point(12, 23);
+            this.arbolClientes.Location = new System.Drawing.Point(12, 21);
             this.arbolClientes.Name = "arbolClientes";
             this.arbolClientes.Size = new System.Drawing.Size(236, 239);
             this.arbolClientes.TabIndex = 7;

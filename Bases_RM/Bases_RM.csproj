@@ -75,35 +75,33 @@
     <Compile Include="Component1.Designer.cs">
       <DependentUpon>Component1.cs</DependentUpon>
     </Compile>
-
     <Compile Include="IngresoProve.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IngresoProve.Designer.cs">
       <DependentUpon>IngresoProve.cs</DependentUpon>
     </Compile>
-
     <Compile Include="Conexion_DB.cs" />
-
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-
+    <Compile Include="Pedidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedidos.Designer.cs">
+      <DependentUpon>Pedidos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Prueva_Excel.cs">
-
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Prueva_Excel.Designer.cs">
       <DependentUpon>Prueva_Excel.cs</DependentUpon>
     </Compile>
-
-
-
     <Compile Include="Proveedores.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,10 +114,7 @@
     <Compile Include="Trabajadores.Designer.cs">
       <DependentUpon>Trabajadores.cs</DependentUpon>
     </Compile>
-
-
     <Compile Include="Usuario.cs" />
-
     <Compile Include="Vigenere.cs" />
     <EmbeddedResource Include="AbonoDeuda.resx">
       <DependentUpon>AbonoDeuda.cs</DependentUpon>
@@ -136,6 +131,9 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pedidos.resx">
+      <DependentUpon>Pedidos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -146,19 +144,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-
     <EmbeddedResource Include="Proveedores.resx">
       <DependentUpon>Proveedores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trabajadores.resx">
       <DependentUpon>Trabajadores.cs</DependentUpon>
     </EmbeddedResource>
-
     <EmbeddedResource Include="Prueva_Excel.resx">
       <DependentUpon>Prueva_Excel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
-
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
