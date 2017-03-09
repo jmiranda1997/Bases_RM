@@ -15,11 +15,11 @@ namespace Bases_RM
         private bool deuda;//bandera booleana para diferenciar si se utilizara el form para deudas o pagos
         private String nombre_tabla = "";//cadena que guardar el nombre de la tabla en que se debe agregar la informacion ingresada
         private Conexion_DB conexion;
-        public AbonoDeuda(bool deuda, Conexion_DB conexion)
+        public AbonoDeuda(/*bool deuda, Conexion_DB conexion*/)
         {
             InitializeComponent();
-            this.deuda = deuda;
-            this.conexion = conexion;
+            //this.deuda = deuda;
+            //this.conexion = conexion;
         }
 
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)

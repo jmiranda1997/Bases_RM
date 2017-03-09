@@ -45,12 +45,12 @@ namespace Bases_RM
 
         private void btnAbono_Click(object sender, EventArgs e)
         {
-            formulario = new AbonoDeuda(false);
+           // formulario = new AbonoDeuda(false);
         }
 
         private void btnDeuda_Click(object sender, EventArgs e)
         {
-            formulario = new AbonoDeuda(true);
+            //formulario = new AbonoDeuda(true);
         }
 
     }
