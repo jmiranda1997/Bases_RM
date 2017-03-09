@@ -87,6 +87,7 @@
             this.pixLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pixLogo.TabIndex = 4;
             this.pixLogo.TabStop = false;
+            this.pixLogo.Click += new System.EventHandler(this.pixLogo_Click);
             // 
             // txtUsuario
             // 
