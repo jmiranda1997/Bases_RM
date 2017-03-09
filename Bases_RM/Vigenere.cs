@@ -8,15 +8,13 @@ namespace Bases_RM
 {
     class Vigenere
     {
-        class Vigenere
-    {
-        char[] mensaje;     
+        char[] mensaje;
         char[] mensajeDes;
         char[] clave;
         char[] resultado;
         char[] lista;
         String mensajeDescifrado = "", CP = "", mensajeCifrado = "";
-        
+
         public Vigenere()
         {
         }
@@ -64,10 +62,10 @@ namespace Bases_RM
             }
             CP = Clave;
             cadena = Convert.ToString(clave);
-            mensajeCifrado="";
+            mensajeCifrado = "";
             for (int i = 0; i < a.Length; i++)
             {
-                mensajeCifrado += a[i]+"";
+                mensajeCifrado += a[i] + "";
             }
         }
         public void descifrar(String mesajeCifrado, String CP)
@@ -129,6 +127,6 @@ namespace Bases_RM
         {
             return CP;
         }
-    }  
-  }
+    }
 }
+
