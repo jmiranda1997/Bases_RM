@@ -65,6 +65,7 @@
             this.btntrabajadores.TabIndex = 2;
             this.btntrabajadores.Text = "Trabajadores";
             this.btntrabajadores.UseVisualStyleBackColor = true;
+            this.btntrabajadores.Click += new System.EventHandler(this.btntrabajadores_Click);
             // 
             // btnclientes
             // 
@@ -84,6 +85,7 @@
             this.btnseguridad.TabIndex = 3;
             this.btnseguridad.Text = "Seguridad";
             this.btnseguridad.UseVisualStyleBackColor = true;
+            this.btnseguridad.Click += new System.EventHandler(this.btnseguridad_Click);
             // 
             // btnsalir
             // 
@@ -93,6 +95,7 @@
             this.btnsalir.TabIndex = 4;
             this.btnsalir.Text = "Salir";
             this.btnsalir.UseVisualStyleBackColor = true;
+            this.btnsalir.Click += new System.EventHandler(this.btnsalir_Click);
             // 
             // Menu
             // 
@@ -107,6 +110,7 @@
             this.Controls.Add(this.ptbLogo);
             this.Name = "Menu";
             this.Text = "Menu";
+            this.Load += new System.EventHandler(this.Menu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ptbLogo)).EndInit();
             this.ResumeLayout(false);
 
