@@ -59,9 +59,9 @@ namespace Bases_RM
                 string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
                 if (Clave_Usuario.Equals(txtContraseña.Text))
                 {
-                    this.Hide();
+
                     Menu men = new Menu();
-                    men.Show();
+                    men.ShowDialog();
                 }
                 else
                 {
