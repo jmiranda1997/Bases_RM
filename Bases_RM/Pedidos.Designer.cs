@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgpedido = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,22 +37,32 @@
             this.btnimportar = new System.Windows.Forms.ToolStripMenuItem();
             this.btnexportar = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgpedido)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgpedido
             // 
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Yellow;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgpedido.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgpedido.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgpedido.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgpedido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgpedido.Location = new System.Drawing.Point(0, 24);
             this.dgpedido.Name = "dgpedido";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgpedido.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgpedido.Size = new System.Drawing.Size(854, 471);
             this.dgpedido.TabIndex = 0;
+            this.dgpedido.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgpedido_CellContentClick);
             // 
             // menuStrip1
             // 
@@ -69,7 +80,8 @@
             this.btnabrir,
             this.btnimportar,
             this.btnexportar,
-            this.salirToolStripMenuItem});
+            this.salirToolStripMenuItem,
+            this.listoToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
@@ -77,28 +89,35 @@
             // btnabrir
             // 
             this.btnabrir.Name = "btnabrir";
-            this.btnabrir.Size = new System.Drawing.Size(120, 22);
+            this.btnabrir.Size = new System.Drawing.Size(152, 22);
             this.btnabrir.Text = "Abrir";
             // 
             // btnimportar
             // 
             this.btnimportar.Name = "btnimportar";
-            this.btnimportar.Size = new System.Drawing.Size(120, 22);
+            this.btnimportar.Size = new System.Drawing.Size(152, 22);
             this.btnimportar.Text = "Importar";
             this.btnimportar.Click += new System.EventHandler(this.btnimportar_Click);
             // 
             // btnexportar
             // 
             this.btnexportar.Name = "btnexportar";
-            this.btnexportar.Size = new System.Drawing.Size(120, 22);
+            this.btnexportar.Size = new System.Drawing.Size(152, 22);
             this.btnexportar.Text = "Exportar";
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // listoToolStripMenuItem
+            // 
+            this.listoToolStripMenuItem.Name = "listoToolStripMenuItem";
+            this.listoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listoToolStripMenuItem.Text = "listo";
+            this.listoToolStripMenuItem.Click += new System.EventHandler(this.listoToolStripMenuItem_Click);
             // 
             // Pedidos
             // 
@@ -130,5 +149,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnimportar;
         private System.Windows.Forms.ToolStripMenuItem btnexportar;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listoToolStripMenuItem;
     }
 }
