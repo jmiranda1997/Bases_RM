@@ -66,6 +66,9 @@ namespace Bases_RM
                 else
                 {
                     MessageBox.Show("Contraseña Incorrecta","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    this.Show();
+                    txtContraseña.SelectAll();
+                    txtContraseña.Focus();
                 }
             }
         }
