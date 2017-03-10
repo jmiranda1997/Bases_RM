@@ -75,7 +75,6 @@ namespace Bases_RM
                 string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
                 if (Clave_Usuario.Equals(txtContraseña.Text))
                 {
-                    this.Hide();
                     Usuario usernuevo = Conexion.Datos_De_User(txtUsuario.Text.Trim());
                     Menu men = new Menu(usernuevo);
                     men.Show();
@@ -84,6 +83,9 @@ namespace Bases_RM
                 else
                 {
                     MessageBox.Show("Contraseña Incorrecta\nIngresada "+ txtContraseña.Text + "\nConsultada "+ Clave_Usuario,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    this.Show();
+                    txtContraseña.SelectAll();
+                    txtContraseña.Focus();
                 }
             }
         }
