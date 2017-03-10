@@ -13,7 +13,7 @@ namespace Bases_RM
         char[] clave;
         char[] resultado;
         char[] lista;
-        String mensajeDescifrado = "", CP = "", mensajeCifrado = "";
+        String mensajeDescifrado = "", CP = "3JOR", mensajeCifrado = "";
 
         public Vigenere()
         {
