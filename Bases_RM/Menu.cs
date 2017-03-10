@@ -32,16 +32,14 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
             Pedidos ped = new Pedidos();
-            ped.Show();
+            ped.ShowDialog();
         }
 
         private void btntrabajadores_Click(object sender, EventArgs e)
         {
-            this.Hide();
             Trabajadores trab = new Trabajadores();
-            trab.Show();
+            trab.ShowDialog();
         }
 
         private void Menu_Load(object sender, EventArgs e)
