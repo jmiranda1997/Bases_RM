@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace Bases_RM
 {
@@ -604,6 +605,32 @@ namespace Bases_RM
 
             }
             Variable_Conexion.Close();
+        }
+        public String[] obtener_sucursales()
+        {
+            String[] sucursales=null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM sucursal;";//Consulta para la base, obtener el numero de sucursales
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                sucursales = new String[total];//se crea un arreglo de cadenas del tamaño del conteo obtenido de sucursales
+                comando.CommandText = "SELECT Nombre FROM sucursal;";
+                Variable_Conexion.Close();//se cierra la conexion
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                int contador = 0;
+                while(Variable_Lectura.Read())
+                {
+                   sucursales[contador] = Variable_Lectura[0].ToString();
+                   contador++;
+                }
+            }
+            Variable_Conexion.Close();//se cierra la conexion
+            return sucursales;
         }
     }
     
