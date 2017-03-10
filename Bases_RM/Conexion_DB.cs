@@ -9,6 +9,7 @@ namespace Bases_RM
 {
     class Conexion_DB
     {
+        private Vigenere Vig = new Vigenere();
         private MySqlConnectionStringBuilder Constructor_Conexion = new MySqlConnectionStringBuilder();//Constructor de la conexion
         private MySqlConnection Variable_Conexion;//Variable que se utiliza para realizar la conexion
         private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
@@ -20,7 +21,7 @@ namespace Bases_RM
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
-        public void Guardar()
+        public void Guardar() 
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO sucursal (Nombre) VALUES('hola');";
@@ -40,20 +41,50 @@ namespace Bases_RM
          */
         public string Us_con(string usuario)
         {
-            string contraseña = "";//Variable que guarda la contraseña obtenida de la base
-            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
-            comando.CommandText = "SELECT Clave FROM usuario WHERE Nombre = '" + usuario + "';";//Consulta para la base
-            Variable_Conexion.Open();//se abre la conexion a la base
-            Variable_Lectura = comando.ExecuteReader();//se guarda la contraseña en la variable de lectura
-            if (Variable_Lectura.Read() == true)//se verifica si se obtiene algun dato de la base
+            string contraseña = "";                                //Variable que guarda la contraseña obtenida de la base
+            comando = Variable_Conexion.CreateCommand();           //Inicializacion del comando 
+            comando.CommandText = "SELECT Clave FROM usuario WHERE Nombre = '" + usuario + "';";   //Consulta para la base
+            Variable_Conexion.Open();                              //se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();            //se guarda la contraseña en la variable de lectura
+            if (Variable_Lectura.Read() == true)                   //se verifica si se obtiene algun dato de la base
             {
-                contraseña = Variable_Lectura["Clave"].ToString();//se guarda la contraseña
+                contraseña = Variable_Lectura["Clave"].ToString();
+               //Vig.descifrar(contraseña, Vig.getCP());//se guarda la contraseña
+               //contraseña = Vig.getMD();
             }
+            
+            Variable_Conexion.Close();                                                               //se cierra la conexion
+           return contraseña;                                    //regresa la contraseña obtenida de la base
+
+        }
+        public Usuario Datos_De_User(string usuario)
+        {
+            Usuario temp = null;
+            string clave = "", Nombre = "", Pedidos= "", Clientes= "", Trabajadores = "", Seguridad="";
+            comando = Variable_Conexion.CreateCommand();                                     //Inicializacion del comando 
+            comando.CommandText = "SELECT * FROM usuario WHERE Nombre = '" + usuario + "';"; //Consulta para la base
+            Variable_Conexion.Open();                                  //se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();
+
+
+            if (Variable_Lectura.Read() == true)                        //se verifica si se obtiene algun dato de la base
+            {
+                Nombre = Variable_Lectura["Nombre"].ToString();
+                clave = Variable_Lectura["Clave"].ToString();
+                Pedidos = Variable_Lectura["Acceso_Pedidos"].ToString();
+                Clientes = Variable_Lectura["Acceso_Clientes"].ToString();
+                Trabajadores = Variable_Lectura["Acceso_Trabajadores"].ToString();
+                Seguridad = Variable_Lectura["Acceso_Seguridad"].ToString();
+                //se guarda el nombre
+            }
+
+            
             Variable_Conexion.Close();//se cierra la conexion
-            return contraseña;//regresa la contraseña obtenida de la base
+            temp = new Usuario(Nombre,clave,Seguridad,Clientes,Trabajadores,Pedidos);
+            return temp;
         }
 
-
+      
         //---------------INGRESOS--------------//
 
 
@@ -261,9 +292,7 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-
-
-        //--------------------INGRESO RELACIONES--------------------//
+            //--------------------INGRESO RELACIONES--------------------//
 
 
         public void ingresoDetallePedido(String codInternoProducto, int numeroPedido, int cantidad)
