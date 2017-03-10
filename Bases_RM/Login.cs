@@ -13,10 +13,13 @@ namespace Bases_RM
     public partial class Login : Form
     {
         private Conexion_DB Conexion;
+        private Vigenere Vig;
+        String Contra = "", User = "", Contra_Vig = "3JOR";
         public Login()
         {
             InitializeComponent();
             Conexion = new Conexion_DB();
+            Vig = new Vigenere();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -52,20 +55,34 @@ namespace Bases_RM
                 InicioSesion();
             }
         }
+        /**
+        Metodo que cifra y descifra la clave 
+        */
+        public void Cifrado_Usuario(String contraseña, String Usuario)
+        {
+            Contra = txtContraseña.Text.Trim();
+            Vig.cifrar(Contra, Contra_Vig);
+        }
+        /*
+         
+         */
+       
         private void InicioSesion()
         {
+
             if ((txtUsuario.Text.Trim() != "") && (txtContraseña.Text.Trim() != ""))
             {
                 string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
                 if (Clave_Usuario.Equals(txtContraseña.Text))
                 {
+                    Usuario usernuevo = Conexion.Datos_De_User(txtUsuario.Text.Trim());
+                    Menu men = new Menu(usernuevo);
+                    men.Show();
 
-                    Menu men = new Menu();
-                    men.ShowDialog();
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña Incorrecta","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("Contraseña Incorrecta\nIngresada "+ txtContraseña.Text + "\nConsultada "+ Clave_Usuario,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     this.Show();
                     txtContraseña.SelectAll();
                     txtContraseña.Focus();
