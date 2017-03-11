@@ -540,6 +540,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Cambia la contraseña del usuario
+        /// </summary>
+        /// <param name="nombre">Nombre del usuario al cual se le cambiará la contraseña</param>
+        /// <param name="clave">Nueva contraseña</param>
         public void modificacionUsuario(String nombre, String clave)
         {
             comando = Variable_Conexion.CreateCommand();
