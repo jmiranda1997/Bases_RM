@@ -88,7 +88,12 @@ namespace Bases_RM
       
         //---------------INGRESOS--------------//
 
-
+        /// <summary>
+        /// Ingresa los datos del encargado a la BD
+        /// </summary>
+        /// <param name="nombre">Nombre del encargado</param>
+        /// <param name="correo">Correo del encargado</param>
+        /// <param name="idProveedor">ID del proveedor al cual pertenece el encargado</param>
         public void ingresoEncargado(String nombre, String correo, int idProveedor){
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO encargado (Nombre, Correo, Proveedor_ID) VALUES ('"+nombre+"','"+correo+"',"+idProveedor.ToString()+");";
@@ -103,6 +108,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingresa los datos del Proveedor a la BD
+        /// </summary>
+        /// <param name="nombre">Nombre del proveedor</param>
+        /// <param name="fecha">Fecha</param>
+        /// <param name="idPais">ID del país donde se encuentra el proveedor</param>
         public void ingresoProveedor(String nombre, DateTime fecha, int idPais){
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
@@ -118,6 +129,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingresa los datos del Trabajador en la BD
+        /// </summary>
+        /// <param name="nombre">Nombre del trabajador</param>
+        /// <param name="salario">Salario que recibe el trabajador</param>
+        /// <param name="idSucursal">ID de la sucursal en donde trabaja</param>
         public void ingresoTrabajador(String nombre, double salario, int idSucursal){
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO trabajador (Nombre, Salario, Sucursal_ID) VALUES ('" + nombre + "'," + salario + "," + idSucursal.ToString() + ");";
@@ -132,6 +149,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de las ausencias de los trabajadores
+        /// </summary>
+        /// <param name="fecha">Fecha en que el trabajador se ausentó</param>
+        /// <param name="idTrabajador">ID del trabajador que se ha ausentado</param>
         public void ingresoAusencia(DateTime fecha, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -148,6 +170,13 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de los pagos a los prestamos realizados
+        /// </summary>
+        /// <param name="fecha"></param>
+        /// <param name="monto"></param>
+        /// <param name="idPrestamo"></param>
+        /// <param name="fechaIngreso"></param>
         public void ingresoPagoPrestamo(DateTime fecha, double monto, int idPrestamo, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -397,8 +426,306 @@ namespace Bases_RM
 
         //---------------MODIFICACIONES--------------//
 
-      
-        public void modificacionProveedoresProducto(String codInternoProducto, int idProveedor, double precioProveedor)
+
+        public void modificacionEncargado(int ID, String nombre, String correo, int idProveedor)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE encargado SET Nombre='" + nombre + "', Correo='" + correo + "', Proveedor_ID=" + idProveedor.ToString() + " WHERE id="+ID.ToString()+";";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionProveedor(int ID, String nombre, DateTime fecha, int idPais)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
+            comando.CommandText = "UPDATE proveedor SET Nombre='" + nombre + "', Fecha='" + fechaString + "', Pais_ID=" + idPais.ToString() + " WHERE ID="+ID.ToString()+";";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionTrabajador(int ID, String nombre, double salario, int idSucursal)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE trabajador SET Nombre='" + nombre + "', Salario=" + salario + ", Sucursal_ID=" + idSucursal.ToString() + " WHERE ID=" + ID.ToString() + ";";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionAusencia(int ID, DateTime fecha, int idTrabajador)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
+            comando.CommandText = "UPDATE ausencia SET Fecha='" + fechaString + "', Trabajador_idTrabajador=" + idTrabajador.ToString() + " WHERE Id=" + ID.ToString() + ";";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionPagoPrestamo(int ID, DateTime fecha, double monto, int idPrestamo, DateTime fechaIngreso)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
+            String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
+            comando.CommandText = "UPDATE pagos SET (Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "') WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionPagoDeuda(DateTime fecha, double monto, int idDeuda, DateTime fechaIngreso)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
+            String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
+            comando.CommandText = "UPDATE pagos (Fecha, Monto, Deuda_ID, Fecha_Ingreso) VALUES ('" + fechaString + "'," + monto.ToString() + "," + idDeuda.ToString() + ",'" + ingresoString + "');";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE usuario SET Clave='" + clave + "', Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionClasificacion(int ID, String tipo)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE clasicacion SET Tipo='" + tipo + "' WHERE ID="+ID.ToString()+";";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionPais(int ID, String nombre)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE pais SET Nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE cliente (NIT_DPI, Nombre, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionPedido(double total, int idProveedor)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE pedido (Total, Proveedor_ID) VALUES (" + total.ToString() + "," + idProveedor.ToString() + ");";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionPrestamo(double monto, int idTrabajador)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE prestamo (Monto, Trabajador_idTrabajador) VALUES (" + monto.ToString() + "," + idTrabajador + ");";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionSucursal(String nombre)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE Sucursal (nombre) VALUES ('" + nombre + "');";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionDeuda(DateTime pago, double total, string nit, int idSucursal, DateTime ingreso)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            String pagoString = pago.Year.ToString() + "-" + pago.Month.ToString() + "-" + pago.Day.ToString();
+            String ingresoString = ingreso.Year.ToString() + "-" + ingreso.Month.ToString() + "-" + ingreso.Day.ToString();
+            comando.CommandText = "UPDATE  deuda (Fecha_Pago, Total, Cliente_NIT, Sucursal_ID, Fecha_Ingreso) VALUES ('" + pagoString + "'," + total.ToString() + ",'" + nit + "'," + idSucursal.ToString() + ",'" + ingresoString + "');";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionProducto(String codInterno, String codFabricante, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE producto (Codigo_Interno, Codigo_Fabricante, Marca, Fabricante, Departamento, Precio_Costo, Precio_Venta) VALUES ('" + codInterno + "','" + codFabricante + "','" + marca + "','" + fabricante + "','" + departamento + "'," + precioCosto.ToString() + "," + precioVenta.ToString() + ");";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionTelefono(String telefono, int idEncargado)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE telefono (Telefono, Encargado_id) VALUES ('" + telefono + "'," + idEncargado.ToString() + ");";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionTelefono(String telefono, String nitDpiCliente)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE telefono (Telefono, Cliente_NIT) VALUES ('" + telefono + "','" + nitDpiCliente + "');";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+
+
+        //--------------------MODIFICACION RELACIONES--------------------//
+
+
+        public void modificacionDetallePedido(String codInternoProducto, int numeroPedido, int cantidad)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ");";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionProductoSucursal(int idSucursal, String codInternoProducto, int existencia)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE prod_suc (Sucursal_ID, Producto_Codigo_Interno, Existencia) VALUES (" + idSucursal.ToString() + ",'" + codInternoProducto + "'," + existencia.ToString() + ");";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionProveedorProducto(String codInternoProducto, int idProveedor, double precioProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE prov_prod (Producto_Codigo_Interno, Proveedor_ID, Precio_Proveedor) VALUES ('" + codInternoProducto + "'," + idProveedor.ToString() + "," + precioProveedor.ToString() + ");";
@@ -413,6 +740,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+
+
+        //---------------OTROS---------------//
+
+
         public String[] obtener_sucursales()
         {
             String[] sucursales=null;
