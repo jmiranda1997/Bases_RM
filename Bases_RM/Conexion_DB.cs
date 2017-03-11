@@ -37,9 +37,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        /**
-         * Metodo que obtiene la contraseña de un usuario de la base de datos
-         */
+        /// <summary>
+        /// Metodo que obtiene la contraseña de un usuario de la base de datos
+        /// </summary>
+        /// <param name="usuario">El usuario del cual se obtendrá la contraseña</param>
+        /// <returns></returns>
         public string Us_con(string usuario)
         {
             string contraseña = "";                                //Variable que guarda la contraseña obtenida de la base
@@ -527,6 +529,21 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE usuario SET Clave='" + clave + "', Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
+        public void modificacionUsuario(String nombre, String clave)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE usuario SET Clave='" + clave + "' WHERE nombre='" + nombre + "';";
             Variable_Conexion.Open();
             try
             {
