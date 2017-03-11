@@ -57,7 +57,12 @@ namespace Bases_RM
 
         //---------------INGRESOS--------------//
 
-
+        /// <summary>
+        /// Ingresa los datos del encargado a la BD
+        /// </summary>
+        /// <param name="nombre">Nombre del encargado</param>
+        /// <param name="correo">Correo del encargado</param>
+        /// <param name="idProveedor">ID del proveedor al cual pertenece el encargado</param>
         public void ingresoEncargado(String nombre, String correo, int idProveedor){
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO encargado (Nombre, Correo, Proveedor_ID) VALUES ('"+nombre+"','"+correo+"',"+idProveedor.ToString()+");";
@@ -72,6 +77,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingresa los datos del Proveedor a la BD
+        /// </summary>
+        /// <param name="nombre">Nombre del proveedor</param>
+        /// <param name="fecha">Fecha</param>
+        /// <param name="idPais">ID del país donde se encuentra el proveedor</param>
         public void ingresoProveedor(String nombre, DateTime fecha, int idPais){
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
@@ -87,6 +98,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingresa los datos del Trabajador en la BD
+        /// </summary>
+        /// <param name="nombre">Nombre del trabajador</param>
+        /// <param name="salario">Salario que recibe el trabajador</param>
+        /// <param name="idSucursal">ID de la sucursal en donde trabaja</param>
         public void ingresoTrabajador(String nombre, double salario, int idSucursal){
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO trabajador (Nombre, Salario, Sucursal_ID) VALUES ('" + nombre + "'," + salario + "," + idSucursal.ToString() + ");";
@@ -101,6 +118,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de las ausencias de los trabajadores
+        /// </summary>
+        /// <param name="fecha">Fecha en que el trabajador se ausentó</param>
+        /// <param name="idTrabajador">ID del trabajador que se ha ausentado</param>
         public void ingresoAusencia(DateTime fecha, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -117,6 +139,13 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de los pagos a los prestamos realizados
+        /// </summary>
+        /// <param name="fecha"></param>
+        /// <param name="monto"></param>
+        /// <param name="idPrestamo"></param>
+        /// <param name="fechaIngreso"></param>
         public void ingresoPagoPrestamo(DateTime fecha, double monto, int idPrestamo, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -372,7 +401,7 @@ namespace Bases_RM
         public void modificacionEncargado(int ID, String nombre, String correo, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE encargado SET (Nombre='" + nombre + "', Correo='" + correo + "', Proveedor_ID=" + idProveedor.ToString() + ") WHERE id="+ID.ToString()+");";
+            comando.CommandText = "UPDATE encargado SET Nombre='" + nombre + "', Correo='" + correo + "', Proveedor_ID=" + idProveedor.ToString() + " WHERE id="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -384,11 +413,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionProveedor(String nombre, DateTime fecha, int idPais)
+        public void modificacionProveedor(int ID, String nombre, DateTime fecha, int idPais)
         {
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
-            comando.CommandText = "UPDATE proveedor (Nombre, Fecha, Pais_ID) VALUES ('" + nombre + "','" + fechaString + "'," + idPais.ToString() + ");";
+            comando.CommandText = "UPDATE proveedor SET Nombre='" + nombre + "', Fecha='" + fechaString + "', Pais_ID=" + idPais.ToString() + " WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -400,10 +429,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionTrabajador(String nombre, double salario, int idSucursal)
+        public void modificacionTrabajador(int ID, String nombre, double salario, int idSucursal)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE trabajador (Nombre, Salario, Sucursal_ID) VALUES ('" + nombre + "'," + salario + "," + idSucursal.ToString() + ");";
+            comando.CommandText = "UPDATE trabajador SET Nombre='" + nombre + "', Salario=" + salario + ", Sucursal_ID=" + idSucursal.ToString() + " WHERE ID=" + ID.ToString() + ";";
             Variable_Conexion.Open();
             try
             {
@@ -415,11 +444,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionAusencia(DateTime fecha, int idTrabajador)
+        public void modificacionAusencia(int ID, DateTime fecha, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
-            comando.CommandText = "UPDATE ausencia (Fecha, Trabajador_idTrabajador) VALUES ('" + fechaString + "'," + idTrabajador.ToString() + ");";
+            comando.CommandText = "UPDATE ausencia SET Fecha='" + fechaString + "', Trabajador_idTrabajador=" + idTrabajador.ToString() + " WHERE Id=" + ID.ToString() + ";";
             Variable_Conexion.Open();
             try
             {
@@ -431,12 +460,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionPagoPrestamo(DateTime fecha, double monto, int idPrestamo, DateTime fechaIngreso)
+        public void modificacionPagoPrestamo(int ID, DateTime fecha, double monto, int idPrestamo, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos (Fecha, Monto, Prestamo_ID, Fecha_Ingreso) VALUES ('" + fechaString + "'," + monto.ToString() + "," + idPrestamo.ToString() + ",'" + ingresoString + "');";
+            comando.CommandText = "UPDATE pagos SET (Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "') WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
             Variable_Conexion.Open();
             try
             {
@@ -468,7 +497,7 @@ namespace Bases_RM
         public void modificacionUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE usuario (Nombre, Clave, Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad) VALUES ('" + nombre + "','" + clave + "','" + pedidos + "','" + clientes + "','" + trabajadores + "','" + seguridad + "');";
+            comando.CommandText = "UPDATE usuario SET Clave='" + clave + "', Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
             Variable_Conexion.Open();
             try
             {
@@ -480,10 +509,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionClasificacion(String tipo)
+        public void modificacionClasificacion(int ID, String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE clasicacion (Tipo) VALUES ('" + tipo + "');";
+            comando.CommandText = "UPDATE clasicacion SET Tipo='" + tipo + "' WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -495,10 +524,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionPais(String nombre)
+        public void modificacionPais(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE pais (Nombre) VALUES ('" + nombre + "');";
+            comando.CommandText = "UPDATE pais SET Nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
