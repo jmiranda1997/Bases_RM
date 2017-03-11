@@ -37,9 +37,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        /**
-         * Metodo que obtiene la contraseña de un usuario de la base de datos
-         */
+        /// <summary>
+        /// Metodo que obtiene la contraseña de un usuario de la base de datos
+        /// </summary>
+        /// <param name="usuario">El usuario del cual se obtendrá la contraseña</param>
+        /// <returns></returns>
         public string Us_con(string usuario)
         {
             string contraseña = "";                                //Variable que guarda la contraseña obtenida de la base
@@ -538,6 +540,26 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Cambia la contraseña del usuario
+        /// </summary>
+        /// <param name="nombre">Nombre del usuario al cual se le cambiará la contraseña</param>
+        /// <param name="clave">Nueva contraseña</param>
+        public void modificacionUsuario(String nombre, String clave)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE usuario SET Clave='" + clave + "' WHERE nombre='" + nombre + "';";
+            Variable_Conexion.Open();
+            try
+            {
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+            Variable_Conexion.Close();
+        }
         public void modificacionClasificacion(int ID, String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -571,7 +593,7 @@ namespace Bases_RM
         public void modificacionCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE cliente (NIT_DPI, Nombre, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
+            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + ") WHERE NIT_DPI='" + NitDpi + "';";
             Variable_Conexion.Open();
             try
             {
