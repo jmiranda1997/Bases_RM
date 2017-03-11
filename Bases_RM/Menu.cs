@@ -12,11 +12,15 @@ namespace Bases_RM
 {
     public partial class Menu : Form
     {
-        public Menu()
+        public Usuario datos_us;
+        public Menu(Usuario user)
         {
-            InitializeComponent();
-        }
 
+            InitializeComponent();
+            this.datos_us = user;
+        }      
+
+        
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
