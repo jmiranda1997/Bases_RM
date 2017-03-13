@@ -23,9 +23,8 @@ namespace Bases_RM
         
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide();
             Clientes clientes = new Clientes();
-            clientes.Show();
+            clientes.ShowDialog();
 
         }
 
