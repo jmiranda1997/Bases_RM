@@ -165,6 +165,7 @@
             this.cbSucursales.Name = "cbSucursales";
             this.cbSucursales.Size = new System.Drawing.Size(127, 21);
             this.cbSucursales.TabIndex = 13;
+            this.cbSucursales.SelectedIndexChanged += new System.EventHandler(this.cbSucursales_SelectedIndexChanged);
             // 
             // AbonoDeuda
             // 

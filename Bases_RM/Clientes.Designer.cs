@@ -66,6 +66,7 @@
             // 
             // TxtNit
             // 
+            this.TxtNit.Enabled = false;
             this.TxtNit.Location = new System.Drawing.Point(329, 51);
             this.TxtNit.Name = "TxtNit";
             this.TxtNit.Size = new System.Drawing.Size(309, 20);
@@ -73,6 +74,7 @@
             // 
             // TxtNom
             // 
+            this.TxtNom.Enabled = false;
             this.TxtNom.Location = new System.Drawing.Point(329, 81);
             this.TxtNom.Name = "TxtNom";
             this.TxtNom.Size = new System.Drawing.Size(309, 20);
@@ -80,11 +82,13 @@
             // 
             // TxtDeuda
             // 
+            this.TxtDeuda.Enabled = false;
             this.TxtDeuda.Location = new System.Drawing.Point(329, 112);
             this.TxtDeuda.Name = "TxtDeuda";
             this.TxtDeuda.Size = new System.Drawing.Size(125, 20);
             this.TxtDeuda.TabIndex = 3;
             this.TxtDeuda.Text = "0.00";
+            this.TxtDeuda.TextChanged += new System.EventHandler(this.TxtDeuda_TextChanged);
             // 
             // lbNit
             // 
@@ -133,6 +137,7 @@
             // 
             // TxtSaldo
             // 
+            this.TxtSaldo.Enabled = false;
             this.TxtSaldo.Location = new System.Drawing.Point(504, 112);
             this.TxtSaldo.Name = "TxtSaldo";
             this.TxtSaldo.Size = new System.Drawing.Size(134, 20);
@@ -160,6 +165,7 @@
             // 
             // TxtLimic
             // 
+            this.TxtLimic.Enabled = false;
             this.TxtLimic.Location = new System.Drawing.Point(368, 165);
             this.TxtLimic.Name = "TxtLimic";
             this.TxtLimic.Size = new System.Drawing.Size(122, 20);
@@ -171,8 +177,9 @@
             this.btnMG.Name = "btnMG";
             this.btnMG.Size = new System.Drawing.Size(102, 23);
             this.btnMG.TabIndex = 14;
-            this.btnMG.Text = "Modificar/Guardar";
+            this.btnMG.Text = "Modificar";
             this.btnMG.UseVisualStyleBackColor = true;
+            this.btnMG.Click += new System.EventHandler(this.btnMG_Click);
             // 
             // btnEC
             // 
@@ -180,7 +187,7 @@
             this.btnEC.Name = "btnEC";
             this.btnEC.Size = new System.Drawing.Size(102, 23);
             this.btnEC.TabIndex = 15;
-            this.btnEC.Text = "Eliminar/Cancelar";
+            this.btnEC.Text = "Eliminar";
             this.btnEC.UseVisualStyleBackColor = true;
             // 
             // lbClasi2
@@ -203,6 +210,7 @@
             // 
             // TxtDias
             // 
+            this.TxtDias.Enabled = false;
             this.TxtDias.Location = new System.Drawing.Point(368, 195);
             this.TxtDias.Name = "TxtDias";
             this.TxtDias.Size = new System.Drawing.Size(122, 20);
@@ -225,19 +233,24 @@
             this.exportarToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.archivoToolStripMenuItem.Text = "Archivo";
+            this.archivoToolStripMenuItem.Text = "&Archivo";
             // 
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.nuevoToolStripMenuItem.Text = "Nuevo";
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+
+            this.nuevoToolStripMenuItem.Text = "&Nuevo";
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
+
             // 
             // exportarToolStripMenuItem
             // 
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.exportarToolStripMenuItem.Text = "Exportar";
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+
+            this.exportarToolStripMenuItem.Text = "&Exportar";
+
             // 
             // lbBuscar
             // 
@@ -299,6 +312,7 @@
             this.MainMenuStrip = this.menuOpciones;
             this.Name = "Clientes";
             this.Text = "Clientes";
+            this.Load += new System.EventHandler(this.Clientes_Load);
             this.menuOpciones.ResumeLayout(false);
             this.menuOpciones.PerformLayout();
             this.ResumeLayout(false);

@@ -25,6 +25,8 @@ namespace Bases_RM
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+            //Ordenes prueba = new Ordenes();
+            //prueba.ShowDialog();
         }
 
         private void label1_Click(object sender, EventArgs e)
