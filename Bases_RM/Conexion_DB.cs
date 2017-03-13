@@ -660,7 +660,7 @@ namespace Bases_RM
         public void modificacionTelefono(int idEncargado, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE producto SET Codigo_Interno='" + codInterno + "', Codigo_Fabricante='" + codFabricante + "', Marca='" + marca + "', Fabricante='" + fabricante + "', Departamento='" + departamento + "', Precio_Costo=" + precioCosto.ToString() + ", Precio_Venta=" + precioVenta.ToString() + " WHERE Codigo_Interno='" + codInterno + "';";
+            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado + ";";
             Variable_Conexion.Open();
             try
             {
@@ -675,7 +675,7 @@ namespace Bases_RM
         public void modificacionTelefono(String nitDpiCliente, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado.ToString() + ";";
+            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Cliente_NIT='" + nitDpiCliente + "';";
             Variable_Conexion.Open();
             try
             {
@@ -698,7 +698,6 @@ namespace Bases_RM
         /// <param name="departamento"></param>
         /// <param name="precioCosto"></param>
         /// <param name="precioVenta"></param>
-       
         public void modificacionProducto(String CodInterno, String codFabricante, String descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
