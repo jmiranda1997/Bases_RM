@@ -87,8 +87,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archivoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(854, 24);
@@ -97,50 +95,58 @@
             // 
             // archivoToolStripMenuItem
             // 
-            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnabrir,
-            this.btnimportar,
-            this.btnexportar,
-            this.salirToolStripMenuItem,
-            this.listoToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.archivoToolStripMenuItem.Text = "Archivo";
+
+            this.archivoToolStripMenuItem.Text = "&Archivo";
             this.archivoToolStripMenuItem.Click += new System.EventHandler(this.archivoToolStripMenuItem_Click);
+
             // 
             // btnabrir
             // 
             this.btnabrir.Name = "btnabrir";
-            this.btnabrir.Size = new System.Drawing.Size(120, 22);
-            this.btnabrir.Text = "Abrir";
+
+            this.btnabrir.Size = new System.Drawing.Size(152, 22);
             this.btnabrir.Click += new System.EventHandler(this.btnabrir_Click);
+
             // 
             // btnimportar
             // 
             this.btnimportar.Name = "btnimportar";
-            this.btnimportar.Size = new System.Drawing.Size(120, 22);
-            this.btnimportar.Text = "Importar";
+
+            this.btnimportar.Size = new System.Drawing.Size(152, 22);
+            this.btnimportar.Text = "&Importar";
+
+
             this.btnimportar.Click += new System.EventHandler(this.btnimportar_Click);
             // 
             // btnexportar
             // 
             this.btnexportar.Name = "btnexportar";
-            this.btnexportar.Size = new System.Drawing.Size(120, 22);
-            this.btnexportar.Text = "Exportar";
+
+            this.btnexportar.Size = new System.Drawing.Size(152, 22);
+            this.btnexportar.Text = "&Exportar";
+
             this.btnexportar.Click += new System.EventHandler(this.btnexportar_Click);
+
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.salirToolStripMenuItem.Text = "Salir";
+
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salirToolStripMenuItem.Text = "&Salir";
+
+
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // listoToolStripMenuItem
             // 
             this.listoToolStripMenuItem.Name = "listoToolStripMenuItem";
-            this.listoToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.listoToolStripMenuItem.Text = "listo";
+
+            this.listoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listoToolStripMenuItem.Text = "&Listo";
+
             this.listoToolStripMenuItem.Click += new System.EventHandler(this.listoToolStripMenuItem_Click);
             // 
             // pbcargar
