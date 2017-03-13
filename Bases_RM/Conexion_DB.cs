@@ -22,21 +22,6 @@ namespace Bases_RM
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
-        public void Guardar() 
-        {
-            comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO sucursal (Nombre) VALUES('hola');";
-            Variable_Conexion.Open();
-            try
-            {
-                comando.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                
-            }
-            Variable_Conexion.Close();
-        }
         /// <summary>
         /// Metodo que obtiene la contraseña de un usuario de la base de datos
         /// </summary>
@@ -60,6 +45,11 @@ namespace Bases_RM
            return contraseña;                                    //regresa la contraseña obtenida de la base
 
         }
+        /// <summary>
+        /// Obtiene los datos de los usuarios y devuelve los datos en un objeto de la clase Usuario 
+        /// </summary>
+        /// <param name="usuario">nombre del usuario</param>
+        /// <returns>Objeto de tipo Usuario</returns>
         public Usuario Datos_De_User(string usuario)
         {
             Usuario temp = null;
@@ -334,10 +324,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void ingresoProducto(String codInterno, String codFabricante, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
+        public void ingresoProducto(String codInterno, String codFabricante, String Descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO producto (Codigo_Interno, Codigo_Fabricante, Marca, Fabricante, Departamento, Precio_Costo, Precio_Venta) VALUES ('" + codInterno + "','" + codFabricante + "','" + marca + "','" + fabricante + "','" + departamento + "'," + precioCosto.ToString() + "," + precioVenta.ToString() + ");";
+            comando.CommandText = "INSERT INTO producto (Codigo_Interno, Codigo_Fabricante, Descripcion, Marca, Fabricante, Departamento, Precio_Costo, Precio_Venta) VALUES ('" + codInterno + "','" + codFabricante + "','" + Descripcion + "','" + marca + "','" + fabricante + "','" + departamento + "'," + precioCosto.ToString() + "," + precioVenta.ToString() + ");";
             Variable_Conexion.Open();
             try{
                 comando.ExecuteNonQuery();
@@ -666,7 +656,8 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionProducto(String codInterno, String codFabricante, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
+      
+        public void modificacionTelefono(int idEncargado, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE producto SET Codigo_Interno='" + codInterno + "', Codigo_Fabricante='" + codFabricante + "', Marca='" + marca + "', Fabricante='" + fabricante + "', Departamento='" + departamento + "', Precio_Costo=" + precioCosto.ToString() + ", Precio_Venta=" + precioVenta.ToString() + " WHERE Codigo_Interno='" + codInterno + "';";
@@ -681,7 +672,7 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionTelefono(int idEncargado, String telefono)
+        public void modificacionTelefono(String nitDpiCliente, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado.ToString() + ";";
@@ -696,10 +687,23 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionTelefono(String nitDpiCliente, String telefono)
+        /// <summary>
+        /// Modifica todos los parametros de la tabla de producto 
+        /// </summary>
+        /// <param name="codFabricante">Codigo segun el cual se hace la modificacion</param>
+        /// <param name="codFabricante"></param>
+        /// <param name="Descripcion"></param>
+        /// <param name="marca"></param>
+        /// <param name="fabricante"></param>
+        /// <param name="departamento"></param>
+        /// <param name="precioCosto"></param>
+        /// <param name="precioVenta"></param>
+       
+        public void modificacionProducto(String CodInterno, String codFabricante, String descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE Cliente_NIT='" + nitDpiCliente + "';";
+            comando.CommandText = "UPDATE producto SET Codigo_Fabricante='" + codFabricante + "', Descripcion='" + descripcion + "', Marca='" + marca + "', Fabricante='" + fabricante + "', Departamento='" + departamento + "', Precio_Costo='" + precioCosto + "', Precio_Venta='"+ precioVenta + "' WHERE Codigo_Interno='"+ CodInterno + "';";
+
             Variable_Conexion.Open();
             try
             {
@@ -711,8 +715,6 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-
-
         //--------------------MODIFICACION RELACIONES--------------------//
 
 
@@ -763,6 +765,7 @@ namespace Bases_RM
         }
 
 
+
         //---------------OTROS---------------//
 
 
@@ -791,6 +794,33 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();//se cierra la conexion
             return sucursales;
+        }
+        /// <summary>
+        /// Metodo que verifica si existe un codigo en la base de datos
+        /// </summary>
+        /// <param name="Codigo">Codigo que se busca</param>
+        /// <returns>Un booleano que indica si existe o no un codigo en la base de datos</returns>
+        public Boolean Existe_Codigo(String Codigo_Interno)
+        {
+            Boolean Existe = false;
+            int contador = 0;
+            
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM producto WHERE Codigo_Interno='" + Codigo_Interno + "';";//Consulta para la base, obtener el numero de sucursales
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                contador = int.Parse(Variable_Lectura[0].ToString());// se almacena la cantidad qeu se obtine de la base
+            }
+            Variable_Conexion.Close();//cerramos la conexion con la base
+
+            if (contador != 0)//conparamos si el numero obtenido es diferente de 0 cambiamos el valor por que el codigo ya existe en la base
+            {
+                Existe = true;
+            }
+
+            return Existe;//regresamos el valor booleano de la consulta
         }
 
     }

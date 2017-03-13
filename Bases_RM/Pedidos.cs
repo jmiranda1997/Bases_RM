@@ -13,14 +13,11 @@ namespace Bases_RM
 {
     public partial class Pedidos : Form
     {
-
         public DataTable DS;
         public Pedidos()
         {
             InitializeComponent();
-            
         }
-
         private void Pedidos_Load(object sender, EventArgs e)
         {
 
@@ -28,77 +25,6 @@ namespace Bases_RM
 
         private void btnimportar_Click(object sender, EventArgs e)
         {
-            Conexion_DB conexion = new Conexion_DB();
-            OleDbConnection oleDbConnection1 = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");
-            DS = new DataTable();
-
-            try
-            {
-                oleDbConnection1.Open();
-                OleDbCommand comando = new OleDbCommand("SELECT Uni01 FROM INVENT.DBF WHERE Codigo = '01001'", oleDbConnection1);
-                OleDbDataAdapter da = new OleDbDataAdapter(comando); 
-                OleDbDataReader dato = comando.ExecuteReader();
-                //da.Fill(DS);
-                //dgpedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                //dgpedido.DataSource = DS;
-                if (dato.Read())
-                {
-                    lbprogreso.Text = dato["Uni01"].ToString();
-                }
-
-                oleDbConnection1.Close();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private string selector_Archivos()
-        {
-            string direccion = "";
-            //creamos un objeto OpenDialog que es un cuadro de dialogo para buscar archivos
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Archivos de Excel (*.xls;*.xlsx)|*.xls;*.xlsx"; //le indicamos el tipo de filtro en este caso que busque
-            //solo los archivos excel
-
-            dialog.Title = "Seleccione el archivo de Excel";//le damos un titulo a la ventana
-
-            dialog.FileName = string.Empty;//inicializamos con vacio el nombre del archivo
-
-            //si al seleccionar el archivo damos Ok
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                direccion = dialog.FileName;
-            }
-
-            return direccion;
-        }
-        private void LlenarGrid(string archivo)
-        {
-            string strConnnectionOle = @"Provider=Microsoft.ACE.OLEDB.12.0;" +
-                    @"Data Source=" + archivo + ";" +
-                    @"Extended Properties=" + '"' + "Excel 12.0;HDR=YES" + '"';
-            string sqlExcel = "Select * From [Hoja1$]";
-            DS = new DataTable();
-            OleDbConnection oledbConn = new OleDbConnection(strConnnectionOle);
-            try
-            {
-                oledbConn.Open();
-                OleDbCommand oledbCmd = new OleDbCommand(sqlExcel, oledbConn);
-                OleDbDataAdapter da = new OleDbDataAdapter(oledbCmd);
-
-                da.Fill(DS);
-                dgpedido.DataSource = DS;
-                oledbConn.Close();
-                dgpedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgpedido.HorizontalScrollingOffset = dgpedido.VerticalScrollingOffset;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,27 +51,10 @@ namespace Bases_RM
         
         private void btnabrir_Click(object sender, EventArgs e)
         {
-            Conexion_DB conexion = new Conexion_DB();
-            OleDbConnection oleDbConnection1 = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");
-            int codigos=0;
-            oleDbConnection1.Open();
-            OleDbCommand comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF", oleDbConnection1);
-
-            OleDbDataReader dato = comando.ExecuteReader();
-            if (dato.Read())
-            {
-                codigos=int.Parse(dato[0].ToString());
-                oleDbConnection1.Close();
-                oleDbConnection1.Open();
-                comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2 FROM INVENT.DBF", oleDbConnection1);
-                dato = comando.ExecuteReader();
-                pbcargar.Maximum = codigos;
-                while (dato.Read())
-                {
-                    pbcargar.Value += 1;
-                    conexion.ingresoProducto(dato["codigo"].ToString(), dato["codigobarr"].ToString(), dato["marca1"].ToString(), dato["marca1"].ToString(), dato["marca2"].ToString(), double.Parse(dato["costo"].ToString()), double.Parse(dato["venta1"].ToString()));
-                }
-            }
+           
+            Conexion_Fox con = new Conexion_Fox();
+            con.Insertar_Codigos(pbcargar, lbprogreso);
+            
         }
 
         private void btnexportar_Click(object sender, EventArgs e)
