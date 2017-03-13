@@ -593,7 +593,7 @@ namespace Bases_RM
         public void modificacionCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + ") WHERE NIT_DPI='" + NitDpi + "';";
+            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
             Variable_Conexion.Open();
             try
             {
@@ -605,10 +605,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionPedido(double total, int idProveedor)
+        public void modificacionPedido(int Numero, double total, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE pedido (Total, Proveedor_ID) VALUES (" + total.ToString() + "," + idProveedor.ToString() + ");";
+            comando.CommandText = "UPDATE pedido Total=" + total.ToString() + ", Proveedor_ID=" + idProveedor.ToString() + " WHERE Numero="+Numero.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -620,10 +620,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionPrestamo(double monto, int idTrabajador)
+        public void modificacionPrestamo(int ID, double monto, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE prestamo (Monto, Trabajador_idTrabajador) VALUES (" + monto.ToString() + "," + idTrabajador + ");";
+            comando.CommandText = "UPDATE prestamo Monto=" + monto.ToString() + ", Trabajador_idTrabajador=" + idTrabajador + " WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -635,10 +635,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionSucursal(String nombre)
+        public void modificacionSucursal(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE Sucursal (nombre) VALUES ('" + nombre + "');";
+            comando.CommandText = "UPDATE Sucursal nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -650,12 +650,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionDeuda(DateTime pago, double total, string nit, int idSucursal, DateTime ingreso)
+        public void modificacionDeuda(int ID, DateTime pago, double total, string nit, int idSucursal, DateTime ingreso)
         {
             comando = Variable_Conexion.CreateCommand();
             String pagoString = pago.Year.ToString() + "-" + pago.Month.ToString() + "-" + pago.Day.ToString();
             String ingresoString = ingreso.Year.ToString() + "-" + ingreso.Month.ToString() + "-" + ingreso.Day.ToString();
-            comando.CommandText = "UPDATE  deuda (Fecha_Pago, Total, Cliente_NIT, Sucursal_ID, Fecha_Ingreso) VALUES ('" + pagoString + "'," + total.ToString() + ",'" + nit + "'," + idSucursal.ToString() + ",'" + ingresoString + "');";
+            comando.CommandText = "UPDATE  deuda Fecha_Pago='" + pagoString + "', Total=" + total.ToString() + ", Cliente_NIT='" + nit + "', Sucursal_ID=" + idSucursal.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -670,7 +670,7 @@ namespace Bases_RM
         public void modificacionProducto(String codInterno, String codFabricante, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE producto (Codigo_Interno, Codigo_Fabricante, Marca, Fabricante, Departamento, Precio_Costo, Precio_Venta) VALUES ('" + codInterno + "','" + codFabricante + "','" + marca + "','" + fabricante + "','" + departamento + "'," + precioCosto.ToString() + "," + precioVenta.ToString() + ");";
+            comando.CommandText = "UPDATE producto Codigo_Interno='" + codInterno + "', Codigo_Fabricante='" + codFabricante + "', Marca='" + marca + "', Fabricante='" + fabricante + "', Departamento='" + departamento + "', Precio_Costo=" + precioCosto.ToString() + ", Precio_Venta=" + precioVenta.ToString() + " WHERE Codigo_Interno='" + codInterno + "';";
             Variable_Conexion.Open();
             try
             {
@@ -682,10 +682,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionTelefono(String telefono, int idEncargado)
+        public void modificacionTelefono(int idEncargado, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono (Telefono, Encargado_id) VALUES ('" + telefono + "'," + idEncargado.ToString() + ");";
+            comando.CommandText = "UPDATE telefono Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado.ToString() + ";";
             Variable_Conexion.Open();
             try
             {
@@ -697,10 +697,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionTelefono(String telefono, String nitDpiCliente)
+        public void modificacionTelefono(String nitDpiCliente, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono (Telefono, Cliente_NIT) VALUES ('" + telefono + "','" + nitDpiCliente + "');";
+            comando.CommandText = "UPDATE telefono Telefono='" + telefono + "' WHERE Cliente_NIT='" + nitDpiCliente + "';";
             Variable_Conexion.Open();
             try
             {
