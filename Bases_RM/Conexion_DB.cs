@@ -496,7 +496,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos SET (Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "') WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
             Variable_Conexion.Open();
             try
             {
@@ -508,12 +508,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionPagoDeuda(DateTime fecha, double monto, int idDeuda, DateTime fechaIngreso)
+        public void modificacionPagoDeuda(int ID, DateTime fecha, double monto, int idDeuda, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos (Fecha, Monto, Deuda_ID, Fecha_Ingreso) VALUES ('" + fechaString + "'," + monto.ToString() + "," + idDeuda.ToString() + ",'" + ingresoString + "');";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE" + ID.ToString() + " AND Prestamo_ID != NULL;";
             Variable_Conexion.Open();
             try
             {
