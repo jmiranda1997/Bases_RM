@@ -75,6 +75,7 @@
     <Compile Include="Component1.Designer.cs">
       <DependentUpon>Component1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Conexion_Fox.cs" />
     <Compile Include="IngresoProve.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -29,7 +29,6 @@ namespace Bases_RM
             }
             this.Text = nombre_tabla;
             String[] sucursales = conexion.obtener_sucursales();
-            MessageBox.Show(sucursales.Length + "");
             for (int i = 0; i < sucursales.Length; i++)
             {
                 cbSucursales.Items.Add(sucursales[i]);
@@ -54,6 +53,11 @@ namespace Bases_RM
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cbSucursales_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
