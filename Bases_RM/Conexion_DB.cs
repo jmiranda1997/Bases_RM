@@ -114,12 +114,10 @@ namespace Bases_RM
         /// Ingresa los datos del Proveedor a la BD
         /// </summary>
         /// <param name="nombre">Nombre del proveedor</param>
-        /// <param name="fecha">Fecha</param>
         /// <param name="idPais">ID del país donde se encuentra el proveedor</param>
-        public void ingresoProveedor(String nombre, DateTime fecha, int idPais){
+        public void ingresoProveedor(String nombre, int idPais){
             comando = Variable_Conexion.CreateCommand();
-            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
-            comando.CommandText = "INSERT INTO proveedor (Nombre, Fecha, Pais_ID) VALUES ('" + nombre + "','" + fechaString + "'," + idPais.ToString() + ");";
+            comando.CommandText = "INSERT INTO proveedor (Nombre, Pais_ID) VALUES ('" + nombre + "'," + idPais.ToString() + ");";
             Variable_Conexion.Open();
             try
             {
@@ -273,10 +271,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void ingresoPedido(double total, int idProveedor)
+        public void ingresoPedido(DateTime fecha, double total, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO pedido (Total, Proveedor_ID) VALUES (" + total.ToString() + "," + idProveedor.ToString() + ");";
+            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
+            comando.CommandText = "INSERT INTO pedido (Fecha, Total, Proveedor_ID) VALUES ('"+fechaString+"'," + total.ToString() + "," + idProveedor.ToString() + ");";
             Variable_Conexion.Open();
             try
             {
@@ -410,10 +409,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void ingresoProveedorProducto (String codInternoProducto, int idProveedor, double precioProveedor)
+        public void ingresoProveedorProducto (int numeroPedido, String codInternoProducto, int idProveedor, double precioProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO prov_prod (Producto_Codigo_Interno, Proveedor_ID, Precio_Proveedor) VALUES ('" + codInternoProducto + "'," + idProveedor.ToString() + "," + precioProveedor.ToString() + ");";
+            comando.CommandText = "INSERT INTO prov_prod (Pedido_Numero, Producto_Codigo_Interno, Proveedor_ID, Precio_Proveedor) VALUES ("+numeroPedido.ToString()+",'" + codInternoProducto + "'," + idProveedor.ToString() + "," + precioProveedor.ToString() + ");";
             Variable_Conexion.Open();
             try
             {
