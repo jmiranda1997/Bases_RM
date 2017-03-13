@@ -63,26 +63,6 @@ namespace Bases_RM.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap flecha_derecha_audaz_ios_7_simbolo_318_35504 {
-            get {
-                object obj = ResourceManager.GetObject("flecha-derecha-audaz-ios-7-simbolo_318-35504", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap flecha_en_negrita_izquierda_ios_7_simbolo_interfaz_318_34824 {
-            get {
-                object obj = ResourceManager.GetObject("flecha-en-negrita-izquierda-ios-7-simbolo-interfaz_318-34824", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap logoRM {
             get {
                 object obj = ResourceManager.GetObject("logoRM", resourceCulture);

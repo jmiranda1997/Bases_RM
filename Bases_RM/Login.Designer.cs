@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lbUsuario = new System.Windows.Forms.Label();
             this.lbConstraseña = new System.Windows.Forms.Label();
-            this.pixLogo = new System.Windows.Forms.PictureBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtContraseña = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pixLogo)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -78,17 +79,6 @@
             this.lbConstraseña.Text = "Contraseña";
             this.lbConstraseña.Click += new System.EventHandler(this.label2_Click);
             // 
-            // pixLogo
-            // 
-            this.pixLogo.Image = global::Bases_RM.Properties.Resources.logoRM;
-            this.pixLogo.Location = new System.Drawing.Point(7, 6);
-            this.pixLogo.Name = "pixLogo";
-            this.pixLogo.Size = new System.Drawing.Size(433, 101);
-            this.pixLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pixLogo.TabIndex = 4;
-            this.pixLogo.TabStop = false;
-            this.pixLogo.Click += new System.EventHandler(this.pixLogo_Click);
-            // 
             // txtUsuario
             // 
             this.txtUsuario.Location = new System.Drawing.Point(109, 133);
@@ -106,14 +96,24 @@
             this.txtContraseña.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.txtContraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContraseña_KeyPress);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(431, 104);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(447, 270);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.txtUsuario);
-            this.Controls.Add(this.pixLogo);
             this.Controls.Add(this.lbConstraseña);
             this.Controls.Add(this.lbUsuario);
             this.Controls.Add(this.btnCancelar);
@@ -122,7 +122,7 @@
             this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "Inicio de Sesión";
-            ((System.ComponentModel.ISupportInitialize)(this.pixLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,8 +134,8 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lbUsuario;
         private System.Windows.Forms.Label lbConstraseña;
-        private System.Windows.Forms.PictureBox pixLogo;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.TextBox txtContraseña;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
