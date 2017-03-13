@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bases_RM
 {
-    class Usuario
+    public class Usuario
     {
         public String Nombre = "", Clave = "",Cadena_Pedido="",Cadena_Seguridad="", Cadena_Cliente="", Cadena_Trabajador="";
         public Usuario(String nombre, String clave, String seguridad, String cliente, String trabajador, String pedido)
