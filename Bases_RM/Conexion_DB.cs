@@ -104,12 +104,10 @@ namespace Bases_RM
         /// Ingresa los datos del Proveedor a la BD
         /// </summary>
         /// <param name="nombre">Nombre del proveedor</param>
-        /// <param name="fecha">Fecha</param>
         /// <param name="idPais">ID del país donde se encuentra el proveedor</param>
-        public void ingresoProveedor(String nombre, DateTime fecha, int idPais){
+        public void ingresoProveedor(String nombre, int idPais){
             comando = Variable_Conexion.CreateCommand();
-            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
-            comando.CommandText = "INSERT INTO proveedor (Nombre, Fecha, Pais_ID) VALUES ('" + nombre + "','" + fechaString + "'," + idPais.ToString() + ");";
+            comando.CommandText = "INSERT INTO proveedor (Nombre, Pais_ID) VALUES ('" + nombre + "'," + idPais.ToString() + ");";
             Variable_Conexion.Open();
             try
             {
@@ -186,6 +184,13 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de los pagos a las deudas adquiridas
+        /// </summary>
+        /// <param name="fecha">Fecha en que se realiza el pago</param>
+        /// <param name="monto">Monto a pagar</param>
+        /// <param name="idDeuda">ID de la deuda a la cual se esta pagando</param>
+        /// <param name="fechaIngreso">Fecha de ingreso del pago al sistema</param>
         public void ingresoPagoDeuda(DateTime fecha, double monto, int idDeuda, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -203,6 +208,15 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de un nuevo usuario a la BD
+        /// </summary>
+        /// <param name="nombre">Nombre del nuevo usuario (ID, no utilizar espacios de preferencia)</param>
+        /// <param name="clave">Contraseña de acceso al programa, del usuario a ingresar</param>
+        /// <param name="pedidos">Cadena que valida el ingreso, modificación y/o eliminación de pedidos</param>
+        /// <param name="clientes">Cadena que valida el ingreso, modificación y/o eliminación de clientes</param>
+        /// <param name="trabajadores">Cadena que valida el ingreso, modificación y/o eliminación de trabajadores</param>
+        /// <param name="seguridad">Cadena que valida la gestión de seguridad</param>
         public void ingresoUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -218,10 +232,14 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de clasificación de usuarios
+        /// </summary>
+        /// <param name="tipo">Nombre del tipo de clasificación</param>
         public void ingresoClasificacion(String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO clasicacion (Tipo) VALUES ('" + tipo + "');"; 
+            comando.CommandText = "INSERT INTO clasificacion (Tipo) VALUES ('" + tipo + "');"; 
             Variable_Conexion.Open();
             try
             {
@@ -233,6 +251,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de los paises donde se encuentran los proveedores
+        /// </summary>
+        /// <param name="nombre">Nombre del país a ingresar</param>
         public void ingresoPais(String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -248,6 +270,14 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de clientes nuevos
+        /// </summary>
+        /// <param name="NitDpi">NIT o DPI del cliente</param>
+        /// <param name="nombre">Nombre del cliente</param>
+        /// <param name="diasCredito">Días de crédito para darle al cliente</param>
+        /// <param name="limiteCredito">Monto máximo el cual el cliente puede debernos</param>
+        /// <param name="clasificacionId">ID del la clasificación que será el cliente</param>
         public void ingresoCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -263,10 +293,17 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void ingresoPedido(double total, int idProveedor)
+        /// <summary>
+        /// Ingreso de pedidos de mercadería a los proveedores
+        /// </summary>
+        /// <param name="fecha">Fecha en que se realizó el pedido</param>
+        /// <param name="total">Total a pagar en el pedido</param>
+        /// <param name="idProveedor">ID del proveedor al cual se le esta comprando</param>
+        public void ingresoPedido(DateTime fecha, double total, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO pedido (Total, Proveedor_ID) VALUES (" + total.ToString() + "," + idProveedor.ToString() + ");";
+            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
+            comando.CommandText = "INSERT INTO pedido (Fecha, Total, Proveedor_ID) VALUES ('"+fechaString+"'," + total.ToString() + "," + idProveedor.ToString() + ");";
             Variable_Conexion.Open();
             try
             {
@@ -278,6 +315,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de prestamos dados a los trabajadores
+        /// </summary>
+        /// <param name="monto">Cantidad que se le ha prestado al trabajador</param>
+        /// <param name="idTrabajador">ID del trabajador al cual se le está prestando</param>
         public void ingresoPrestamo(double monto, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -293,6 +335,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de sucursales
+        /// </summary>
+        /// <param name="nombre">Nombre de la sucursal</param>
         public void ingresoSucursal (String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -308,6 +354,14 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de deuda adquirida por un cliente hacia la empresa
+        /// </summary>
+        /// <param name="pago">Fecha límite de pago de la deuda</param>
+        /// <param name="total">Total a pagar</param>
+        /// <param name="nit">NIT o DPI del cliente que debe pagarnos</param>
+        /// <param name="idSucursal">ID de la sucursal en donde se adquirió la deuda</param>
+        /// <param name="ingreso">Fecha de ingreso de la deuda al sistema</param>
         public void ingresoDeuda(DateTime pago, double total, string nit, int idSucursal, DateTime ingreso)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -325,7 +379,18 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void ingresoProducto(String codInterno, String codFabricante, String Descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
+        /// <summary>
+        /// Ingreso de nuevos productos
+        /// </summary>
+        /// <param name="codInterno">Código interno en la empresa del producto</param>
+        /// <param name="codFabricante">Código del fabricante</param>
+        /// <param name="descripcion">Descripción del producto</param>
+        /// <param name="marca">Marca del producto</param>
+        /// <param name="fabricante">Fabricante del producto</param>
+        /// <param name="departamento">Departamento (clasificación) al cual pertenece el producto</param>
+        /// <param name="precioCosto">Precio de costo del producto</param>
+        /// <param name="precioVenta">Precio de venta al público del producto</param>
+        public void ingresoProducto(String codInterno, String codFabricante, String descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO producto (Codigo_Interno, Codigo_Fabricante, Descripcion, Marca, Fabricante, Departamento, Precio_Costo, Precio_Venta) VALUES ('" + codInterno + "','" + codFabricante + "','" + Descripcion + "','" + marca + "','" + fabricante + "','" + departamento + "'," + precioCosto.ToString() + "," + precioVenta.ToString() + ");";
@@ -337,6 +402,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de teléfonos para encargados de ventas de los proveedores
+        /// </summary>
+        /// <param name="telefono">Número de teléfono</param>
+        /// <param name="idEncargado">ID del encargado de ventas del proveedor</param>
         public void ingresoTelefono(String telefono, int idEncargado)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -352,6 +422,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de teléfonos para clientes
+        /// </summary>
+        /// <param name="telefono">Número de teléfono del cliente</param>
+        /// <param name="nitDpiCliente">NIT o DPI del cliente al cual pertenece el teléfono</param>
         public void ingresoTelefono(String telefono, String nitDpiCliente)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -370,10 +445,17 @@ namespace Bases_RM
             //--------------------INGRESO RELACIONES--------------------//
 
 
-        public void ingresoDetallePedido(String codInternoProducto, int numeroPedido, int cantidad)
+        /// <summary>
+        /// Ingreso de los detalles de un pedido
+        /// </summary>
+        /// <param name="codInternoProducto">Código interno del producto</param>
+        /// <param name="numeroPedido">Número del pedido el cual se está detallando</param>
+        /// <param name="cantidad">Cantidad comprada del producto</param>
+        /// <param name="precioCompra">Precio al cual se compró el producto en este pedido</param>
+        public void ingresoDetallePedido(String codInternoProducto, int numeroPedido, int cantidad, double precioCompra)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ");";
+            comando.CommandText = "INSERT INTO detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad, Precio_Compra) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ","+precioCompra.ToString()+");";
             Variable_Conexion.Open();
             try
             {
@@ -385,6 +467,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso de inventario de un producto en cierta sucursal
+        /// </summary>
+        /// <param name="idSucursal">ID de la sucursal en la cual se encuentra el producto</param>
+        /// <param name="codInternoProducto">Código interno del producto</param>
+        /// <param name="existencia">Cantidad disponible en la sucursal de este producto</param>
         public void ingresoProductoSucursal(int idSucursal, String codInternoProducto, int existencia)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -400,6 +488,12 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Ingreso del precio al cual vende el proveedor cierto producto
+        /// </summary>
+        /// <param name="codInternoProducto">Codigo interno del producto</param>
+        /// <param name="idProveedor">ID del proveedor que tiene este precio</param>
+        /// <param name="precioProveedor">Precio que el proveedor le tiene al producto</param>
         public void ingresoProveedorProducto (String codInternoProducto, int idProveedor, double precioProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -434,11 +528,10 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionProveedor(int ID, String nombre, DateTime fecha, int idPais)
+        public void modificacionProveedor(int ID, String nombre, int idPais)
         {
             comando = Variable_Conexion.CreateCommand();
-            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
-            comando.CommandText = "UPDATE proveedor SET Nombre='" + nombre + "', Fecha='" + fechaString + "', Pais_ID=" + idPais.ToString() + " WHERE ID="+ID.ToString()+";";
+            comando.CommandText = "UPDATE proveedor SET Nombre='" + nombre + "', Pais_ID=" + idPais.ToString() + " WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -553,7 +646,7 @@ namespace Bases_RM
         public void modificacionClasificacion(int ID, String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE clasicacion SET Tipo='" + tipo + "' WHERE ID="+ID.ToString()+";";
+            comando.CommandText = "UPDATE clasificacion SET Tipo='" + tipo + "' WHERE ID=" + ID.ToString() + ";";
             Variable_Conexion.Open();
             try
             {
@@ -595,10 +688,11 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
-        public void modificacionPedido(int Numero, double total, int idProveedor)
+        public void modificacionPedido(int Numero, DateTime fecha, double total, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE pedido Total=" + total.ToString() + ", Proveedor_ID=" + idProveedor.ToString() + " WHERE Numero="+Numero.ToString()+";";
+            String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
+            comando.CommandText = "UPDATE pedido SET Fecha='" + fechaString + "', Total=" + total.ToString() + ", Proveedor_ID=" + idProveedor.ToString() + " WHERE Numero=" + Numero.ToString() + ";";
             Variable_Conexion.Open();
             try
             {
@@ -613,7 +707,7 @@ namespace Bases_RM
         public void modificacionPrestamo(int ID, double monto, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE prestamo Monto=" + monto.ToString() + ", Trabajador_idTrabajador=" + idTrabajador + " WHERE ID="+ID.ToString()+";";
+            comando.CommandText = "UPDATE prestamo SET Monto=" + monto.ToString() + ", Trabajador_idTrabajador=" + idTrabajador + " WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -628,7 +722,7 @@ namespace Bases_RM
         public void modificacionSucursal(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE Sucursal nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
+            comando.CommandText = "UPDATE Sucursal SET nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -645,7 +739,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String pagoString = pago.Year.ToString() + "-" + pago.Month.ToString() + "-" + pago.Day.ToString();
             String ingresoString = ingreso.Year.ToString() + "-" + ingreso.Month.ToString() + "-" + ingreso.Day.ToString();
-            comando.CommandText = "UPDATE  deuda Fecha_Pago='" + pagoString + "', Total=" + total.ToString() + ", Cliente_NIT='" + nit + "', Sucursal_ID=" + idSucursal.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID="+ID.ToString()+";";
+            comando.CommandText = "UPDATE  deuda SET Fecha_Pago='" + pagoString + "', Total=" + total.ToString() + ", Cliente_NIT='" + nit + "', Sucursal_ID=" + idSucursal.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID="+ID.ToString()+";";
             Variable_Conexion.Open();
             try
             {
@@ -661,7 +755,7 @@ namespace Bases_RM
         public void modificacionTelefono(int idEncargado, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado.ToString() + ";";
+            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado + ";";
             Variable_Conexion.Open();
             try
             {
@@ -676,7 +770,7 @@ namespace Bases_RM
         public void modificacionTelefono(String nitDpiCliente, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono Telefono='" + telefono + "' WHERE Cliente_NIT='" + nitDpiCliente + "';";
+            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Cliente_NIT='" + nitDpiCliente + "';";
             Variable_Conexion.Open();
             try
             {
@@ -699,12 +793,11 @@ namespace Bases_RM
         /// <param name="departamento"></param>
         /// <param name="precioCosto"></param>
         /// <param name="precioVenta"></param>
-       
-        public void modificacionProducto(String CodInterno, String codFabricante, String Descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
+        public void modificacionProducto(String CodInterno, String codFabricante, String descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE producto SET Codigo_Fabricante='" + codFabricante + "', Descripcion='" + Descripcion + "', Marca='" + marca + "', Fabricante='" + fabricante
-                + "', Departamento='" + departamento + "', Precio_Costo='" + precioCosto + "', Precio_Venta='"+ precioVenta + "' WHERE Codigo_Interno='"+ CodInterno + "';";
+            comando.CommandText = "UPDATE producto SET Codigo_Fabricante='" + codFabricante + "', Descripcion='" + descripcion + "', Marca='" + marca + "', Fabricante='" + fabricante + "', Departamento='" + departamento + "', Precio_Costo='" + precioCosto + "', Precio_Venta='"+ precioVenta + "' WHERE Codigo_Interno='"+ CodInterno + "';";
+
             Variable_Conexion.Open();
             try
             {
@@ -734,10 +827,16 @@ namespace Bases_RM
             }
             Variable_Conexion.Close();
         }
+        /// <summary>
+        /// Modificación del inventario de un producto en cierta sucursal
+        /// </summary>
+        /// <param name="idSucursal">ID de la sucursal</param>
+        /// <param name="codInternoProducto">Código interno del producto</param>
+        /// <param name="existencia">Nueva existencia del producto en la sucursal</param>
         public void modificacionProductoSucursal(int idSucursal, String codInternoProducto, int existencia)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE prod_suc (Sucursal_ID, Producto_Codigo_Interno, Existencia) VALUES (" + idSucursal.ToString() + ",'" + codInternoProducto + "'," + existencia.ToString() + ");";
+            comando.CommandText = "UPDATE prod_suc SET Existencia=" + existencia.ToString() + " WHERE Sucursal_ID=" + idSucursal.ToString() + " AND Producto_Codigo_Interno='" + codInternoProducto + "';";
             Variable_Conexion.Open();
             try
             {
