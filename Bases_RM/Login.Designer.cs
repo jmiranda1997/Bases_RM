@@ -36,6 +36,8 @@
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,11 +108,30 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 302);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(430, 24);
+            this.progressBar1.TabIndex = 5;
+            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(205, 344);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "label1";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 270);
+            this.ClientSize = new System.Drawing.Size(458, 394);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.txtUsuario);
@@ -122,6 +143,7 @@
             this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "Inicio de Sesión";
+            this.Load += new System.EventHandler(this.Login_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -137,5 +159,7 @@
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label1;
     }
 }
