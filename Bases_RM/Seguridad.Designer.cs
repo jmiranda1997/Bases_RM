@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.lblUser = new System.Windows.Forms.Label();
-            this.lblContra = new System.Windows.Forms.Label();
             this.txtUser = new System.Windows.Forms.TextBox();
-            this.TxtContra = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -48,28 +46,13 @@
             this.lblUser.Text = "User:";
             this.lblUser.Click += new System.EventHandler(this.label1_Click);
             // 
-            // lblContra
-            // 
-            this.lblContra.AutoSize = true;
-            this.lblContra.Location = new System.Drawing.Point(283, 75);
-            this.lblContra.Name = "lblContra";
-            this.lblContra.Size = new System.Drawing.Size(64, 13);
-            this.lblContra.TabIndex = 1;
-            this.lblContra.Text = "Contraseña:";
-            // 
             // txtUser
             // 
             this.txtUser.Location = new System.Drawing.Point(353, 38);
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(100, 20);
             this.txtUser.TabIndex = 2;
-            // 
-            // TxtContra
-            // 
-            this.TxtContra.Location = new System.Drawing.Point(353, 75);
-            this.TxtContra.Name = "TxtContra";
-            this.TxtContra.Size = new System.Drawing.Size(100, 20);
-            this.TxtContra.TabIndex = 3;
+            this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
             // 
             // groupBox1
             // 
@@ -117,12 +100,10 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.TxtContra);
             this.Controls.Add(this.txtUser);
-            this.Controls.Add(this.lblContra);
             this.Controls.Add(this.lblUser);
             this.Name = "Seguridad";
-            this.Text = "Seguridad";
+            this.Text = "SeguridadAdmin";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,9 +112,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblUser;
-        private System.Windows.Forms.Label lblContra;
         private System.Windows.Forms.TextBox txtUser;
-        private System.Windows.Forms.TextBox TxtContra;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;

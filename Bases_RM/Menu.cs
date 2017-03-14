@@ -35,8 +35,8 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Pedidos ped = new Pedidos();
-            ped.ShowDialog();
+            Ordenes ordenes = new Ordenes();
+            ordenes.ShowDialog();
         }
 
         private void btntrabajadores_Click(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace Bases_RM
         private void btnseguridad_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Seguridad segu = new Seguridad();
+            Seguridad1 segu = new Seguridad1(datos_us);
             segu.Show();
         }
 
