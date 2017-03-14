@@ -35,6 +35,7 @@
     <StartupObject>Bases_RM.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Remotion">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
@@ -62,6 +63,18 @@
     </Compile>
     <Compile Include="AbonoDeuda.Designer.cs">
       <DependentUpon>AbonoDeuda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CambioContra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambioContra.Designer.cs">
+      <DependentUpon>CambioContra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="esteno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="esteno.Designer.cs">
+      <DependentUpon>esteno.cs</DependentUpon>
     </Compile>
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
@@ -128,6 +141,12 @@
     <Compile Include="Seguridad.Designer.cs">
       <DependentUpon>Seguridad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Seguridad1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Seguridad1.Designer.cs">
+      <DependentUpon>Seguridad1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trabajadores.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +157,12 @@
     <Compile Include="Vigenere.cs" />
     <EmbeddedResource Include="AbonoDeuda.resx">
       <DependentUpon>AbonoDeuda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CambioContra.resx">
+      <DependentUpon>CambioContra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="esteno.resx">
+      <DependentUpon>esteno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
@@ -175,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Seguridad.resx">
       <DependentUpon>Seguridad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Seguridad1.resx">
+      <DependentUpon>Seguridad1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trabajadores.resx">
       <DependentUpon>Trabajadores.cs</DependentUpon>
