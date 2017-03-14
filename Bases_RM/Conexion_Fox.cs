@@ -31,14 +31,14 @@ namespace Bases_RM
             Conexion_DB = new Conexion_DB();//inicializamos el objeto de la clase Conexion_DB
             Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
 
-            String[] codigos = Conexion_DB.obtener_Codigos();//codigos en la base 
+            //Producto[] codigos = Conexion_DB.obtener_Codigos();//codigos en la base 
            
             Variable_Conexion.Open();//Se abre la conexion con la base de datos
             comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
             Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
             while (Variable_Lectura.Read())//Se ejecuta el ciclo si existen datos por leer
             {
-                if (Conexion_DB.Existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
+                if (Conexion_DB.existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
                 {
                     Conexion_DB.modificacionProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
                         Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
