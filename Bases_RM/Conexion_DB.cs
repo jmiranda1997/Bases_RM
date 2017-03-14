@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
+using MySql.Data.MySqlClient.MySqlException;
 
 namespace Bases_RM
 {
@@ -89,16 +90,17 @@ namespace Bases_RM
         public void ingresoEncargado(String nombre, String correo, int idProveedor){
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO encargado (Nombre, Correo, Proveedor_ID) VALUES ('"+nombre+"','"+correo+"',"+idProveedor.ToString()+");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-                  
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingresa los datos del Proveedor a la BD
@@ -108,16 +110,17 @@ namespace Bases_RM
         public void ingresoProveedor(String nombre, int idPais){
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO proveedor (Nombre, Pais_ID) VALUES ('" + nombre + "'," + idPais.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-                  
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingresa los datos del Trabajador en la BD
@@ -128,16 +131,17 @@ namespace Bases_RM
         public void ingresoTrabajador(String nombre, double salario, int idSucursal){
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO trabajador (Nombre, Salario, Sucursal_ID) VALUES ('" + nombre + "'," + salario + "," + idSucursal.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-                  
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de las ausencias de los trabajadores
@@ -149,16 +153,17 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             comando.CommandText = "INSERT INTO ausencia (Fecha, Trabajador_idTrabajador) VALUES ('" + fechaString + "'," + idTrabajador.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de los pagos a los prestamos realizados
@@ -173,16 +178,17 @@ namespace Bases_RM
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
             comando.CommandText = "INSERT INTO pagos (Fecha, Monto, Prestamo_ID, Fecha_Ingreso) VALUES ('" + fechaString + "'," + monto.ToString() + "," + idPrestamo.ToString() + ",'"+ingresoString+"');";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de los pagos a las deudas adquiridas
@@ -197,16 +203,17 @@ namespace Bases_RM
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
             comando.CommandText = "INSERT INTO pagos (Fecha, Monto, Deuda_ID, Fecha_Ingreso) VALUES ('" + fechaString + "'," + monto.ToString() + "," + idDeuda.ToString() + ",'" + ingresoString + "');";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de un nuevo usuario a la BD
@@ -221,16 +228,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO usuario (Nombre, Clave, Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad) VALUES ('" + nombre + "','" + clave + "','" + pedidos + "','" + clientes + "','" + trabajadores + "','" + seguridad + "');";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de clasificación de usuarios
@@ -240,16 +248,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO clasificacion (Tipo) VALUES ('" + tipo + "');"; 
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de los paises donde se encuentran los proveedores
@@ -259,16 +268,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO pais (Nombre) VALUES ('" + nombre + "');";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de clientes nuevos
@@ -282,16 +292,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de pedidos de mercadería a los proveedores
@@ -304,16 +315,17 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             comando.CommandText = "INSERT INTO pedido (Fecha, Total, Proveedor_ID) VALUES ('"+fechaString+"'," + total.ToString() + "," + idProveedor.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de prestamos dados a los trabajadores
@@ -324,16 +336,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO prestamo (Monto, Trabajador_idTrabajador) VALUES (" + monto.ToString() + "," + idTrabajador + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de sucursales
@@ -343,16 +356,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO Sucursal (nombre) VALUES ('" + nombre + "');";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-               
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de deuda adquirida por un cliente hacia la empresa
@@ -368,16 +382,17 @@ namespace Bases_RM
             String pagoString = pago.Year.ToString() + "-" + pago.Month.ToString() + "-" + pago.Day.ToString();
             String ingresoString = ingreso.Year.ToString() + "-" + ingreso.Month.ToString() + "-" + ingreso.Day.ToString();
             comando.CommandText = "INSERT INTO  deuda (Fecha_Pago, Total, Cliente_NIT, Sucursal_ID, Fecha_Ingreso) VALUES ('" + pagoString + "'," + total.ToString() + ",'" + nit + "'," + idSucursal.ToString() + ",'" + ingresoString + "');";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de nuevos productos
@@ -393,14 +408,17 @@ namespace Bases_RM
         public void ingresoProducto(String codInterno, String codFabricante, String descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO producto (Codigo_Interno, Codigo_Fabricante, Descripcion, Marca, Fabricante, Departamento, Precio_Costo, Precio_Venta) VALUES ('" + codInterno + "','" + codFabricante + "','" + Descripcion + "','" + marca + "','" + fabricante + "','" + departamento + "'," + precioCosto.ToString() + "," + precioVenta.ToString() + ");";
-            Variable_Conexion.Open();
+            comando.CommandText = "INSERT INTO producto (Codigo_Interno, Codigo_Fabricante, Descripcion, Marca, Fabricante, Departamento, Precio_Costo, Precio_Venta) VALUES ('" + codInterno + "','" + codFabricante + "','" + descripcion + "','" + marca + "','" + fabricante + "','" + departamento + "'," + precioCosto.ToString() + "," + precioVenta.ToString() + ");";
             try{
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
-            }catch(Exception e){
-
+                Variable_Conexion.Close();
             }
-            Variable_Conexion.Close();
+            catch(MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
         }
         /// <summary>
         /// Ingreso de teléfonos para encargados de ventas de los proveedores
@@ -411,16 +429,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO telefono (Telefono, Encargado_id) VALUES ('" + telefono + "'," + idEncargado.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de teléfonos para clientes
@@ -431,16 +450,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO telefono (Telefono, Cliente_NIT) VALUES ('" + telefono + "','" + nitDpiCliente + "');";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
             //--------------------INGRESO RELACIONES--------------------//
 
@@ -456,16 +476,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad, Precio_Compra) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ","+precioCompra.ToString()+");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso de inventario de un producto en cierta sucursal
@@ -477,16 +498,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO prod_suc (Sucursal_ID, Producto_Codigo_Interno, Existencia) VALUES (" + idSucursal.ToString() + ",'" + codInternoProducto + "'," + existencia.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Ingreso del precio al cual vende el proveedor cierto producto
@@ -498,16 +520,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO prov_prod (Producto_Codigo_Interno, Proveedor_ID, Precio_Proveedor) VALUES ('" + codInternoProducto + "'," + idProveedor.ToString() + "," + precioProveedor.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
 
         //---------------MODIFICACIONES--------------//
@@ -517,62 +540,66 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE encargado SET Nombre='" + nombre + "', Correo='" + correo + "', Proveedor_ID=" + idProveedor.ToString() + " WHERE id="+ID.ToString()+";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionProveedor(int ID, String nombre, int idPais)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE proveedor SET Nombre='" + nombre + "', Pais_ID=" + idPais.ToString() + " WHERE ID="+ID.ToString()+";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionTrabajador(int ID, String nombre, double salario, int idSucursal)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE trabajador SET Nombre='" + nombre + "', Salario=" + salario + ", Sucursal_ID=" + idSucursal.ToString() + " WHERE ID=" + ID.ToString() + ";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionAusencia(int ID, DateTime fecha, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             comando.CommandText = "UPDATE ausencia SET Fecha='" + fechaString + "', Trabajador_idTrabajador=" + idTrabajador.ToString() + " WHERE Id=" + ID.ToString() + ";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionPagoPrestamo(int ID, DateTime fecha, double monto, int idPrestamo, DateTime fechaIngreso)
         {
@@ -580,16 +607,17 @@ namespace Bases_RM
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
             comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionPagoDeuda(int ID, DateTime fecha, double monto, int idDeuda, DateTime fechaIngreso)
         {
@@ -597,31 +625,33 @@ namespace Bases_RM
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
             comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE" + ID.ToString() + " AND Prestamo_ID != NULL;";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE usuario SET Clave='" + clave + "', Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Cambia la contraseña del usuario
@@ -632,107 +662,114 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE usuario SET Clave='" + clave + "' WHERE nombre='" + nombre + "';";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionClasificacion(int ID, String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE clasificacion SET Tipo='" + tipo + "' WHERE ID=" + ID.ToString() + ";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionPais(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE pais SET Nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionPedido(int Numero, DateTime fecha, double total, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             comando.CommandText = "UPDATE pedido SET Fecha='" + fechaString + "', Total=" + total.ToString() + ", Proveedor_ID=" + idProveedor.ToString() + " WHERE Numero=" + Numero.ToString() + ";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionPrestamo(int ID, double monto, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE prestamo SET Monto=" + monto.ToString() + ", Trabajador_idTrabajador=" + idTrabajador + " WHERE ID="+ID.ToString()+";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionSucursal(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE Sucursal SET nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionDeuda(int ID, DateTime pago, double total, string nit, int idSucursal, DateTime ingreso)
         {
@@ -740,47 +777,50 @@ namespace Bases_RM
             String pagoString = pago.Year.ToString() + "-" + pago.Month.ToString() + "-" + pago.Day.ToString();
             String ingresoString = ingreso.Year.ToString() + "-" + ingreso.Month.ToString() + "-" + ingreso.Day.ToString();
             comando.CommandText = "UPDATE  deuda SET Fecha_Pago='" + pagoString + "', Total=" + total.ToString() + ", Cliente_NIT='" + nit + "', Sucursal_ID=" + idSucursal.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID="+ID.ToString()+";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
       
         public void modificacionTelefono(int idEncargado, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado + ";";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionTelefono(String nitDpiCliente, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Cliente_NIT='" + nitDpiCliente + "';";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Modifica todos los parametros de la tabla de producto 
@@ -797,17 +837,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE producto SET Codigo_Fabricante='" + codFabricante + "', Descripcion='" + descripcion + "', Marca='" + marca + "', Fabricante='" + fabricante + "', Departamento='" + departamento + "', Precio_Costo='" + precioCosto + "', Precio_Venta='"+ precioVenta + "' WHERE Codigo_Interno='"+ CodInterno + "';";
-
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         //--------------------MODIFICACION RELACIONES--------------------//
 
@@ -816,16 +856,17 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         /// <summary>
         /// Modificación del inventario de un producto en cierta sucursal
@@ -837,31 +878,33 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE prod_suc SET Existencia=" + existencia.ToString() + " WHERE Sucursal_ID=" + idSucursal.ToString() + " AND Producto_Codigo_Interno='" + codInternoProducto + "';";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
         public void modificacionProveedorProducto(String codInternoProducto, int idProveedor, double precioProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE prov_prod (Producto_Codigo_Interno, Proveedor_ID, Precio_Proveedor) VALUES ('" + codInternoProducto + "'," + idProveedor.ToString() + "," + precioProveedor.ToString() + ");";
-            Variable_Conexion.Open();
             try
             {
+                Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
+                Variable_Conexion.Close();
+                throw e;
             }
-            Variable_Conexion.Close();
         }
 
 
@@ -875,25 +918,33 @@ namespace Bases_RM
             int total;
             comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
             comando.CommandText = "SELECT COUNT(*) FROM sucursal;";//Consulta para la base, obtener el numero de sucursales
-            Variable_Conexion.Open();//se abre la conexion a la base
-            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
-            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            try
             {
-                total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
-                sucursales = new String[total];//se crea un arreglo de cadenas del tamaño del conteo obtenido de sucursales
-                comando.CommandText = "SELECT Nombre FROM sucursal;";
-                Variable_Conexion.Close();//se cierra la conexion
-                Variable_Conexion.Open();
-                Variable_Lectura = comando.ExecuteReader();
-                int contador = 0;
-                while(Variable_Lectura.Read())
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
                 {
-                   sucursales[contador] = Variable_Lectura[0].ToString();
-                   contador++;
+                    total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                    sucursales = new String[total];//se crea un arreglo de cadenas del tamaño del conteo obtenido de sucursales
+                    comando.CommandText = "SELECT Nombre FROM sucursal;";
+                    Variable_Conexion.Close();//se cierra la conexion
+                    Variable_Conexion.Open();
+                    Variable_Lectura = comando.ExecuteReader();
+                    int contador = 0;
+                    while (Variable_Lectura.Read())
+                    {
+                        sucursales[contador] = Variable_Lectura[0].ToString();
+                        contador++;
+                    }
                 }
+                Variable_Conexion.Close();//se cierra la conexion
+                return sucursales;
             }
-            Variable_Conexion.Close();//se cierra la conexion
-            return sucursales;
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
         }
         /// <summary>
         /// obtiene un arreglo con los codigos que existen en la base de datos
@@ -930,27 +981,35 @@ namespace Bases_RM
         /// </summary>
         /// <param name="Codigo">Codigo que se busca</param>
         /// <returns>Un booleano que indica si existe o no un codigo en la base de datos</returns>
-        public Boolean Existe_Codigo(String Codigo_Interno)
+        public Boolean existe_Codigo(String Codigo_Interno)
         {
-            Boolean Existe = false;
-            int contador = 0;
-            
-            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
-            comando.CommandText = "SELECT COUNT(*) FROM producto WHERE Codigo_Interno='" + Codigo_Interno + "';";//Consulta para la base, obtener el numero de sucursales
-            Variable_Conexion.Open();//se abre la conexion a la base
-            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
-            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            try
             {
-                contador = int.Parse(Variable_Lectura[0].ToString());// se almacena la cantidad qeu se obtine de la base
-            }
-            Variable_Conexion.Close();//cerramos la conexion con la base
+                Boolean Existe = false;
+                int contador = 0;
 
-            if (contador != 0)//conparamos si el numero obtenido es diferente de 0 cambiamos el valor por que el codigo ya existe en la base
+                comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+                comando.CommandText = "SELECT COUNT(*) FROM producto WHERE Codigo_Interno='" + Codigo_Interno + "';";//Consulta para la base, obtener el numero de sucursales
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    contador = int.Parse(Variable_Lectura[0].ToString());// se almacena la cantidad qeu se obtine de la base
+                }
+                Variable_Conexion.Close();//cerramos la conexion con la base
+
+                if (contador != 0)//conparamos si el numero obtenido es diferente de 0 cambiamos el valor por que el codigo ya existe en la base
+                {
+                    Existe = true;
+                }
+
+                return Existe;//regresamos el valor booleano de la consulta
+            }
+            catch (MySqlException e)
             {
-                Existe = true;
+                Variable_Conexion.Close();
+                throw e;
             }
-
-            return Existe;//regresamos el valor booleano de la consulta
         }
 
     }
