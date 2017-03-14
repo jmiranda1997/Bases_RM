@@ -14,57 +14,42 @@ namespace Bases_RM
 
     class Conexion_Fox
     {
-        private Conexion_DB Conexion_DB;
-        private OleDbConnection Variable_Conexion;
-        private OleDbCommand comando;
-        private OleDbDataReader Variable_Lectura;
-
-        //private OleDbDataAdapter Variable_Datos;
-        //private DataTable DS;
+        private Conexion_DB Conexion_DB;//Objeto de la clase Conexion_DB 
+        private OleDbConnection Variable_Conexion;//Conexion con la base de Fox_Pro
+        private OleDbCommand comando;//Variable en la cual se asignan los comando 
+        private OleDbDataReader Variable_Lectura;//Variable de lectura de datos
+        private OleDbDataAdapter Adaptador_Datos;//adaptador para  guardar los datos en un DataTable
+        private DataTable Tabla_Datos;//tabla que almacena datos
 
         /// <summary>
         /// Metodo que se encarga de ingresar los codigos nuevos a la base de datos y modificar los codigos ya existentes en la base de datos
         /// </summary>
         /// <param name="barra">Progres bar que es aumentada segun el proceso de la actualizacion o insercion de codigos</param>
         /// <param name="etiqueta">etiqueta que contiene el progrteso de inserciones o modificaciones</param>
-        public void Insertar_Codigos(ProgressBar barra, Label etiqueta)
+        public void Insertar_Codigos(/*ProgressBar barra, Label etiqueta*/)
         {
             Conexion_DB = new Conexion_DB();//inicializamos el objeto de la clase Conexion_DB
             Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
 
-            Variable_Conexion.Open();
-            comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF", Variable_Conexion);
-            Variable_Lectura = comando.ExecuteReader();
-            int codigos = 0;
-            if (Variable_Lectura.Read())
+            String[] codigos = Conexion_DB.obtener_Codigos();//codigos en la base 
+           
+            Variable_Conexion.Open();//Se abre la conexion con la base de datos
+            comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
+            Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
+            while (Variable_Lectura.Read())//Se ejecuta el ciclo si existen datos por leer
             {
-                codigos = int.Parse(Variable_Lectura[0].ToString());
-            }
-            Variable_Conexion.Close();
-
-            barra.Maximum = codigos;
-            barra.Minimum = 0;
-            int cont =0;
-            Variable_Conexion.Open();
-            comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2 FROM INVENT.DBF", Variable_Conexion);
-            Variable_Lectura = comando.ExecuteReader();
-            while (Variable_Lectura.Read())
-            {
-                cont++;
-                barra.Value++;
-                etiqueta.Text = cont + "/" + codigos;
-                if (Conexion_DB.Existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))
+                if (Conexion_DB.Existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
                 {
                     Conexion_DB.modificacionProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
                         Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
                 }
-                else
+                else// si no existe el codigo se ingresa
                 {
                     Conexion_DB.ingresoProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
                         Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
                 }
             }
-            Variable_Conexion.Close();
+            Variable_Conexion.Close();//se cierra la conexion con la base de datos
         }
 
         /// <summary>
@@ -125,11 +110,71 @@ namespace Bases_RM
 
             return deci;
         }
+        /// <summary>
+        /// Verifica si exite in codigo en la base Fox_Pro
+        /// </summary>
+        /// <param name="codigo">Codigo que se busca</param>
+        /// <returns>booleano que indica si se encontro o no el codigo</returns>
         private Boolean Exisete_Codigo(String codigo)
         {
             Boolean existe = false;
+
+            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos
+
+            Variable_Conexion.Open();//abrimos la conexion 
+            comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF WHERE codigo='" + codigo + "'", Variable_Conexion);//Consulta para el conteo segun el codigo
+            Variable_Lectura = comando.ExecuteReader();//Guardamos los datos en la variable de lectura
+
+            int cuenta = 0;
+            if (Variable_Lectura.Read())//Se comprueba si se realizo la consulta
+            {
+                cuenta = int.Parse(Variable_Lectura[0].ToString());//cantidad  de veces que se repite el codigo
+            }
+
+            if (cuenta == 1)
+            {
+                existe = true;//se dice que si existe el codigo
+            }
+
 
             return existe;
         }
     }
 }
+
+ //Conexion_DB = new Conexion_DB();//inicializamos el objeto de la clase Conexion_DB
+ //           Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
+
+ //           /*Variable_Conexion.Open();
+ //           comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF", Variable_Conexion);
+ //           Variable_Lectura = comando.ExecuteReader();
+ //           int codigos = 0;
+ //           if (Variable_Lectura.Read())
+ //           {
+ //               codigos = int.Parse(Variable_Lectura[0].ToString());
+ //           }
+ //           Variable_Conexion.Close();
+
+ //           barra.Maximum = codigos;
+ //           barra.Minimum = 0;
+ //           int cont =0;*/
+ //           Variable_Conexion.Open();//Se abre la conexion con la base de datos
+ //           comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
+ //           Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
+ //           while (Variable_Lectura.Read())//Se ejecuta el ciclo si existen datos por leer
+ //           {
+ //               /*cont++;
+ //               barra.Value++;
+ //               etiqueta.Text = cont + "/" + codigos;*/
+ //               if (Conexion_DB.Existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
+ //               {
+ //                   Conexion_DB.modificacionProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
+ //                       Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
+ //               }
+ //               else// si no existe el codigo se ingresa
+ //               {
+ //                   Conexion_DB.ingresoProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
+ //                       Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
+ //               }
+ //           }
+ //           Variable_Conexion.Close();//se cierra la conexion con la base de datos

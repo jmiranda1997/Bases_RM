@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using System.Reflection;
 
 namespace Bases_RM
 {
@@ -20,13 +22,20 @@ namespace Bases_RM
             InitializeComponent();
             Conexion = new Conexion_DB();
             Vig = new Vigenere();
+           
+            Thread tare = new Thread(ejecutar);
+            tare.Start();
+
+        }
+        public void ejecutar(object pb)
+        {
+            Conexion_Fox fox = new Conexion_Fox();
+            fox.Insertar_Codigos();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            //Ordenes prueba = new Ordenes();
-            //prueba.ShowDialog();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -93,6 +102,16 @@ namespace Bases_RM
         }
 
         private void pixLogo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
         {
 
         }
