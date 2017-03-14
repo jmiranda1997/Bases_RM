@@ -795,6 +795,36 @@ namespace Bases_RM
             return sucursales;
         }
         /// <summary>
+        /// obtiene un arreglo con los codigos que existen en la base de datos
+        /// </summary>
+        /// <returns>Arreglo con los codigos en la base de datos</returns>
+        public String[] obtener_Codigos()
+        {
+            String[] codigos = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM producto;";//Consulta para la base, obtener el numero de productos
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                codigos = new String[total];//se crea un arreglo de cadenas del tamaño del conteo de codigos 
+                comando.CommandText = "SELECT Codigo_Interno FROM sucursal;";//Consulta que obtiene todos los codigos en la base 
+                Variable_Conexion.Close();//se cierra la conexion
+                Variable_Conexion.Open();//se abre nuevamente la conexion con la base
+                Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
+                int contador = 0;//control de posicion en el arreglo
+                while (Variable_Lectura.Read())//ciclo tipo loop que se ejecuta mientras existan datos en la consulra
+                {
+                    codigos[contador] = Variable_Lectura[0].ToString();//se almacena cada codigo a la posicion del arreglo
+                    contador++;//se aumenta el contador
+                }
+            }
+            Variable_Conexion.Close();//se cierra la conexion
+            return codigos;//regresamos el arreglo
+        }
+        /// <summary>
         /// Metodo que verifica si existe un codigo en la base de datos
         /// </summary>
         /// <param name="Codigo">Codigo que se busca</param>
