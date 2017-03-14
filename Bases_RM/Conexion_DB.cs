@@ -219,7 +219,7 @@ namespace Bases_RM
         public void ingresoClasificacion(String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO clasicacion (Tipo) VALUES ('" + tipo + "');"; 
+            comando.CommandText = "INSERT INTO clasificacion (Tipo) VALUES ('" + tipo + "');"; 
             Variable_Conexion.Open();
             try
             {
@@ -369,10 +369,10 @@ namespace Bases_RM
             //--------------------INGRESO RELACIONES--------------------//
 
 
-        public void ingresoDetallePedido(String codInternoProducto, int numeroPedido, int cantidad)
+        public void ingresoDetallePedido(String codInternoProducto, int numeroPedido, int cantidad, double precioCompra)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ");";
+            comando.CommandText = "INSERT INTO detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad, Precio_Compra) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ","+precioCompra.ToString()+");";
             Variable_Conexion.Open();
             try
             {
@@ -551,7 +551,7 @@ namespace Bases_RM
         public void modificacionClasificacion(int ID, String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE clasicacion SET Tipo='" + tipo + "' WHERE ID="+ID.ToString()+";";
+            comando.CommandText = "UPDATE clasificacion SET Tipo='" + tipo + "' WHERE ID=" + ID.ToString() + ";";
             Variable_Conexion.Open();
             try
             {
