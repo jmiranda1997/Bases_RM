@@ -52,14 +52,15 @@ namespace Bases_RM
             if (Variable_Lectura.Read() == true)                   //se verifica si se obtiene algun dato de la base
             {
                 contraseña = Variable_Lectura["Clave"].ToString();
-               //Vig.descifrar(contraseña, Vig.getCP());//se guarda la contraseña
-               //contraseña = Vig.getMD();
+               Vig.descifrar(contraseña, Vig.getCP());//se guarda la contraseña
+               contraseña = Vig.getMD();
             }
             
             Variable_Conexion.Close();                                                               //se cierra la conexion
            return contraseña;                                    //regresa la contraseña obtenida de la base
 
         }
+        //public 
         public Usuario Datos_De_User(string usuario)
         {
             Usuario temp = null;

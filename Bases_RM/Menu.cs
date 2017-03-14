@@ -53,7 +53,7 @@ namespace Bases_RM
         private void btnseguridad_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Seguridad segu = new Seguridad();
+            Seguridad1 segu = new Seguridad1(datos_us);
             segu.Show();
         }
 

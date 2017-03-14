@@ -14,6 +14,7 @@ namespace Bases_RM
     {
         private Conexion_DB Conexion;
         private Vigenere Vig;
+        public Usuario datos_us;
         String Contra = "", User = "", Contra_Vig = "3JOR";
         public Login()
         {
@@ -27,6 +28,10 @@ namespace Bases_RM
             this.Close();
             //Ordenes prueba = new Ordenes();
             //prueba.ShowDialog();
+           // Seguridad pueba = new Seguridad();
+            //pueba.ShowDialog();
+            //Seguridad1 prueba2 = new Seguridad1(datos_us);
+            //prueba2.ShowDialog();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -60,11 +65,13 @@ namespace Bases_RM
         /**
         Metodo que cifra y descifra la clave 
         */
-        public void Cifrado_Usuario(String contraseña, String Usuario)
-        {
-            Contra = txtContraseña.Text.Trim();
-            Vig.cifrar(Contra, Contra_Vig);
-        }
+
+        //public void Cifrado_Usuario(String contraseña, String Usuario)
+        //{
+        //    Contra = txtContraseña.Text.Trim();
+        //    Vig.cifrar(Contra, Contra_Vig);
+        //}
+
         /*
          
          */
@@ -91,6 +98,7 @@ namespace Bases_RM
                 }
             }
         }
+        
 
         private void pixLogo_Click(object sender, EventArgs e)
         {
