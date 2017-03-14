@@ -30,10 +30,10 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.OrdenesTree = new System.Windows.Forms.TreeView();
             this.FiltComboBx = new System.Windows.Forms.ComboBox();
             this.ListaProve = new System.Windows.Forms.CheckedListBox();
-            this.salirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblDescrip = new System.Windows.Forms.Label();
             this.lblCI = new System.Windows.Forms.Label();
             this.lblCF = new System.Windows.Forms.Label();
@@ -75,9 +75,15 @@
             this.archivoToolStripMenuItem.Text = "&Archivo";
             this.archivoToolStripMenuItem.Click += new System.EventHandler(this.archivoToolStripMenuItem_Click);
             // 
+            // salirToolStripMenuItem1
+            // 
+            this.salirToolStripMenuItem1.Name = "salirToolStripMenuItem1";
+            this.salirToolStripMenuItem1.Size = new System.Drawing.Size(41, 20);
+            this.salirToolStripMenuItem1.Text = "&Salir";
+            // 
             // OrdenesTree
             // 
-            this.OrdenesTree.Location = new System.Drawing.Point(12, 27);
+            this.OrdenesTree.Location = new System.Drawing.Point(12, 26);
             this.OrdenesTree.Name = "OrdenesTree";
             this.OrdenesTree.Size = new System.Drawing.Size(190, 395);
             this.OrdenesTree.TabIndex = 1;
@@ -96,16 +102,10 @@
             // ListaProve
             // 
             this.ListaProve.FormattingEnabled = true;
-            this.ListaProve.Location = new System.Drawing.Point(469, 149);
+            this.ListaProve.Location = new System.Drawing.Point(469, 128);
             this.ListaProve.Name = "ListaProve";
             this.ListaProve.Size = new System.Drawing.Size(348, 244);
             this.ListaProve.TabIndex = 4;
-            // 
-            // salirToolStripMenuItem1
-            // 
-            this.salirToolStripMenuItem1.Name = "salirToolStripMenuItem1";
-            this.salirToolStripMenuItem1.Size = new System.Drawing.Size(41, 20);
-            this.salirToolStripMenuItem1.Text = "&Salir";
             // 
             // lblDescrip
             // 
@@ -119,7 +119,7 @@
             // lblCI
             // 
             this.lblCI.AutoSize = true;
-            this.lblCI.Location = new System.Drawing.Point(230, 71);
+            this.lblCI.Location = new System.Drawing.Point(230, 73);
             this.lblCI.Name = "lblCI";
             this.lblCI.Size = new System.Drawing.Size(79, 13);
             this.lblCI.TabIndex = 6;
@@ -128,7 +128,7 @@
             // lblCF
             // 
             this.lblCF.AutoSize = true;
-            this.lblCF.Location = new System.Drawing.Point(230, 100);
+            this.lblCF.Location = new System.Drawing.Point(230, 102);
             this.lblCF.Name = "lblCF";
             this.lblCF.Size = new System.Drawing.Size(96, 13);
             this.lblCF.TabIndex = 7;
@@ -137,7 +137,7 @@
             // lblPC
             // 
             this.lblPC.AutoSize = true;
-            this.lblPC.Location = new System.Drawing.Point(230, 126);
+            this.lblPC.Location = new System.Drawing.Point(230, 128);
             this.lblPC.Name = "lblPC";
             this.lblPC.Size = new System.Drawing.Size(70, 13);
             this.lblPC.TabIndex = 8;
@@ -146,7 +146,7 @@
             // lblPV
             // 
             this.lblPV.AutoSize = true;
-            this.lblPV.Location = new System.Drawing.Point(230, 152);
+            this.lblPV.Location = new System.Drawing.Point(230, 154);
             this.lblPV.Name = "lblPV";
             this.lblPV.Size = new System.Drawing.Size(71, 13);
             this.lblPV.TabIndex = 9;
@@ -155,7 +155,7 @@
             // lblmar
             // 
             this.lblmar.AutoSize = true;
-            this.lblmar.Location = new System.Drawing.Point(230, 178);
+            this.lblmar.Location = new System.Drawing.Point(230, 180);
             this.lblmar.Name = "lblmar";
             this.lblmar.Size = new System.Drawing.Size(40, 13);
             this.lblmar.TabIndex = 10;
@@ -164,7 +164,7 @@
             // lblDepa
             // 
             this.lblDepa.AutoSize = true;
-            this.lblDepa.Location = new System.Drawing.Point(230, 208);
+            this.lblDepa.Location = new System.Drawing.Point(230, 210);
             this.lblDepa.Name = "lblDepa";
             this.lblDepa.Size = new System.Drawing.Size(77, 13);
             this.lblDepa.TabIndex = 11;
@@ -173,7 +173,7 @@
             // lblProove
             // 
             this.lblProove.AutoSize = true;
-            this.lblProove.Location = new System.Drawing.Point(230, 234);
+            this.lblProove.Location = new System.Drawing.Point(230, 236);
             this.lblProove.Name = "lblProove";
             this.lblProove.Size = new System.Drawing.Size(59, 13);
             this.lblProove.TabIndex = 12;
@@ -189,49 +189,49 @@
             // 
             // txtCI
             // 
-            this.txtCI.Location = new System.Drawing.Point(332, 67);
+            this.txtCI.Location = new System.Drawing.Point(332, 69);
             this.txtCI.Name = "txtCI";
             this.txtCI.Size = new System.Drawing.Size(103, 20);
             this.txtCI.TabIndex = 14;
             // 
             // txtCF
             // 
-            this.txtCF.Location = new System.Drawing.Point(332, 95);
+            this.txtCF.Location = new System.Drawing.Point(332, 97);
             this.txtCF.Name = "txtCF";
             this.txtCF.Size = new System.Drawing.Size(216, 20);
             this.txtCF.TabIndex = 15;
             // 
             // txtPC
             // 
-            this.txtPC.Location = new System.Drawing.Point(306, 123);
+            this.txtPC.Location = new System.Drawing.Point(332, 123);
             this.txtPC.Name = "txtPC";
             this.txtPC.Size = new System.Drawing.Size(103, 20);
             this.txtPC.TabIndex = 16;
             // 
             // txtPV
             // 
-            this.txtPV.Location = new System.Drawing.Point(307, 149);
+            this.txtPV.Location = new System.Drawing.Point(333, 149);
             this.txtPV.Name = "txtPV";
             this.txtPV.Size = new System.Drawing.Size(103, 20);
             this.txtPV.TabIndex = 17;
             // 
             // txtMar
             // 
-            this.txtMar.Location = new System.Drawing.Point(306, 175);
+            this.txtMar.Location = new System.Drawing.Point(332, 175);
             this.txtMar.Name = "txtMar";
             this.txtMar.Size = new System.Drawing.Size(103, 20);
             this.txtMar.TabIndex = 18;
             // 
             // txtDepar
             // 
-            this.txtDepar.Location = new System.Drawing.Point(306, 205);
+            this.txtDepar.Location = new System.Drawing.Point(332, 205);
             this.txtDepar.Name = "txtDepar";
             this.txtDepar.Size = new System.Drawing.Size(103, 20);
             this.txtDepar.TabIndex = 19;
             // 
             // txtProve
             // 
-            this.txtProve.Location = new System.Drawing.Point(307, 231);
+            this.txtProve.Location = new System.Drawing.Point(333, 231);
             this.txtProve.Name = "txtProve";
             this.txtProve.Size = new System.Drawing.Size(103, 20);
             this.txtProve.TabIndex = 20;
@@ -256,21 +256,23 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(251, 310);
+            this.button1.Location = new System.Drawing.Point(263, 342);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 23;
-            this.button1.Text = "<-----";
+            this.button1.Text = "<";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(332, 310);
+            this.button2.Location = new System.Drawing.Point(344, 342);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 24;
-            this.button2.Text = "----->";
+            this.button2.Text = ">";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Ordenes
             // 
@@ -301,11 +303,12 @@
             this.Controls.Add(this.FiltComboBx);
             this.Controls.Add(this.OrdenesTree);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Ordenes";
             this.Text = "Ordenes";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Load += new System.EventHandler(this.Ordenes_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
