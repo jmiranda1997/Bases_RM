@@ -38,7 +38,7 @@ namespace Bases_RM
             Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
             while (Variable_Lectura.Read())//Se ejecuta el ciclo si existen datos por leer
             {
-                if (Conexion_DB.Existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
+                if (Conexion_DB.existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
                 {
                     Conexion_DB.modificacionProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
                         Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
