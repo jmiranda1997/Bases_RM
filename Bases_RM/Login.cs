@@ -93,7 +93,7 @@ namespace Bases_RM
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña Incorrecta\nIngresada "+ txtContraseña.Text + "\nConsultada "+ Clave_Usuario,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("Contraseña Incorrecta", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     this.Show();
                     txtContraseña.SelectAll();
                     txtContraseña.Focus();
