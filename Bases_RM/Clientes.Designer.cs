@@ -53,6 +53,8 @@
             this.lbBuscar = new System.Windows.Forms.Label();
             this.btnAbono = new System.Windows.Forms.Button();
             this.btnDeuda = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TxtApe = new System.Windows.Forms.TextBox();
             this.menuOpciones.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +62,7 @@
             // 
             this.txtBuscar.Location = new System.Drawing.Point(329, 21);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(309, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(323, 20);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -69,7 +71,7 @@
             this.TxtNit.Enabled = false;
             this.TxtNit.Location = new System.Drawing.Point(329, 51);
             this.TxtNit.Name = "TxtNit";
-            this.TxtNit.Size = new System.Drawing.Size(309, 20);
+            this.TxtNit.Size = new System.Drawing.Size(323, 20);
             this.TxtNit.TabIndex = 1;
             // 
             // TxtNom
@@ -77,7 +79,7 @@
             this.TxtNom.Enabled = false;
             this.TxtNom.Location = new System.Drawing.Point(329, 81);
             this.TxtNom.Name = "TxtNom";
-            this.TxtNom.Size = new System.Drawing.Size(309, 20);
+            this.TxtNom.Size = new System.Drawing.Size(125, 20);
             this.TxtNom.TabIndex = 2;
             // 
             // TxtDeuda
@@ -105,9 +107,9 @@
             this.lbNom.AutoSize = true;
             this.lbNom.Location = new System.Drawing.Point(272, 84);
             this.lbNom.Name = "lbNom";
-            this.lbNom.Size = new System.Drawing.Size(47, 13);
+            this.lbNom.Size = new System.Drawing.Size(52, 13);
             this.lbNom.TabIndex = 5;
-            this.lbNom.Text = "Nombre:";
+            this.lbNom.Text = "Nombres:";
             this.lbNom.Click += new System.EventHandler(this.lbNom_Click);
             // 
             // lbDeuda
@@ -115,9 +117,10 @@
             this.lbDeuda.AutoSize = true;
             this.lbDeuda.Location = new System.Drawing.Point(272, 115);
             this.lbDeuda.Name = "lbDeuda";
-            this.lbDeuda.Size = new System.Drawing.Size(34, 13);
+            this.lbDeuda.Size = new System.Drawing.Size(39, 13);
             this.lbDeuda.TabIndex = 6;
-            this.lbDeuda.Text = "Saldo";
+            this.lbDeuda.Text = "Deuda";
+            this.lbDeuda.Click += new System.EventHandler(this.lbDeuda_Click);
             // 
             // arbolClientes
             // 
@@ -129,16 +132,16 @@
             // lbSaldo
             // 
             this.lbSaldo.AutoSize = true;
-            this.lbSaldo.Location = new System.Drawing.Point(460, 115);
+            this.lbSaldo.Location = new System.Drawing.Point(465, 115);
             this.lbSaldo.Name = "lbSaldo";
-            this.lbSaldo.Size = new System.Drawing.Size(38, 13);
+            this.lbSaldo.Size = new System.Drawing.Size(34, 13);
             this.lbSaldo.TabIndex = 8;
-            this.lbSaldo.Text = "Abono";
+            this.lbSaldo.Text = "Saldo";
             // 
             // TxtSaldo
             // 
             this.TxtSaldo.Enabled = false;
-            this.TxtSaldo.Location = new System.Drawing.Point(504, 112);
+            this.TxtSaldo.Location = new System.Drawing.Point(518, 115);
             this.TxtSaldo.Name = "TxtSaldo";
             this.TxtSaldo.Size = new System.Drawing.Size(134, 20);
             this.TxtSaldo.TabIndex = 9;
@@ -222,7 +225,7 @@
             this.archivoToolStripMenuItem});
             this.menuOpciones.Location = new System.Drawing.Point(0, 0);
             this.menuOpciones.Name = "menuOpciones";
-            this.menuOpciones.Size = new System.Drawing.Size(655, 24);
+            this.menuOpciones.Size = new System.Drawing.Size(673, 24);
             this.menuOpciones.TabIndex = 19;
             this.menuOpciones.Text = "menuStrip1";
             // 
@@ -238,15 +241,18 @@
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
+
             this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
+
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
 
             // 
             // exportarToolStripMenuItem
             // 
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
+
             this.exportarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 
             this.exportarToolStripMenuItem.Text = "&Exportar";
@@ -282,11 +288,31 @@
             this.btnDeuda.UseVisualStyleBackColor = true;
             this.btnDeuda.Click += new System.EventHandler(this.btnDeuda_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(465, 84);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Apellidos:";
+            this.label1.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // TxtApe
+            // 
+            this.TxtApe.Enabled = false;
+            this.TxtApe.Location = new System.Drawing.Point(518, 81);
+            this.TxtApe.Name = "TxtApe";
+            this.TxtApe.Size = new System.Drawing.Size(134, 20);
+            this.TxtApe.TabIndex = 23;
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(655, 270);
+            this.ClientSize = new System.Drawing.Size(673, 270);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.TxtApe);
             this.Controls.Add(this.btnDeuda);
             this.Controls.Add(this.btnAbono);
             this.Controls.Add(this.lbBuscar);
@@ -347,5 +373,7 @@
         private System.Windows.Forms.Label lbBuscar;
         private System.Windows.Forms.Button btnAbono;
         private System.Windows.Forms.Button btnDeuda;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox TxtApe;
     }
 }

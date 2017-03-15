@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
 
-
 namespace Bases_RM
 {
     class Conexion_DB
@@ -281,18 +280,20 @@ namespace Bases_RM
                 throw e;
             }
         }
+
         /// <summary>
         /// Ingreso de clientes nuevos
         /// </summary>
         /// <param name="NitDpi">NIT o DPI del cliente</param>
         /// <param name="nombre">Nombre del cliente</param>
+        /// <param name="apellido">Apellido del cliente</param>
         /// <param name="diasCredito">Días de crédito para darle al cliente</param>
         /// <param name="limiteCredito">Monto máximo el cual el cliente puede debernos</param>
         /// <param name="clasificacionId">ID del la clasificación que será el cliente</param>
-        public void ingresoCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
+        public void ingresoCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
+            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Apellido, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "','"+apellido+"'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
             try
             {
                 Variable_Conexion.Open();
@@ -607,7 +608,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Deuda_ID IS NULL;";
             try
             {
                 Variable_Conexion.Open();
@@ -625,7 +626,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID IS NULL;";
             try
             {
                 Variable_Conexion.Open();
@@ -707,10 +708,10 @@ namespace Bases_RM
                 throw e;
             }
         }
-        public void modificacionCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
+        public void modificacionCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
+            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Apellido='"+apellido+"', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
             try
             {
                 Variable_Conexion.Open();
@@ -1092,6 +1093,40 @@ namespace Bases_RM
                 throw e;
             }
             return Existe;//regresamos el valor booleano de la consulta
+        }
+        public String[,] obtener_clientes()
+        {
+            String[,] clientes = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM cliente;";//Consulta para la base, obtener el numero de clientes
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                clientes = new String[total,3];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
+                comando.CommandText = "SELECT Nombre,Apellido,NIT_DPI FROM cliente;";
+                Variable_Conexion.Close();//se cierra la conexion
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                int contador = 0;
+                while (Variable_Lectura.Read())
+                {
+                    clientes[contador,0] = Variable_Lectura["Nombre"].ToString();
+                    clientes[contador,1] = Variable_Lectura["Apellido"].ToString();
+                    clientes[contador,2] = Variable_Lectura["NIT_DPI"].ToString();
+                    contador++;
+                }
+            }
+            Variable_Conexion.Close();//se cierra la conexion
+            return clientes;
+        }
+        public Cliente datos_cliente()
+        {
+            Cliente cliente=null;
+            
+            return cliente;
         }
 
     }
