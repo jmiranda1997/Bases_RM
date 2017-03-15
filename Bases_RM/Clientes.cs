@@ -139,6 +139,10 @@ namespace Bases_RM
         {
 
         }
+        /// <summary>
+        /// Funcion boolean, que verifica si todos los campos necesarios son nulos o vacios
+        /// </summary>
+        /// <returns>RetornaTRUE si hay campos vacios- FALSE si ningun campo necesario es vacio o nulo</returns>
         private bool campos_vacios()
         {
             bool campos_nulos = false;
