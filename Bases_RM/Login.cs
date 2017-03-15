@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using System.Reflection;
 
 namespace Bases_RM
 {
@@ -14,12 +16,22 @@ namespace Bases_RM
     {
         private Conexion_DB Conexion;
         private Vigenere Vig;
+        public Usuario datos_us;
         String Contra = "", User = "", Contra_Vig = "3JOR";
         public Login()
         {
             InitializeComponent();
             Conexion = new Conexion_DB();
             Vig = new Vigenere();
+           
+            Thread tare = new Thread(ejecutar);
+            tare.Start();
+
+        }
+        public void ejecutar(object pb)
+        {
+            Conexion_Fox fox = new Conexion_Fox();
+            fox.Insertar_Codigos();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -58,11 +70,13 @@ namespace Bases_RM
         /**
         Metodo que cifra y descifra la clave 
         */
-        public void Cifrado_Usuario(String contraseña, String Usuario)
-        {
-            Contra = txtContraseña.Text.Trim();
-            Vig.cifrar(Contra, Contra_Vig);
-        }
+
+        //public void Cifrado_Usuario(String contraseña, String Usuario)
+        //{
+        //    Contra = txtContraseña.Text.Trim();
+        //    Vig.cifrar(Contra, Contra_Vig);
+        //}
+
         /*
          
          */
@@ -82,15 +96,26 @@ namespace Bases_RM
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña Incorrecta\nIngresada "+ txtContraseña.Text + "\nConsultada "+ Clave_Usuario,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("Contraseña Incorrecta", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     this.Show();
                     txtContraseña.SelectAll();
                     txtContraseña.Focus();
                 }
             }
         }
+        
 
         private void pixLogo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
         {
 
         }

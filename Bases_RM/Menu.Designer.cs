@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.ptbLogo = new System.Windows.Forms.PictureBox();
             this.btnpedidos = new System.Windows.Forms.Button();
             this.btntrabajadores = new System.Windows.Forms.Button();
@@ -39,7 +40,7 @@
             // 
             // ptbLogo
             // 
-            this.ptbLogo.Image = global::Bases_RM.Properties.Resources.logoRM;
+            this.ptbLogo.Image = ((System.Drawing.Image)(resources.GetObject("ptbLogo.Image")));
             this.ptbLogo.Location = new System.Drawing.Point(12, 12);
             this.ptbLogo.Name = "ptbLogo";
             this.ptbLogo.Size = new System.Drawing.Size(464, 125);
