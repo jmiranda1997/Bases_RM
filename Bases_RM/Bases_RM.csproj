@@ -64,6 +64,9 @@
     <Compile Include="AbonoDeuda.Designer.cs">
       <DependentUpon>AbonoDeuda.cs</DependentUpon>
     </Compile>
+
+    <Compile Include="Cliente.cs" />
+
     <Compile Include="CambioContra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +79,7 @@
     <Compile Include="esteno.Designer.cs">
       <DependentUpon>esteno.cs</DependentUpon>
     </Compile>
+
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
     </Compile>

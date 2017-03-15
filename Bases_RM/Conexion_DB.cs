@@ -281,18 +281,13 @@ namespace Bases_RM
                 throw e;
             }
         }
-        /// <summary>
-        /// Ingreso de clientes nuevos
-        /// </summary>
-        /// <param name="NitDpi">NIT o DPI del cliente</param>
-        /// <param name="nombre">Nombre del cliente</param>
-        /// <param name="diasCredito">Días de crédito para darle al cliente</param>
-        /// <param name="limiteCredito">Monto máximo el cual el cliente puede debernos</param>
-        /// <param name="clasificacionId">ID del la clasificación que será el cliente</param>
-        public void ingresoCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
+
+        public void ingresoCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
+            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Apellido, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "','"+apellido+"'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
+            Variable_Conexion.Open();
+
             try
             {
                 Variable_Conexion.Open();
@@ -1025,6 +1020,40 @@ namespace Bases_RM
                 Variable_Conexion.Close();
                 throw e;
             }
+        }
+        public String[,] obtener_clientes()
+        {
+            String[,] clientes = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM cliente;";//Consulta para la base, obtener el numero de clientes
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                clientes = new String[total,3];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
+                comando.CommandText = "SELECT Nombre,Apellido,NIT_DPI FROM cliente;";
+                Variable_Conexion.Close();//se cierra la conexion
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                int contador = 0;
+                while (Variable_Lectura.Read())
+                {
+                    clientes[contador,0] = Variable_Lectura["Nombre"].ToString();
+                    clientes[contador,1] = Variable_Lectura["Apellido"].ToString();
+                    clientes[contador,2] = Variable_Lectura["NIT_DPI"].ToString();
+                    contador++;
+                }
+            }
+            Variable_Conexion.Close();//se cierra la conexion
+            return clientes;
+        }
+        public Cliente datos_cliente()
+        {
+            Cliente cliente=null;
+            
+            return cliente;
         }
 
     }
