@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
-//using MySql.Data.MySqlClient.MySqlException;
 
 namespace Bases_RM
 {
@@ -950,12 +949,42 @@ namespace Bases_RM
             }
         }
         /// <summary>
-        /// obtiene un arreglo con los codigos que existen en la base de datos
+        /// obtiene la informacion del codigo que estan en la base de datos.
         /// </summary>
-        /// <returns>Arreglo con los codigos en la base de datos</returns>
-        public Producto[] obtener_Codigos()
+        /// <param name="Codigo">Codigo que se busca</param>
+        /// <returns>Un objeto de tipo Producto que contiene los datos de cada producto</returns>
+        public Producto obtener_Producto(String Codigo)
         {
-            Producto[] Productos = null;
+            Producto Producto = null;
+            
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            try
+            {
+                comando.CommandText = "SELECT * FROM producto WHERE Codigo_Interno='" + Codigo + "';";//Consulta que obtiene todos los datos de un codigo codigos  de la base 
+                Variable_Conexion.Open();//se abre nuevamente la conexion con la base
+                Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
+                if (Variable_Lectura.Read())//Se verifica si se hizo una lectura
+                {
+                    Producto = new Producto(Variable_Lectura["Codigo_Interno"].ToString(), Variable_Lectura["Codigo_Fabricante"].ToString(), Variable_Lectura["Descripcion"].ToString(), Variable_Lectura["Marca"].ToString(),
+                        Variable_Lectura["Fabricante"].ToString(), Variable_Lectura["Departamento"].ToString(), double.Parse(Variable_Lectura["Precio_Costo"].ToString()), double.Parse(Variable_Lectura["Precio_Venta"].ToString())); //se almacena cada codigo a la posicion del arreglo
+                }
+
+                Variable_Conexion.Close();//se cierra la conexion
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();//se cierra la conexion
+                throw e;
+            }
+            return Producto;//regresamos el arreglo
+        }
+        /// <summary>
+        /// Obtiene los codigos que estan en la base de datos
+        /// </summary>
+        /// <returns>Arreglo con todos los codigos que estan en la base de datos</returns>
+        public String[] obtener_codigos()
+        {
+            String[] Codigo = null;
             int total;
             comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
             comando.CommandText = "SELECT COUNT(*) FROM producto;";//Consulta para la base, obtener el numero de productos
@@ -966,16 +995,15 @@ namespace Bases_RM
                 if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
                 {
                     total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
-                    Productos = new Producto[total];//se crea un arreglo de cadenas del tamaño del conteo de codigos 
-                    comando.CommandText = "SELECT * FROM producto;";//Consulta que obtiene todos los codigos en la base 
+                    Codigo = new String[total];//se crea un arreglo de cadenas del tamaño del conteo de codigos 
+                    comando.CommandText = "SELECT Codigo_Interno FROM producto;";//Consulta que obtiene todos los codigos en la base 
                     Variable_Conexion.Close();//se cierra la conexion
                     Variable_Conexion.Open();//se abre nuevamente la conexion con la base
                     Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
                     int contador = 0;//control de posicion en el arreglo
                     while (Variable_Lectura.Read())//ciclo tipo loop que se ejecuta mientras existan datos en la consulra
                     {
-                        Productos[contador] = new Producto(Variable_Lectura["Codigo_Interno"].ToString(), Variable_Lectura["Codigo_Fabricante"].ToString(), Variable_Lectura["Descripcion"].ToString(), Variable_Lectura["Marca"].ToString(),
-                            Variable_Lectura["Fabricante"].ToString(), Variable_Lectura["Departamento"].ToString(), double.Parse(Variable_Lectura["Precio_Costo"].ToString()), double.Parse(Variable_Lectura["Precio_Venta"].ToString())); //se almacena cada codigo a la posicion del arreglo
+                        Codigo[contador] = Variable_Lectura[0].ToString(); //se almacena cada codigo a la posicion del arreglo
                         contador++;//se aumenta el contador
                     }
                 }
@@ -986,10 +1014,46 @@ namespace Bases_RM
                 Variable_Conexion.Close();//se cierra la conexion
                 throw e;
             }
-            return Productos;//regresamos el arreglo
+            return Codigo;//regresamos el arreglo
         }
-
-        
+        /// <summary>
+        /// Obtiene los probedores que existen en la base de datos
+        /// </summary>
+        /// <returns>Arreglo con los proveedores</returns>
+        public String[] obtener_proveedores()
+        {
+            String[] proveedores = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM proveedor;";//Consulta para la base, obtener la cantidad de proveedores
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                    proveedores = new String[total];//se crea un arreglo de cadenas del tamñano de proveedores en la base 
+                    comando.CommandText = "SELECT Nombre FROM proveedor order by Nombre ASC;";//Consulta que obtiene todos los proveedores en la base 
+                    Variable_Conexion.Close();//se cierra la conexion
+                    Variable_Conexion.Open();//se abre nuevamente la conexion con la base
+                    Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
+                    int contador = 0;//control de posicion en el arreglo
+                    while (Variable_Lectura.Read())//ciclo tipo loop que se ejecuta mientras existan datos en la consulra
+                    {
+                        proveedores[contador] = Variable_Lectura[0].ToString(); //se almacena cada prveedor a la posicion del arreglo
+                        contador++;//se aumenta el contador
+                    }
+                }
+                Variable_Conexion.Close();//se cierra la conexion
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();//se cierra la conexion
+                throw e;
+            }
+            return proveedores;//regresamos el arreglo
+        }
 
         //---------------OTROS---------------//
 
@@ -1000,9 +1064,10 @@ namespace Bases_RM
         /// <returns>Un booleano que indica si existe o no un codigo en la base de datos</returns>
         public Boolean existe_Codigo(String Codigo_Interno)
         {
+            Boolean Existe = false;
             try
             {
-                Boolean Existe = false;
+               
                 int contador = 0;
 
                 comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
@@ -1020,13 +1085,14 @@ namespace Bases_RM
                     Existe = true;
                 }
 
-                return Existe;//regresamos el valor booleano de la consulta
+                
             }
             catch (MySqlException e)
             {
                 Variable_Conexion.Close();
                 throw e;
             }
+            return Existe;//regresamos el valor booleano de la consulta
         }
         public String[,] obtener_clientes()
         {
