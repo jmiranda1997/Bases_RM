@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using System.Timers;
 
 namespace Bases_RM
 {
@@ -17,10 +19,23 @@ namespace Bases_RM
         {
 
             InitializeComponent();
-            this.datos_us = user;
-        }      
 
-        
+        //    btnpedidos.Enabled = false;
+            Thread tare = new Thread(ejecutar);
+            tare.Start();
+
+
+
+            this.datos_us = user;
+        }
+
+        public void ejecutar(object pb)
+        {
+            Conexion_Fox fox = new Conexion_Fox();
+            fox.Insertar_Codigos();
+            //btnpedidos.Enabled = true;
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
             Clientes clientes = new Clientes();
