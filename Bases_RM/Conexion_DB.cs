@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
-using MySql.Data.MySqlClient.MySqlException;
 
 namespace Bases_RM
 {
@@ -17,7 +16,7 @@ namespace Bases_RM
         private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
         private MySqlCommand comando;//Comando SQL para hacer las consultas
         public Conexion_DB(){
-            Constructor_Conexion.Server = "25.84.214.223";//Direccion IP del servidor
+            Constructor_Conexion.Server = "25.73.249.224";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
             Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
@@ -282,12 +281,19 @@ namespace Bases_RM
             }
         }
 
+        /// <summary>
+        /// Ingreso de clientes nuevos
+        /// </summary>
+        /// <param name="NitDpi">NIT o DPI del cliente</param>
+        /// <param name="nombre">Nombre del cliente</param>
+        /// <param name="apellido">Apellido del cliente</param>
+        /// <param name="diasCredito">Días de crédito para darle al cliente</param>
+        /// <param name="limiteCredito">Monto máximo el cual el cliente puede debernos</param>
+        /// <param name="clasificacionId">ID del la clasificación que será el cliente</param>
         public void ingresoCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Apellido, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "','"+apellido+"'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
-            Variable_Conexion.Open();
-
             try
             {
                 Variable_Conexion.Open();
@@ -602,7 +608,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Deuda_ID IS NULL;";
             try
             {
                 Variable_Conexion.Open();
@@ -620,7 +626,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID IS NULL;";
             try
             {
                 Variable_Conexion.Open();
@@ -702,10 +708,10 @@ namespace Bases_RM
                 throw e;
             }
         }
-        public void modificacionCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
+        public void modificacionCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
+            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Apellido='"+apellido+"', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
             try
             {
                 Variable_Conexion.Open();
@@ -943,12 +949,42 @@ namespace Bases_RM
             }
         }
         /// <summary>
-        /// obtiene un arreglo con los codigos que existen en la base de datos
+        /// obtiene la informacion del codigo que estan en la base de datos.
         /// </summary>
-        /// <returns>Arreglo con los codigos en la base de datos</returns>
-        public Producto[] obtener_Codigos()
+        /// <param name="Codigo">Codigo que se busca</param>
+        /// <returns>Un objeto de tipo Producto que contiene los datos de cada producto</returns>
+        public Producto obtener_Producto(String Codigo)
         {
-            Producto[] Productos = null;
+            Producto Producto = null;
+            
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            try
+            {
+                comando.CommandText = "SELECT * FROM producto WHERE Codigo_Interno='" + Codigo + "';";//Consulta que obtiene todos los datos de un codigo codigos  de la base 
+                Variable_Conexion.Open();//se abre nuevamente la conexion con la base
+                Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
+                if (Variable_Lectura.Read())//Se verifica si se hizo una lectura
+                {
+                    Producto = new Producto(Variable_Lectura["Codigo_Interno"].ToString(), Variable_Lectura["Codigo_Fabricante"].ToString(), Variable_Lectura["Descripcion"].ToString(), Variable_Lectura["Marca"].ToString(),
+                        Variable_Lectura["Fabricante"].ToString(), Variable_Lectura["Departamento"].ToString(), double.Parse(Variable_Lectura["Precio_Costo"].ToString()), double.Parse(Variable_Lectura["Precio_Venta"].ToString())); //se almacena cada codigo a la posicion del arreglo
+                }
+
+                Variable_Conexion.Close();//se cierra la conexion
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();//se cierra la conexion
+                throw e;
+            }
+            return Producto;//regresamos el arreglo
+        }
+        /// <summary>
+        /// Obtiene los codigos que estan en la base de datos
+        /// </summary>
+        /// <returns>Arreglo con todos los codigos que estan en la base de datos</returns>
+        public String[] obtener_codigos()
+        {
+            String[] Codigo = null;
             int total;
             comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
             comando.CommandText = "SELECT COUNT(*) FROM producto;";//Consulta para la base, obtener el numero de productos
@@ -959,16 +995,15 @@ namespace Bases_RM
                 if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
                 {
                     total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
-                    Productos = new Producto[total];//se crea un arreglo de cadenas del tamaño del conteo de codigos 
-                    comando.CommandText = "SELECT * FROM producto;";//Consulta que obtiene todos los codigos en la base 
+                    Codigo = new String[total];//se crea un arreglo de cadenas del tamaño del conteo de codigos 
+                    comando.CommandText = "SELECT Codigo_Interno FROM producto;";//Consulta que obtiene todos los codigos en la base 
                     Variable_Conexion.Close();//se cierra la conexion
                     Variable_Conexion.Open();//se abre nuevamente la conexion con la base
                     Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
                     int contador = 0;//control de posicion en el arreglo
                     while (Variable_Lectura.Read())//ciclo tipo loop que se ejecuta mientras existan datos en la consulra
                     {
-                        Productos[contador] = new Producto(Variable_Lectura["Codigo_Interno"].ToString(), Variable_Lectura["Codigo_Fabricante"].ToString(), Variable_Lectura["Descripcion"].ToString(), Variable_Lectura["Marca"].ToString(),
-                            Variable_Lectura["Fabricante"].ToString(), Variable_Lectura["Departamento"].ToString(), double.Parse(Variable_Lectura["Precio_Costo"].ToString()), double.Parse(Variable_Lectura["Precio_Venta"].ToString())); //se almacena cada codigo a la posicion del arreglo
+                        Codigo[contador] = Variable_Lectura[0].ToString(); //se almacena cada codigo a la posicion del arreglo
                         contador++;//se aumenta el contador
                     }
                 }
@@ -979,10 +1014,46 @@ namespace Bases_RM
                 Variable_Conexion.Close();//se cierra la conexion
                 throw e;
             }
-            return Productos;//regresamos el arreglo
+            return Codigo;//regresamos el arreglo
         }
-
-        
+        /// <summary>
+        /// Obtiene los probedores que existen en la base de datos
+        /// </summary>
+        /// <returns>Arreglo con los proveedores</returns>
+        public String[] obtener_proveedores()
+        {
+            String[] proveedores = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM proveedor;";//Consulta para la base, obtener la cantidad de proveedores
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                    proveedores = new String[total];//se crea un arreglo de cadenas del tamñano de proveedores en la base 
+                    comando.CommandText = "SELECT Nombre FROM proveedor order by Nombre ASC;";//Consulta que obtiene todos los proveedores en la base 
+                    Variable_Conexion.Close();//se cierra la conexion
+                    Variable_Conexion.Open();//se abre nuevamente la conexion con la base
+                    Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
+                    int contador = 0;//control de posicion en el arreglo
+                    while (Variable_Lectura.Read())//ciclo tipo loop que se ejecuta mientras existan datos en la consulra
+                    {
+                        proveedores[contador] = Variable_Lectura[0].ToString(); //se almacena cada prveedor a la posicion del arreglo
+                        contador++;//se aumenta el contador
+                    }
+                }
+                Variable_Conexion.Close();//se cierra la conexion
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();//se cierra la conexion
+                throw e;
+            }
+            return proveedores;//regresamos el arreglo
+        }
 
         //---------------OTROS---------------//
 
@@ -993,9 +1064,10 @@ namespace Bases_RM
         /// <returns>Un booleano que indica si existe o no un codigo en la base de datos</returns>
         public Boolean existe_Codigo(String Codigo_Interno)
         {
+            Boolean Existe = false;
             try
             {
-                Boolean Existe = false;
+               
                 int contador = 0;
 
                 comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
@@ -1013,13 +1085,14 @@ namespace Bases_RM
                     Existe = true;
                 }
 
-                return Existe;//regresamos el valor booleano de la consulta
+                
             }
             catch (MySqlException e)
             {
                 Variable_Conexion.Close();
                 throw e;
             }
+            return Existe;//regresamos el valor booleano de la consulta
         }
         public String[,] obtener_clientes()
         {
