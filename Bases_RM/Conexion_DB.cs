@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
-using MySql.Data.MySqlClient.MySqlException;
+//using MySql.Data.MySqlClient.MySqlException;
 
 namespace Bases_RM
 {
@@ -17,7 +17,7 @@ namespace Bases_RM
         private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
         private MySqlCommand comando;//Comando SQL para hacer las consultas
         public Conexion_DB(){
-            Constructor_Conexion.Server = "25.84.214.223";//Direccion IP del servidor
+            Constructor_Conexion.Server = "25.73.249.224";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
             Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
@@ -286,13 +286,14 @@ namespace Bases_RM
         /// </summary>
         /// <param name="NitDpi">NIT o DPI del cliente</param>
         /// <param name="nombre">Nombre del cliente</param>
+        /// <param name="apellido">Apellido del cliente</param>
         /// <param name="diasCredito">Días de crédito para darle al cliente</param>
         /// <param name="limiteCredito">Monto máximo el cual el cliente puede debernos</param>
         /// <param name="clasificacionId">ID del la clasificación que será el cliente</param>
-        public void ingresoCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
+        public void ingresoCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
+            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Apellido, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "','"+apellido+"'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
             try
             {
                 Variable_Conexion.Open();
@@ -607,7 +608,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Prestamo_ID=" + idPrestamo.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Deuda_ID IS NULL;";
             try
             {
                 Variable_Conexion.Open();
@@ -625,7 +626,7 @@ namespace Bases_RM
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
             String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE" + ID.ToString() + " AND Prestamo_ID != NULL;";
+            comando.CommandText = "UPDATE pagos SET Fecha='" + fechaString + "', Monto=" + monto.ToString() + ", Deuda_ID=" + idDeuda.ToString() + ", Fecha_Ingreso='" + ingresoString + "' WHERE ID=" + ID.ToString() + " AND Prestamo_ID IS NULL;";
             try
             {
                 Variable_Conexion.Open();
@@ -707,10 +708,10 @@ namespace Bases_RM
                 throw e;
             }
         }
-        public void modificacionCliente(String NitDpi, String nombre, int diasCredito, int limiteCredito, int clasificacionId)
+        public void modificacionCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
+            comando.CommandText = "UPDATE cliente SET NIT_DPI='" + NitDpi + "', Nombre='" + nombre + "', Apellido='"+apellido+"', Dias_Credito=" + diasCredito.ToString() + ", Limite_Credito=" + limiteCredito.ToString() + ", Clasicacion_Id=" + clasificacionId.ToString() + " WHERE NIT_DPI='" + NitDpi + "';";
             try
             {
                 Variable_Conexion.Open();
