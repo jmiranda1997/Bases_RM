@@ -15,10 +15,17 @@ namespace Bases_RM
     public partial class Pedidos : Form
     {
         public DataTable DS;
-        public Pedidos()
+        public Pedidos(int maximo)
         {
             InitializeComponent();
-            
+            pbprogreso.Maximum = maximo;
+            pbprogreso.Minimum = 0;
+        }
+
+        public void progreso( String Progreso)
+        {
+            pbprogreso.Value++;
+            lbprogreso.Text = Progreso + "/"+ pbprogreso.Maximum;
         }
         private void Pedidos_Load(object sender, EventArgs e)
         {

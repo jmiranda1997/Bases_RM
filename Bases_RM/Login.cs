@@ -24,15 +24,10 @@ namespace Bases_RM
             Conexion = new Conexion_DB();
             Vig = new Vigenere();
            
-            Thread tare = new Thread(ejecutar);
-            tare.Start();
+            
 
         }
-        public void ejecutar(object pb)
-        {
-            Conexion_Fox fox = new Conexion_Fox();
-            fox.Insertar_Codigos();
-        }
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
