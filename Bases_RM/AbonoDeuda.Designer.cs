@@ -119,7 +119,6 @@
             this.TxtMonto.Size = new System.Drawing.Size(100, 20);
             this.TxtMonto.TabIndex = 8;
             this.TxtMonto.Text = "0.00";
-            this.TxtMonto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // TxtSaldoActu
             // 
@@ -165,7 +164,6 @@
             this.cbSucursales.Name = "cbSucursales";
             this.cbSucursales.Size = new System.Drawing.Size(127, 21);
             this.cbSucursales.TabIndex = 13;
-            this.cbSucursales.SelectedIndexChanged += new System.EventHandler(this.cbSucursales_SelectedIndexChanged);
             // 
             // AbonoDeuda
             // 
