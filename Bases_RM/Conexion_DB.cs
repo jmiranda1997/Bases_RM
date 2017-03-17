@@ -948,6 +948,7 @@ namespace Bases_RM
                 throw e;
             }
         }
+
         public String[,] obtener_sucursales(String diferencia)
         {
             String[,] sucursales = null;
@@ -1009,11 +1010,13 @@ namespace Bases_RM
             }
             return total;
         }
+
         /// <summary>
         /// obtiene la informacion del codigo que estan en la base de datos.
         /// </summary>
         /// <param name="Codigo">Codigo que se busca</param>
         /// <returns>Un objeto de tipo Producto que contiene los datos de cada producto</returns>
+        
         public Producto obtener_Producto(String Codigo)
         {
             Producto Producto = null;
@@ -1039,10 +1042,36 @@ namespace Bases_RM
             }
             return Producto;//regresamos el arreglo
         }
+
+        public TrabajadoresClass obtener_Trabajador(String Nombre)
+        {
+            TrabajadoresClass Trabajador = null;
+
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            try
+            {
+                comando.CommandText = "SELECT * FROM trabajador WHERE Nombre='" + Nombre + "';";  //Consulta que obtiene todos los datos de un codigo codigos  de la base 
+                Variable_Conexion.Open();                                                     //se abre nuevamente la conexion con la base
+                Variable_Lectura = comando.ExecuteReader();                                   //se ejecuta el comando
+                if (Variable_Lectura.Read())                                                  //Se verifica si se hizo una lectura
+                {
+                    Trabajador = new TrabajadoresClass(Variable_Lectura["Nombre"].ToString(),double.Parse( Variable_Lectura["Salario"].ToString()),int.Parse(Variable_Lectura["Sucursal_ID"].ToString())); //se almacena cada codigo a la posicion del arreglo
+                }
+
+                Variable_Conexion.Close();//se cierra la conexion
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();//se cierra la conexion
+                throw e;
+            }
+            return Trabajador;//regresamos el arreglo
+        }
         /// <summary>
         /// Obtiene los codigos que estan en la base de datos
         /// </summary>
         /// <returns>Arreglo con todos los codigos que estan en la base de datos</returns>
+        
         public String[] obtener_codigos()
         {
             String[] Codigo = null;
@@ -1077,10 +1106,12 @@ namespace Bases_RM
             }
             return Codigo;//regresamos el arreglo
         }
+
         /// <summary>
         /// Obtiene los probedores que existen en la base de datos
         /// </summary>
         /// <returns>Arreglo con los proveedores</returns>
+        
         public String[] obtener_proveedores()
         {
             String[] proveedores = null;
@@ -1115,6 +1146,44 @@ namespace Bases_RM
             }
             return proveedores;//regresamos el arreglo
         }
+
+        public String[] obtener_Trabajadores()
+        {
+            String[] trabajadores = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();                   //Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM trabajador;";    //Consulta para la base, obtener la cantidad de proveedores
+            try
+            {
+                Variable_Conexion.Open();                          //se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();        //se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())                       //se verifica si se obtiene algun dato de la base
+                {
+                    total = int.Parse(Variable_Lectura[0].ToString());                              //se convierte el objeto reader en una cadena y luego un entero
+                    trabajadores = new String[total];                                               //se crea un arreglo de cadenas del tamñano de proveedores en la base 
+                    comando.CommandText = "SELECT Nombre FROM trabajador ORDER BY Nombre ASC;";   //Consulta que obtiene todos los proveedores en la base 
+                    Variable_Conexion.Close();                                                      //se cierra la conexion
+                    Variable_Conexion.Open();                                                       //se abre nuevamente la conexion con la base
+                    Variable_Lectura = comando.ExecuteReader();                                     //se ejecuta el comando
+                    int contador = 0;                                                               //control de posicion en el arreglo
+                    while (Variable_Lectura.Read())                                                 //ciclo tipo loop que se ejecuta mientras existan datos en la consulta
+                    {
+                        trabajadores[contador] = Variable_Lectura[0].ToString();                    //se almacena cada prveedor a la posicion del arreglo
+                        contador++;                                                                 //se aumenta el contador
+                    }
+                }
+                Variable_Conexion.Close();                                                          //se cierra la conexion
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();//se cierra la conexion
+                throw e;
+            }
+         
+            return trabajadores;
+        }
+
+
 
         //---------------OTROS---------------//
 
