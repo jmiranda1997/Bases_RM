@@ -41,7 +41,6 @@
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNom
@@ -144,6 +143,7 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(240, 258);
             this.treeView1.TabIndex = 9;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // Proveedores
             // 
@@ -163,8 +163,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Proveedores";
             this.Text = "Proveedores";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
