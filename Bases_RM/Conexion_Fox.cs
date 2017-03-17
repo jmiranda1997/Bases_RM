@@ -34,16 +34,16 @@ namespace Bases_RM
 
             int codigos = cantidad_codigos();//obtenemos la cantidad de codigos en la base de MariaDB
 
-            Pedidos progres = new Pedidos(codigos);//iniciamos un progresbar
-            progres.Show();
+            //Pedidos progres = new Pedidos(codigos);//iniciamos un progresbar
+            //progres.Show();
 
-            insertar(progres);//inserta los codigos de Fox a Maria
+            //insertar(progres);//inserta los codigos de Fox a Maria
 
             existencias();
 
             Sucursales();
 
-            progres.Close();
+            //progres.Close();
         }
         
         /// <summary>
@@ -74,7 +74,7 @@ namespace Bases_RM
         {
             try
             {
-                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
+                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
                 comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
                 Variable_Conexion.Open();//Se abre la conexion con la base de datos
                 Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
@@ -103,7 +103,7 @@ namespace Bases_RM
         }
         private int cantidad_codigos()
         {
-            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
+            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
 
             Variable_Conexion.Open();
             comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF", Variable_Conexion);
@@ -164,7 +164,7 @@ namespace Bases_RM
             {
                 Boolean existe = false;
 
-                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos
+                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos
 
                 Variable_Conexion.Open();//abrimos la conexion 
                 comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF WHERE codigo =='" + codigo + "'", Variable_Conexion);//Consulta para el conteo segun el codigo
@@ -192,7 +192,7 @@ namespace Bases_RM
 
         private void existencias()
         {
-            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
+            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
             comando = new OleDbCommand("SELECT uni01 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
             Variable_Conexion.Open();//Se abre la conexion con la base de datos
             Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
@@ -207,7 +207,7 @@ namespace Bases_RM
 
             //try
             //{
-                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
+            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
                 comando = new OleDbCommand("SELECT COUNT(*) FROM CORDOC.DBF WHERE Nombrebode != ' '", Variable_Conexion);//se guarda la consulta para la tabla
                 Variable_Conexion.Open();
                 Variable_Lectura = comando.ExecuteReader();
