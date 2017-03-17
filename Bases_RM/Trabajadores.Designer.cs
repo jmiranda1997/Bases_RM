@@ -32,15 +32,16 @@
             this.lbSala = new System.Windows.Forms.Label();
             this.lblSucu = new System.Windows.Forms.Label();
             this.TxtNom = new System.Windows.Forms.TextBox();
-            this.TxtSucu = new System.Windows.Forms.TextBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.trabajadoresTree = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.TxtSala = new System.Windows.Forms.TextBox();
-            this.menuStrip1.SuspendLayout();
+            this.ComboSucu = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblNom
@@ -76,20 +77,15 @@
             this.TxtNom.Name = "TxtNom";
             this.TxtNom.Size = new System.Drawing.Size(301, 20);
             this.TxtNom.TabIndex = 3;
+            this.TxtNom.TextChanged += new System.EventHandler(this.TxtNom_TextChanged);
             // 
-            // TxtSucu
+            // trabajadoresTree
             // 
-            this.TxtSucu.Location = new System.Drawing.Point(282, 91);
-            this.TxtSucu.Name = "TxtSucu";
-            this.TxtSucu.Size = new System.Drawing.Size(100, 20);
-            this.TxtSucu.TabIndex = 5;
-            // 
-            // treeView1
-            // 
-            this.treeView1.Location = new System.Drawing.Point(12, 28);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(183, 225);
-            this.treeView1.TabIndex = 6;
+            this.trabajadoresTree.Location = new System.Drawing.Point(12, 27);
+            this.trabajadoresTree.Name = "trabajadoresTree";
+            this.trabajadoresTree.Size = new System.Drawing.Size(183, 270);
+            this.trabajadoresTree.TabIndex = 6;
+            this.trabajadoresTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // menuStrip1
             // 
@@ -139,15 +135,46 @@
             this.TxtSala.Text = "0.00";
             this.TxtSala.TextChanged += new System.EventHandler(this.TxtSala_TextChanged);
             // 
+            // ComboSucu
+            // 
+            this.ComboSucu.FormattingEnabled = true;
+            this.ComboSucu.Location = new System.Drawing.Point(282, 88);
+            this.ComboSucu.Name = "ComboSucu";
+            this.ComboSucu.Size = new System.Drawing.Size(121, 21);
+            this.ComboSucu.TabIndex = 10;
+            this.ComboSucu.SelectedIndexChanged += new System.EventHandler(this.ComboSucu_SelectedIndexChanged);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(238, 148);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(29, 23);
+            this.button3.TabIndex = 11;
+            this.button3.Text = "<";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(273, 148);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(26, 23);
+            this.button4.TabIndex = 12;
+            this.button4.Text = ">";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Trabajadores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 316);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.ComboSucu);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.TxtSucu);
+            this.Controls.Add(this.trabajadoresTree);
             this.Controls.Add(this.TxtSala);
             this.Controls.Add(this.TxtNom);
             this.Controls.Add(this.lblSucu);
@@ -157,8 +184,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Trabajadores";
             this.Text = "Trabajadores";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,13 +195,15 @@
         private System.Windows.Forms.Label lbSala;
         private System.Windows.Forms.Label lblSucu;
         private System.Windows.Forms.TextBox TxtNom;
-        private System.Windows.Forms.TextBox TxtSucu;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView trabajadoresTree;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox TxtSala;
+        private System.Windows.Forms.ComboBox ComboSucu;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }

@@ -86,5 +86,10 @@ namespace Bases_RM
         {
             
         }
+
+        private void txtDesc_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

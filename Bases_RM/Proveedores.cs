@@ -22,5 +22,10 @@ namespace Bases_RM
 
 
         }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
     }
 }
