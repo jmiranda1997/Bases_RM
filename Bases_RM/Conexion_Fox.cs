@@ -41,6 +41,8 @@ namespace Bases_RM
 
             existencias();
 
+            Sucursales();
+
             progres.Close();
         }
         
@@ -83,13 +85,13 @@ namespace Bases_RM
                     progres.progreso(Cont.ToString());
                     if (Conexion_DB.existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
                     {
-                        Conexion_DB.modificacionProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
-                            Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
+                        Conexion_DB.modificacionProducto(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), caracteresespeciales(Variable_Lectura["codigobarr"].ToString().Trim()), caracteresespeciales(Variable_Lectura["articulo1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()),
+                            caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca2"].ToString().Trim()), double.Parse(Variable_Lectura["costo"].ToString().Trim()), double.Parse(Variable_Lectura["venta1"].ToString().Trim()));
                     }
                     else// si no existe el codigo se ingresa
                     {
-                        Conexion_DB.ingresoProducto(Variable_Lectura["codigo"].ToString(), Variable_Lectura["codigobarr"].ToString(), Variable_Lectura["articulo1"].ToString(), Variable_Lectura["marca1"].ToString(),
-                            Variable_Lectura["marca1"].ToString(), Variable_Lectura["marca2"].ToString(), double.Parse(Variable_Lectura["costo"].ToString()), double.Parse(Variable_Lectura["venta1"].ToString()));
+                        Conexion_DB.ingresoProducto(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), caracteresespeciales(Variable_Lectura["codigobarr"].ToString().Trim()), caracteresespeciales(Variable_Lectura["articulo1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()),
+                            caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca2"].ToString().Trim()), double.Parse(Variable_Lectura["costo"].ToString().Trim()), double.Parse(Variable_Lectura["venta1"].ToString().Trim()));
                     }
                 }
                 Variable_Conexion.Close();//se cierra la conexion con la base de datos
@@ -165,7 +167,7 @@ namespace Bases_RM
                 Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos
 
                 Variable_Conexion.Open();//abrimos la conexion 
-                comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF WHERE codigo='" + codigo + "'", Variable_Conexion);//Consulta para el conteo segun el codigo
+                comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF WHERE codigo =='" + codigo + "'", Variable_Conexion);//Consulta para el conteo segun el codigo
                 Variable_Lectura = comando.ExecuteReader();//Guardamos los datos en la variable de lectura
 
                 int cuenta = 0;
@@ -178,6 +180,7 @@ namespace Bases_RM
                 {
                     existe = true;//se dice que si existe el codigo
                 }
+                Variable_Conexion.Close();
                 return existe;
 
             }
@@ -196,8 +199,114 @@ namespace Bases_RM
 
             while (Variable_Lectura.Read())
             {
-                
+
             }
         }
+        private void Sucursales()
+        {
+
+            //try
+            //{
+                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=C:\\;");//parametros a la conexion con la base de datos de Fox_Pro
+                comando = new OleDbCommand("SELECT COUNT(*) FROM CORDOC.DBF WHERE Nombrebode != ' '", Variable_Conexion);//se guarda la consulta para la tabla
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                int bodegas = 0;
+                if (Variable_Lectura.Read())
+                {
+                    bodegas = int.Parse(Variable_Lectura[0].ToString());
+                }
+                Variable_Conexion.Close();
+
+                comando = new OleDbCommand("SELECT Nombrebode FROM CORDOC.DBF WHERE Nombrebode != ' '", Variable_Conexion);//se guarda la consulta para la tabla
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                String[,] sucur;
+                String[] sucurFox = new String[bodegas];
+                int cont = 0;
+                while (Variable_Lectura.Read())
+                {
+                    sucurFox[cont] = Variable_Lectura[0].ToString().Trim();
+                    cont++;
+                }
+                Variable_Conexion.Close();
+
+                sucur = modificarsucursales(Conexion_DB.obtener_sucursales(""), sucurFox);
+                for (int i = 0; i < bodegas - 1; i++)
+                {
+                    if (!sucur[0,i].Equals("-1"))
+                    {
+                        Conexion_DB.modificacionSucursal(int.Parse(sucur[0, i].Trim()), sucur[1, i].Trim());
+                    }
+                    else
+                    {
+                        Conexion_DB.ingresoSucursal(sucur[1, i].Trim());
+                    }
+                }
+                
+           // }
+            //catch (Exception e)
+            //{
+            //    MessageBox.Show(e.Message);
+            //}
+        }
+
+        private String caracteresespeciales(String Cadena)
+        {
+            String especial = "";
+
+            char[] temp = Cadena.ToCharArray();
+            for (int i = 0; i < Cadena.Length; i++)
+            {
+                if (temp[i].Equals('\''))
+                {
+                    especial += "\\'";
+                }
+                else if (temp[i].Equals('\"'))
+                {
+                    especial += "\\\"";
+                }else
+                {
+                    especial += temp[i];
+                } 
+            }
+
+            return especial;
+        }
+        private String[,] modificarsucursales(String[,] sucursales, String[] lectura)
+        {
+
+            int bMaria = Conexion_DB.obtener_Nbodegas();
+            String[,] nuevo = new String[2, bMaria];
+            
+            for (int i = 0; i < lectura.Length; i++)
+            {
+                String[,] aux;
+                if (bMaria > i)
+                {
+                    nuevo[0, i] = sucursales[0, i];
+                    nuevo[1, i] = lectura[i];
+                }
+                else
+                {
+                    aux = matrizmas(nuevo, lectura[i], (i + 1));
+                    nuevo = aux;
+                }
+            }
+                return nuevo;
+        }
+        private String[,] matrizmas(String[,] matriz, String nombre, int cantidad)
+        {
+            String[,] nueva = new String[2, cantidad];
+            for (int i = 0; i < (cantidad - 1); i++)
+            {
+                nueva[0, i] = matriz[0, i];
+                nueva[1, i] = matriz[1, i];
+            }
+            nueva[0, cantidad - 1] = "-1"; 
+            nueva[1, cantidad -1 ] = nombre; 
+            return nueva;
+        }
+       
     }
 }
