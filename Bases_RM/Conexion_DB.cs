@@ -538,6 +538,13 @@ namespace Bases_RM
         //---------------MODIFICACIONES--------------//
 
 
+        /// <summary>
+        /// Modifica los datos de un usuario
+        /// </summary>
+        /// <param name="ID">ID del trabajador a modificar</param>
+        /// <param name="nombre">Nuevo nombre del trabajador</param>
+        /// <param name="correo">Nuevo correo del trabajador</param>
+        /// <param name="idProveedor">Nuevo ID del proveedor al que pertenece</param>
         public void modificacionEncargado(int ID, String nombre, String correo, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -554,6 +561,12 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos del proveedor
+        /// </summary>
+        /// <param name="ID">ID del proveedor a modificar</param>
+        /// <param name="nombre">Nuevo nombre del proveedor</param>
+        /// <param name="idPais">Nuevo ID de país</param>
         public void modificacionProveedor(int ID, String nombre, int idPais)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -570,6 +583,13 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos del trabajador
+        /// </summary>
+        /// <param name="ID">ID del trabajador a modificar</param>
+        /// <param name="nombre">Nuevo nombre del trabajador</param>
+        /// <param name="salario">Nuevo salario del trabajador</param>
+        /// <param name="idSucursal">Nuevo ID de la sucursal donde trabaja</param>
         public void modificacionTrabajador(int ID, String nombre, double salario, int idSucursal)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -586,6 +606,12 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de una ausencia
+        /// </summary>
+        /// <param name="ID">ID de la ausencia a modificar</param>
+        /// <param name="fecha">Nueva fecha de ausencia</param>
+        /// <param name="idTrabajador">Nuevo ID del trabajador que se ausentó</param>
         public void modificacionAusencia(int ID, DateTime fecha, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -603,6 +629,14 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de un pago, de un prestamo a un trabajador
+        /// </summary>
+        /// <param name="ID">ID del pago</param>
+        /// <param name="fecha">Nueva fecha de pago</param>
+        /// <param name="monto">Nuevo monto pagado</param>
+        /// <param name="idPrestamo">Nuevo ID del prestamo al cual corresponde el pago</param>
+        /// <param name="fechaIngreso">Nueva fecha de ingreso del registro del pago</param>
         public void modificacionPagoPrestamo(int ID, DateTime fecha, double monto, int idPrestamo, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -621,6 +655,14 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica el los datos de un pago, de un cliente
+        /// </summary>
+        /// <param name="ID">ID del pago</param>
+        /// <param name="fecha">Nueva fecha de pago</param>
+        /// <param name="monto">Nuevo monto a pagar</param>
+        /// <param name="idDeuda">Nuevo ID de la deuda a la que corresponde el pago</param>
+        /// <param name="fechaIngreso">Nueva fecha de ingreso del registro del pago</param>
         public void modificacionPagoDeuda(int ID, DateTime fecha, double monto, int idDeuda, DateTime fechaIngreso)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -639,6 +681,15 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica TODOS los datos del usuario
+        /// </summary>
+        /// <param name="nombre">Nombre del usuario a modificar</param>
+        /// <param name="clave">Nueva contraseña</param>
+        /// <param name="pedidos">Autorización de pedidos</param>
+        /// <param name="clientes">Autorización de clientes</param>
+        /// <param name="trabajadores">Autorización de trabajadores</param>
+        /// <param name="seguridad">Autorización de seguridad</param>
         public void modificacionUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -676,6 +727,11 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de una clasificacion
+        /// </summary>
+        /// <param name="ID">ID de la clasificación</param>
+        /// <param name="tipo">Nuevo nombre de la clasificación</param>
         public void modificacionClasificacion(int ID, String tipo)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -692,6 +748,11 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de un país
+        /// </summary>
+        /// <param name="ID">ID del país</param>
+        /// <param name="nombre">Nuevo nombre del país</param>
         public void modificacionPais(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -708,6 +769,15 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de un cliente
+        /// </summary>
+        /// <param name="NitDpi">NIT o DPI del cliente</param>
+        /// <param name="nombre">Nuevo nombre del cliente</param>
+        /// <param name="apellido">Nuevo apellido del cliente</param>
+        /// <param name="diasCredito">Nuevo número de dias de crédito</param>
+        /// <param name="limiteCredito">Nuevo límite de crédito</param>
+        /// <param name="clasificacionId">Nuevo ID de la clasificación del cliente</param>
         public void modificacionCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -724,6 +794,13 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de un pedido
+        /// </summary>
+        /// <param name="Numero">Número de pedido a cambiar</param>
+        /// <param name="fecha">Nueva fecha del pedido</param>
+        /// <param name="total">Nuevo total del pedido</param>
+        /// <param name="idProveedor">Nuevo ID del proveedor al que pertenece</param>
         public void modificacionPedido(int Numero, DateTime fecha, double total, int idProveedor)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -741,6 +818,12 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de un préstamo a un trabajador
+        /// </summary>
+        /// <param name="ID">ID del préstamo</param>
+        /// <param name="monto">Nuevo monto del préstamo</param>
+        /// <param name="idTrabajador">Nuevo ID del trabajador al que le pertenece el préstamo</param>
         public void modificacionPrestamo(int ID, double monto, int idTrabajador)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -757,6 +840,11 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de una sucursal
+        /// </summary>
+        /// <param name="ID">ID de la sucursal</param>
+        /// <param name="nombre">Nuevo nombre de la sucursal</param>
         public void modificacionSucursal(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -773,6 +861,15 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Modifica los datos de la deuda de un cliente
+        /// </summary>
+        /// <param name="ID">ID de la deuda</param>
+        /// <param name="pago">Nueva fecha límite de pago</param>
+        /// <param name="total">Nuevo total a pagar</param>
+        /// <param name="nit">Nuevo NIT o DPI del cliente que va a pagar</param>
+        /// <param name="idSucursal">Nueva ID de la sucursal</param>
+        /// <param name="ingreso">Nueva fecha de ingreso del registro de la deuda</param>
         public void modificacionDeuda(int ID, DateTime pago, double total, string nit, int idSucursal, DateTime ingreso)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -791,27 +888,16 @@ namespace Bases_RM
                 throw e;
             }
         }
-      
-        public void modificacionTelefono(int idEncargado, String telefono)
+        /// <summary>
+        /// Modifica el teléfono de un encargado de un proveedor
+        /// </summary>
+        /// <param name="ID">ID del teléfono a modificar</param>
+        /// <param name="idEncargado">Nuevo ID del encargado</param>
+        /// <param name="telefono">Nuevo teléfono</param>
+        public void modificacionTelefono(int ID, int idEncargado, String telefono)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Encargado_id=" + idEncargado + ";";
-            try
-            {
-                Variable_Conexion.Open();
-                comando.ExecuteNonQuery();
-                Variable_Conexion.Close();
-            }
-            catch (MySqlException e)
-            {
-                Variable_Conexion.Close();
-                throw e;
-            }
-        }
-        public void modificacionTelefono(String nitDpiCliente, String telefono)
-        {
-            comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE  Cliente_NIT='" + nitDpiCliente + "';";
+            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE Id=+"+ID.ToString()+" AND Encargado_id=" + idEncargado + " AND Cliente_NIT IS NULL;";
             try
             {
                 Variable_Conexion.Open();
@@ -825,16 +911,38 @@ namespace Bases_RM
             }
         }
         /// <summary>
-        /// Modifica todos los parametros de la tabla de producto 
+        /// Modifica el teléfono de un cliente
         /// </summary>
-        /// <param name="codFabricante">Codigo segun el cual se hace la modificacion</param>
-        /// <param name="codFabricante"></param>
-        /// <param name="Descripcion"></param>
-        /// <param name="marca"></param>
-        /// <param name="fabricante"></param>
-        /// <param name="departamento"></param>
-        /// <param name="precioCosto"></param>
-        /// <param name="precioVenta"></param>
+        /// <param name="ID">ID del teléfono</param>
+        /// <param name="nitDpiCliente">Nuevo NIT o DPI del cliente</param>
+        /// <param name="telefono">Nuevo teléfono</param>
+        public void modificacionTelefono(int ID, String nitDpiCliente, String telefono)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE telefono SET Telefono='" + telefono + "' WHERE Id=+" + ID.ToString() + " AND Cliente_NIT='" + nitDpiCliente + "' AND Encargado_id IS NULL;";
+            try
+            {
+                Variable_Conexion.Open();
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        /// <summary>
+        /// Modifica todos los datos de un producto
+        /// </summary>
+        /// <param name="CodInterno">Código interno del producto a modificar</param>
+        /// <param name="codFabricante">Nuevo código de fabricante</param>
+        /// <param name="descripcion">Nueva descripción del producto</param>
+        /// <param name="marca">Nueva marca del producto</param>
+        /// <param name="fabricante">Nuevo fabricante del producto</param>
+        /// <param name="departamento">Nuevo departamento al que pertence</param>
+        /// <param name="precioCosto">Nuevo precio de costo</param>
+        /// <param name="precioVenta">Nuevo precio de venta</param>
         public void modificacionProducto(String CodInterno, String codFabricante, String descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
@@ -854,10 +962,10 @@ namespace Bases_RM
         //--------------------MODIFICACION RELACIONES--------------------//
 
 
-        public void modificacionDetallePedido(String codInternoProducto, int numeroPedido, int cantidad)
+        public void modificacionDetallePedido(String codInternoProducto, int numeroPedido, int cantidad, double precioCompra)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ");";
+            comando.CommandText = "UPDATE detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad, Precio_Compra) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ","+precioCompra.ToString()+");";
             try
             {
                 Variable_Conexion.Open();
