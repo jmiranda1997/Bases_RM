@@ -37,8 +37,8 @@ namespace Bases_RM
             if (Variable_Lectura.Read() == true)                   //se verifica si se obtiene algun dato de la base
             {
                 contraseña = Variable_Lectura["Clave"].ToString();
-               Vig.descifrar(contraseña, Vig.getCP());//se guarda la contraseña
-               contraseña = Vig.getMD();
+                Vig.descifrar(contraseña, Vig.getCP());//se guarda la contraseña
+                contraseña = Vig.getMD();
             }
             
             Variable_Conexion.Close();                                                               //se cierra la conexion
@@ -760,7 +760,7 @@ namespace Bases_RM
         public void modificacionSucursal(int ID, String nombre)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE Sucursal SET nombre='" + nombre + "' WHERE ID="+ID.ToString()+";";
+            comando.CommandText = "UPDATE Sucursal SET nombre='" + nombre + "' WHERE ID='"+ID+"';";
             try
             {
                 Variable_Conexion.Open();
@@ -948,6 +948,67 @@ namespace Bases_RM
                 throw e;
             }
         }
+        public String[,] obtener_sucursales(String diferencia)
+        {
+            String[,] sucursales = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM sucursal;";//Consulta para la base, obtener el numero de sucursales
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                    sucursales = new String[2, total];//se crea un arreglo de cadenas del tamaño del conteo obtenido de sucursales
+                    comando.CommandText = "SELECT * FROM sucursal;";
+                    Variable_Conexion.Close();//se cierra la conexion
+                    Variable_Conexion.Open();
+                    Variable_Lectura = comando.ExecuteReader();
+                    int contador = 0;
+                    while (Variable_Lectura.Read())
+                    {
+
+                        sucursales[0, contador] = Variable_Lectura["ID"].ToString();
+                        sucursales[1, contador] = Variable_Lectura["Nombre"].ToString();
+                        contador++;
+                    }
+                }
+                Variable_Conexion.Close();//se cierra la conexion
+                return sucursales;
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        public int obtener_Nbodegas()
+        {
+            int total = 0;
+            try
+            {
+
+                comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+                comando.CommandText = "SELECT COUNT(*) FROM sucursal;";//Consulta para la base, obtener el numero de sucursales
+
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                }
+               
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+            return total;
+        }
         /// <summary>
         /// obtiene la informacion del codigo que estan en la base de datos.
         /// </summary>
@@ -1084,8 +1145,40 @@ namespace Bases_RM
                 {
                     Existe = true;
                 }
+       
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+            return Existe;//regresamos el valor booleano de la consulta
+        }
 
-                
+        public Boolean existe_bodega(String Nombre)
+        {
+            Boolean Existe = false;
+            try
+            {
+
+                int contador = 0;
+
+                comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+                comando.CommandText = "SELECT COUNT(*) FROM sucursal WHERE Nombre='" + Nombre + "';";//Consulta para la base, obtener el numero de sucursales
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    contador = int.Parse(Variable_Lectura[0].ToString());// se almacena la cantidad qeu se obtine de la base
+                }
+                Variable_Conexion.Close();//cerramos la conexion con la base
+
+                if (contador != 0)//conparamos si el numero obtenido es diferente de 0 cambiamos el valor por que el codigo ya existe en la base
+                {
+                    Existe = true;
+                }
+
+
             }
             catch (MySqlException e)
             {
