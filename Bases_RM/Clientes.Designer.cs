@@ -128,6 +128,7 @@
             this.arbolClientes.Name = "arbolClientes";
             this.arbolClientes.Size = new System.Drawing.Size(236, 239);
             this.arbolClientes.TabIndex = 7;
+            this.arbolClientes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.arbolClientes_AfterSelect);
             // 
             // lbSaldo
             // 
@@ -241,22 +242,15 @@
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
-
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
-
             // 
             // exportarToolStripMenuItem
             // 
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.exportarToolStripMenuItem.Text = "&Exportar";
-
             // 
             // lbBuscar
             // 

@@ -176,5 +176,10 @@ namespace Bases_RM
         {
 
         }
+
+        private void arbolClientes_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
     }
 }
