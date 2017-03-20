@@ -29,21 +29,28 @@ namespace Bases_RM
         /// <returns></returns>
         public string Us_con(string usuario)
         {
-            string contraseña = "";                                //Variable que guarda la contraseña obtenida de la base
-            comando = Variable_Conexion.CreateCommand();           //Inicializacion del comando 
-            comando.CommandText = "SELECT Clave FROM usuario WHERE Nombre = '" + usuario + "';";   //Consulta para la base
-            Variable_Conexion.Open();                              //se abre la conexion a la base
-            Variable_Lectura = comando.ExecuteReader();            //se guarda la contraseña en la variable de lectura
-            if (Variable_Lectura.Read() == true)                   //se verifica si se obtiene algun dato de la base
+            try
             {
-                contraseña = Variable_Lectura["Clave"].ToString();
-                Vig.descifrar(contraseña, Vig.getCP());//se guarda la contraseña
-                contraseña = Vig.getMD();
-            }
-            
-            Variable_Conexion.Close();                                                               //se cierra la conexion
-           return contraseña;                                    //regresa la contraseña obtenida de la base
+                string contraseña = "";                                //Variable que guarda la contraseña obtenida de la base
+                comando = Variable_Conexion.CreateCommand();           //Inicializacion del comando 
+                comando.CommandText = "SELECT Clave FROM usuario WHERE Nombre = '" + usuario + "';";   //Consulta para la base
+                Variable_Conexion.Open();                              //se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();            //se guarda la contraseña en la variable de lectura
+                if (Variable_Lectura.Read() == true)                   //se verifica si se obtiene algun dato de la base
+                {
+                    contraseña = Variable_Lectura["Clave"].ToString();
+                    Vig.descifrar(contraseña, Vig.getCP());//se guarda la contraseña
+                    contraseña = Vig.getMD();
+                }
 
+                Variable_Conexion.Close();                                                               //se cierra la conexion
+                return contraseña;                                    //regresa la contraseña obtenida de la base
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
         }
 
         /// <summary>
