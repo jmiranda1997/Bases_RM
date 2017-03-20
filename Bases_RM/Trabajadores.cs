@@ -15,6 +15,8 @@ namespace Bases_RM
       
         private Conexion_DB Conexion_DB;
         private TrabajadoresClass trab;
+        private bool permitir = false;    
+       
 
         public Trabajadores()
         {
@@ -72,13 +74,77 @@ namespace Bases_RM
 
         private void ComboSucu_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            Conexion_DB.obtener_sucursales();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             trabajadoresTree.SelectedNode = trabajadoresTree.SelectedNode.NextNode;
             trabajadoresTree.Select();
+        }
+
+        private void archivoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (!permitir)
+            {
+                permitir = true;
+                nuevoToolStripMenuItem.Text = "Ver";
+                btnMG.Text = "Guardar";
+                btnEC.Text = "Cancelar";
+                TxtNom.Enabled = true;
+                TxtSala.Enabled = true;
+            }
+            else
+            {
+                permitir = false;
+                nuevoToolStripMenuItem.Text = "Nuevo";
+                btnMG.Text = "Modificar";
+                btnEC.Text = "Eliminar";
+                TxtNom.Enabled = false;
+                TxtSala.Enabled = false;
+            }
+        }
+
+        private void btnMG_Click(object sender, EventArgs e)
+        {
+            if (permitir)
+            {
+                if (campos_vacios())
+                {
+                    MessageBox.Show("Uno o mas campos estan vacios", "Error");
+                }
+                else
+                {
+                    try
+                    {
+                        String sucu = ComboSucu.Text; //////////////////////////////////////////////////////////////
+                        Conexion_DB.ingresoTrabajador(TxtNom.Text, double.Parse(TxtSala.Text),int.Parse(sucu));/////////////////////////
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Algunos datos no son validos");
+                    }
+                }
+                {
+
+                }
+            }
+        }
+        private bool campos_vacios()
+        {
+            bool campos_nulos = false;
+            if (String.IsNullOrEmpty(TxtNom.Text))
+                campos_nulos = true;
+            if (String.IsNullOrEmpty(TxtSala.Text))
+                campos_nulos = true;
+            if (String.IsNullOrEmpty(ComboSucu.Text))
+                campos_nulos = true;
+            return campos_nulos;
         }
     }
 }
