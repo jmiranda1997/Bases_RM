@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Reflection;
+using MySql.Data.MySqlClient;
 
 namespace Bases_RM
 {
@@ -78,24 +79,30 @@ namespace Bases_RM
        
         private void InicioSesion()
         {
-
-            if ((txtUsuario.Text.Trim() != "") && (txtContraseña.Text.Trim() != ""))
+            try
             {
-                string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
-                if (Clave_Usuario.Equals(txtContraseña.Text))
+                if ((txtUsuario.Text.Trim() != "") && (txtContraseña.Text.Trim() != ""))
                 {
-                    Usuario usernuevo = Conexion.Datos_De_User(txtUsuario.Text.Trim());
-                    Menu men = new Menu(usernuevo);
-                    men.Show();
+                    string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
+                    if (Clave_Usuario.Equals(txtContraseña.Text))
+                    {
+                        Usuario usernuevo = Conexion.Datos_De_User(txtUsuario.Text.Trim());
+                        Menu men = new Menu(usernuevo);
+                        men.Show();
 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Show();
+                        txtContraseña.SelectAll();
+                        txtContraseña.Focus();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Contraseña Incorrecta", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                    this.Show();
-                    txtContraseña.SelectAll();
-                    txtContraseña.Focus();
-                }
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         
