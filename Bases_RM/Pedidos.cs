@@ -22,10 +22,10 @@ namespace Bases_RM
             pbprogreso.Minimum = 0;
         }
 
-        public void progreso( String Progreso)
+        public void progreso(String Progreso)
         {
             pbprogreso.Value++;
-            lbprogreso.Text = Progreso + "/"+ pbprogreso.Maximum;
+            lbprogreso.Text = Progreso + "/"+ pbprogreso.Maximum.ToString();
         }
         private void Pedidos_Load(object sender, EventArgs e)
         {

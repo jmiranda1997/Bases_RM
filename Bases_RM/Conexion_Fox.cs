@@ -34,16 +34,17 @@ namespace Bases_RM
 
             int codigos = cantidad_codigos();//obtenemos la cantidad de codigos en la base de MariaDB
 
-            //Pedidos progres = new Pedidos(codigos);//iniciamos un progresbar
-            //progres.Show();
-
-            //insertar(progres);//inserta los codigos de Fox a Maria
-
-            existencias();
-
+            Pedidos progres = new Pedidos(codigos);//iniciamos un progresbar
+            progres.Show();
             Sucursales();
 
-            //progres.Close();
+            insertar(progres);//inserta los codigos de Fox a Maria
+
+            //existencias();
+
+            
+
+            progres.Close();
         }
         
         /// <summary>
@@ -75,7 +76,7 @@ namespace Bases_RM
             try
             {
                 Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
-                comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
+                comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2, Uni01 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
                 Variable_Conexion.Open();//Se abre la conexion con la base de datos
                 Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
                 int Cont = 0;
@@ -83,6 +84,8 @@ namespace Bases_RM
                 {
                     Cont++;
                     progres.progreso(Cont.ToString());
+                    String[,] sucursales = Conexion_DB.obtener_sucursales("");
+                    double[] exi = existencias(Variable_Lectura["Uni01"].ToString()); 
                     if (Conexion_DB.existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
                     {
                         Conexion_DB.modificacionProducto(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), caracteresespeciales(Variable_Lectura["codigobarr"].ToString().Trim()), caracteresespeciales(Variable_Lectura["articulo1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()),
@@ -92,6 +95,18 @@ namespace Bases_RM
                     {
                         Conexion_DB.ingresoProducto(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), caracteresespeciales(Variable_Lectura["codigobarr"].ToString().Trim()), caracteresespeciales(Variable_Lectura["articulo1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()),
                             caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca2"].ToString().Trim()), double.Parse(Variable_Lectura["costo"].ToString().Trim()), double.Parse(Variable_Lectura["venta1"].ToString().Trim()));
+                    }
+                    int sucu = Conexion_DB.obtener_Nbodegas();
+                   for (int i = 0; i < sucu; i++)
+                    {
+                        if (Conexion_DB.existe_exsitencias(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), int.Parse(sucursales[0,i])))
+                        {
+                            Conexion_DB.modificacionProductoSucursal(int.Parse(sucursales[0, i]), caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), exi[i]);    
+                        }
+                        else
+                        {
+                            Conexion_DB.ingresoProductoSucursal(int.Parse(sucursales[0, i]), caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), exi[i]);    
+                        }
                     }
                 }
                 Variable_Conexion.Close();//se cierra la conexion con la base de datos
@@ -124,9 +139,9 @@ namespace Bases_RM
         /// </summary>
         /// <param name="texto">Cadena con los decimales separados por espacios</param>
         /// <returns>Arreglo con 10 decimales</returns>
-        private double[] decimales(String texto)
+        private double[] existencias(String texto)
         {
-            double[] deci = null;
+            double[] deci;
 
             string cadena = texto.Trim(), txt = "";//elimino los espacios inecesarios
             char[] letras = cadena.ToCharArray();//convierte la cadena a un arreglo de caracteres
@@ -145,10 +160,10 @@ namespace Bases_RM
                 }
             }
             string[] cad = txt.Split(',');//se separan los numeros
-            double[] dec = new double[cad.Length];
+            deci = new double[cad.Length];
             for (int i = 0; i < cad.Length; i++)
             {
-                dec[i] = double.Parse(cad[i]);//se convierten a decimales 
+                deci[i] = double.Parse(cad[i]);//se convierten a decimales 
             }
 
             return deci;
@@ -232,7 +247,7 @@ namespace Bases_RM
                 Variable_Conexion.Close();
 
                 sucur = modificarsucursales(Conexion_DB.obtener_sucursales(""), sucurFox);
-                for (int i = 0; i < bodegas - 1; i++)
+                for (int i = 0; i < bodegas; i++)
                 {
                     if (!sucur[0,i].Equals("-1"))
                     {
