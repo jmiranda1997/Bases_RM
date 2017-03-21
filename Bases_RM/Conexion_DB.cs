@@ -1076,6 +1076,51 @@ namespace Bases_RM
         //---------------CONSULTAS---------------//
 
 
+
+        public String[,] obtenerPermisos(String usuario)
+        {
+            try
+            {
+                String[,] permisos = null;
+                //int total;
+                //comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+                //comando.CommandText = "SELECT COUNT(*) FROM usuarios;";//Consulta para la base, obtener el numero de clientes
+                //Variable_Conexion.Open();//se abre la conexion a la base
+                //Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                //if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                //{
+                //total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                permisos = new String[1, 3];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
+                comando.CommandText = "SELECT Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad FROM usuario WHERE Nombre='" + usuario + "';";
+                //Variable_Conexion.Close();//se cierra la conexion
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                //int contador = 0;
+                Vigenere seg = new Vigenere();
+                String clave="3JOR";
+                while (Variable_Lectura.Read())
+                {
+                    seg.descifrar(Variable_Lectura["Acceso_Seguridad"].ToString(),clave );
+                    permisos[0, 0] = seg.getMD();
+                    seg.descifrar(Variable_Lectura["Acceso_Clientes"].ToString(), clave);
+                    permisos[0, 1] = seg.getMD();
+                    seg.descifrar( Variable_Lectura["Acceso_Pedidos"].ToString(),clave);
+                    permisos[0, 2] = seg.getMD();
+                    seg.descifrar(Variable_Lectura["Acceso_Trabajadores"].ToString(),clave);
+                    permisos[0, 3] = seg.getMD();
+                    
+                    //contador++;
+                }
+                //}
+                Variable_Conexion.Close();//se cierra la conexion
+                return permisos;
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+        }
+
         public String[] obtener_sucursales()
         {
             String[] sucursales=null;
@@ -1508,6 +1553,26 @@ namespace Bases_RM
                 throw e;
             }
             return Existe;//regresamos el valor booleano de la consulta
+        }
+        public Cliente getCliente(String dpi)
+        {
+            Cliente clienteB = null;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT * FROM cliente WHERE NIT_DPI='" + dpi + "';";//Consulta para la base, obtener el numero de clientes
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                clienteB = new Cliente();
+                clienteB.dpi = Variable_Lectura["NIT_DPI"].ToString();
+                clienteB.nombre = Variable_Lectura["Nombre"].ToString();
+                clienteB.apellido = Variable_Lectura["Apellido"].ToString();
+                clienteB.clasificacion = int.Parse(Variable_Lectura["Clasicacion_Id"].ToString());
+                clienteB.limite = Double.Parse(Variable_Lectura["Limite_Credito"].ToString());
+                clienteB.dias = int.Parse(Variable_Lectura["Dias_Credito"].ToString());
+
+            }
+            return clienteB;
         }
         public String[,] obtener_clientes()
         {
