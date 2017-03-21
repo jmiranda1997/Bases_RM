@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Bases_RM
 {
@@ -15,8 +16,12 @@ namespace Bases_RM
       
         private Conexion_DB Conexion_DB;
         private TrabajadoresClass trab;
-        private bool permitir = false;    
-       
+        private bool permitir = false;
+        private MySqlConnectionStringBuilder Constructor_Conexion = new MySqlConnectionStringBuilder();//Constructor de la conexion
+        private MySqlConnection Variable_Conexion;//Variable que se utiliza para realizar la conexion
+        private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
+        private MySqlCommand comando;//Comando SQL para hacer las consultas
+        
 
         public Trabajadores()
         {
@@ -28,6 +33,11 @@ namespace Bases_RM
                 for (int i = 0; i < trabajadores.Length; i++)
                 {
                     trabajadoresTree.Nodes.Add(trabajadores[i]);
+                }
+                String[,] sucus = this.Conexion_DB.obtener_sucursales("");
+                for (int i  = 0; i  <Conexion_DB.obtener_Nbodegas(); i ++)
+                {
+                    ComboSucu.Items.Add(sucus[1, i]);
                 }
             }
             catch (Exception e)
@@ -52,11 +62,11 @@ namespace Bases_RM
             String Nombre = trabajadoresTree.SelectedNode.Text;
             trab = Conexion_DB.obtener_Trabajador(Nombre.Trim());
             if (trab != null) {
-                String[] sucursales = Conexion_DB.obtener_sucursales();
-                for (int i = 0; i < sucursales.Length; i++)
-                {
-                    ComboSucu.Items.Add(sucursales[i]);
-                }
+                //String[] sucursales = Conexion_DB.obtener_sucursales();
+                //for (int i = 0; i < sucursales.Length; i++)
+                //{
+                //    ComboSucu.Items.Add(sucursales[i]);
+                //}
                 TxtNom.Text = trab.Nombre;
                 TxtSala.Text = trab.Salario.ToString();
             }
@@ -122,8 +132,9 @@ namespace Bases_RM
                 {
                     try
                     {
-                        String sucu = ComboSucu.Text; //////////////////////////////////////////////////////////////
-                        Conexion_DB.ingresoTrabajador(TxtNom.Text, double.Parse(TxtSala.Text),int.Parse(sucu));/////////////////////////
+                        String SucuSucu = ComboSucu.Text;
+                        Conexion_DB.ingresoTrabajador(TxtNom.Text, double.Parse(TxtSala.Text),obtener_IDSucu(SucuSucu));     /////////////////////////
+                        MessageBox.Show("Trabajador Nuevo ingresado");
                     }
                     catch (Exception ex)
                     {
@@ -134,6 +145,21 @@ namespace Bases_RM
 
                 }
             }
+        }
+        public int obtener_IDSucu(String Nom)
+        {
+            int cont = 0;
+            String[,] Sucu = Conexion_DB.obtener_sucursales("");
+            while (cont < Conexion_DB.obtener_Nbodegas())
+            {
+                if (Nom == Sucu[1, cont])
+                {
+                    break;
+                }
+                cont++; 
+            }
+            return int.Parse(Sucu[0, cont]);
+
         }
         private bool campos_vacios()
         {
