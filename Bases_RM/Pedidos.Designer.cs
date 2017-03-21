@@ -81,7 +81,7 @@
             // 
             // pbprogreso
             // 
-            this.pbprogreso.Location = new System.Drawing.Point(12, 12);
+            this.pbprogreso.Location = new System.Drawing.Point(9, 7);
             this.pbprogreso.Name = "pbprogreso";
             this.pbprogreso.Size = new System.Drawing.Size(418, 23);
             this.pbprogreso.TabIndex = 0;
@@ -99,10 +99,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 84);
+            this.ClientSize = new System.Drawing.Size(439, 37);
             this.Controls.Add(this.lbprogreso);
             this.Controls.Add(this.pbprogreso);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "Pedidos";
             this.Text = "Actualizacion  de Base";

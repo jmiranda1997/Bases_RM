@@ -52,6 +52,8 @@
             this.btnMod2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.lbexistencias = new System.Windows.Forms.Label();
+            this.txtexistencias = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +64,7 @@
             this.salirToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1021, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(831, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -243,7 +245,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(263, 342);
+            this.button1.Location = new System.Drawing.Point(308, 398);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 23;
@@ -253,7 +255,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(344, 342);
+            this.button2.Location = new System.Drawing.Point(389, 398);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 24;
@@ -261,11 +263,31 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // lbexistencias
+            // 
+            this.lbexistencias.AutoSize = true;
+            this.lbexistencias.Location = new System.Drawing.Point(230, 240);
+            this.lbexistencias.Name = "lbexistencias";
+            this.lbexistencias.Size = new System.Drawing.Size(66, 13);
+            this.lbexistencias.TabIndex = 25;
+            this.lbexistencias.Text = "Existencias: ";
+            this.lbexistencias.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // txtexistencias
+            // 
+            this.txtexistencias.Enabled = false;
+            this.txtexistencias.Location = new System.Drawing.Point(332, 240);
+            this.txtexistencias.Name = "txtexistencias";
+            this.txtexistencias.Size = new System.Drawing.Size(100, 20);
+            this.txtexistencias.TabIndex = 26;
+            // 
             // Ordenes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 461);
+            this.ClientSize = new System.Drawing.Size(831, 461);
+            this.Controls.Add(this.txtexistencias);
+            this.Controls.Add(this.lbexistencias);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnMod2);
@@ -327,5 +349,7 @@
         private System.Windows.Forms.Button btnMod2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label lbexistencias;
+        private System.Windows.Forms.TextBox txtexistencias;
     }
 }

@@ -503,10 +503,10 @@ namespace Bases_RM
         /// <param name="idSucursal">ID de la sucursal en la cual se encuentra el producto</param>
         /// <param name="codInternoProducto">Código interno del producto</param>
         /// <param name="existencia">Cantidad disponible en la sucursal de este producto</param>
-        public void ingresoProductoSucursal(int idSucursal, String codInternoProducto, int existencia)
+        public void ingresoProductoSucursal(int idSucursal, String codInternoProducto, double existencia)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO prod_suc (Sucursal_ID, Producto_Codigo_Interno, Existencia) VALUES (" + idSucursal.ToString() + ",'" + codInternoProducto + "'," + existencia.ToString() + ");";
+            comando.CommandText = "INSERT INTO prod_suc (Sucursal_ID, Producto_Codigo_Interno, Existencia) VALUES ('" + idSucursal.ToString() + "','" + codInternoProducto + "','" + existencia.ToString() + "');";
             try
             {
                 Variable_Conexion.Open();
@@ -1015,10 +1015,10 @@ namespace Bases_RM
         /// <param name="idSucursal">ID de la sucursal</param>
         /// <param name="codInternoProducto">Código interno del producto</param>
         /// <param name="existencia">Nueva existencia del producto en la sucursal</param>
-        public void modificacionProductoSucursal(int idSucursal, String codInternoProducto, int existencia)
+        public void modificacionProductoSucursal(int idSucursal, String codInternoProducto, double existencia)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE prod_suc SET Existencia=" + existencia.ToString() + " WHERE Sucursal_ID=" + idSucursal.ToString() + " AND Producto_Codigo_Interno='" + codInternoProducto + "';";
+            comando.CommandText = "UPDATE prod_suc SET Existencia='" + existencia.ToString() + "' WHERE Sucursal_ID='" + idSucursal.ToString() + "' AND Producto_Codigo_Interno='" + codInternoProducto + "';";
             try
             {
                 Variable_Conexion.Open();
@@ -1132,7 +1132,6 @@ namespace Bases_RM
                     int contador = 0;
                     while (Variable_Lectura.Read())
                     {
-
                         sucursales[0, contador] = Variable_Lectura["ID"].ToString();
                         sucursales[1, contador] = Variable_Lectura["Nombre"].ToString();
                         contador++;
@@ -1309,6 +1308,30 @@ namespace Bases_RM
             return proveedores;//regresamos el arreglo
         }
 
+        public int obtener_Existencias(String codigo)
+        {
+            int existencias = 0;
+
+            try
+            {
+                comando.CommandText = "SELECT Existencia FROM prod_suc WHERE Producto_Codigo_Interno ='" + codigo + "';";//Consulta que obtiene todos los codigos en la base 
+                Variable_Conexion.Open();//se abre nuevamente la conexion con la base
+                Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
+                while (Variable_Lectura.Read())//ciclo tipo loop que se ejecuta mientras existan datos en la consulra
+                {
+                    existencias += int.Parse(Variable_Lectura[0].ToString());
+                }
+                Variable_Conexion.Close();//se cierra la conexion
+            }
+            catch (MySqlException e)
+            {
+                
+                throw e;
+            }
+
+            return existencias;
+        }
+
         public String[] obtener_Trabajadores()
         {
             String[] trabajadores = null;
@@ -1413,6 +1436,38 @@ namespace Bases_RM
                     Existe = true;
                 }
        
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+            return Existe;//regresamos el valor booleano de la consulta
+        }
+
+        public Boolean existe_exsitencias(String Codigo_Interno, int sucursal)
+        {
+            Boolean Existe = false;
+            try
+            {
+
+                int contador = 0;
+
+                comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+                comando.CommandText = "SELECT COUNT(*) FROM prod_suc WHERE Producto_Codigo_Interno='" + Codigo_Interno + "' AND Sucursal_ID='"+ sucursal.ToString() + "';";//Consulta para la base, obtener el numero de sucursales
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    contador = int.Parse(Variable_Lectura[0].ToString());// se almacena la cantidad qeu se obtine de la base
+                }
+                Variable_Conexion.Close();//cerramos la conexion con la base
+
+                if (contador != 0)//conparamos si el numero obtenido es diferente de 0 cambiamos el valor por que el codigo ya existe en la base
+                {
+                    Existe = true;
+                }
+
             }
             catch (MySqlException e)
             {
