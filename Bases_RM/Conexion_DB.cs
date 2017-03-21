@@ -1509,6 +1509,26 @@ namespace Bases_RM
             }
             return Existe;//regresamos el valor booleano de la consulta
         }
+        public Cliente getCliente(String dpi)
+        {
+            Cliente clienteB = null;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT * FROM cliente WHERE NIT_DPI='" + dpi + "';";//Consulta para la base, obtener el numero de clientes
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                clienteB = new Cliente();
+                clienteB.dpi = Variable_Lectura["NIT_DPI"].ToString();
+                clienteB.nombre = Variable_Lectura["Nombre"].ToString();
+                clienteB.apellido = Variable_Lectura["Apellido"].ToString();
+                clienteB.clasificacion = int.Parse(Variable_Lectura["Clasicacion_Id"].ToString());
+                clienteB.limite = Double.Parse(Variable_Lectura["Limite_Credito"].ToString());
+                clienteB.dias = int.Parse(Variable_Lectura["Dias_Credito"].ToString());
+
+            }
+            return clienteB;
+        }
         public String[,] obtener_clientes()
         {
             String[,] clientes = null;
