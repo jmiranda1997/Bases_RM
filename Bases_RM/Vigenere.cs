@@ -103,18 +103,18 @@ namespace Bases_RM
                 mensajeDescifrado += a[i] + "";
             }
         }
-        /**
-         * 
-         * @return el mensaje descifrado
-         */
+        /// <summary>
+        /// Devuelve el mensaje descifrado
+        /// </summary>
+        /// <returns>Mensaje descifrado</returns>
         public String getMD()
         {
             return mensajeDescifrado;
         }
-        /**
-         * 
-         * @return el mensaje cifrado
-         */
+        /// <summary>
+        /// Devuelve el mensaje cifrado
+        /// </summary>
+        /// <returns>Mensaje cifrado</returns>
         public String getMC()
         {
             return mensajeCifrado;

@@ -16,7 +16,7 @@ namespace Bases_RM
         private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
         private MySqlCommand comando;//Comando SQL para hacer las consultas
         public Conexion_DB(){
-            Constructor_Conexion.Server = "25.73.249.224";//Direccion IP del servidor
+            Constructor_Conexion.Server = "25.73.161.33";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
             Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
@@ -714,6 +714,30 @@ namespace Bases_RM
             }
         }
         /// <summary>
+        /// Modifica los accesos del usuario
+        /// </summary>
+        /// <param name="nombre">Nombre del usuario a modificar</param>
+        /// <param name="pedidos">Autorización de pedidos</param>
+        /// <param name="clientes">Autorización de clientes</param>
+        /// <param name="trabajadores">Autorización de trabajadores</param>
+        /// <param name="seguridad">Autorización de seguridad</param>
+        public void modificacionUsuario(String nombre, String pedidos, String clientes, String trabajadores, String seguridad)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "UPDATE usuario SET Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
+            try
+            {
+                Variable_Conexion.Open();
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        /// <summary>
         /// Cambia la contraseña del usuario
         /// </summary>
         /// <param name="nombre">Nombre del usuario al cual se le cambiará la contraseña</param>
@@ -1024,7 +1048,30 @@ namespace Bases_RM
             }
         }
 
+        
+        //---------------ELIMINACIONES--------------//
 
+
+        /// <summary>
+        /// Elimina un usuario de la base
+        /// </summary>
+        /// <param name="nombre">Nombre del usuario al cual se le cambiará la contraseña</param>
+        public void eliminacionUsuario(String nombre)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "DELETE FROM usuario WHERE Nombre='"+nombre+"';";
+            try
+            {
+                Variable_Conexion.Open();
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
 
         //---------------CONSULTAS---------------//
 
@@ -1297,8 +1344,44 @@ namespace Bases_RM
          
             return trabajadores;
         }
-
-
+        /// <summary>
+        /// Obtiene el nombre de todos los usuarios en la BD
+        /// </summary>
+        /// <returns>Arreglo de Strings con los nombres de los usuarios</returns>
+        public String[] obtenerUsuarios()
+        {
+            String[] usuarios = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*) FROM usuario;";//Consulta para la base, obtener el numero de usuarios
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                    usuarios = new String[total];//se crea un arreglo de cadenas del tamaño del conteo obtenido de usuarios
+                    comando.CommandText = "SELECT Nombre FROM usuario ORDER BY Nombre ASC;";
+                    Variable_Conexion.Close();//se cierra la conexion
+                    Variable_Conexion.Open();
+                    Variable_Lectura = comando.ExecuteReader();
+                    int contador = 0;
+                    while (Variable_Lectura.Read())
+                    {
+                        usuarios[contador] = Variable_Lectura[0].ToString();
+                        contador++;
+                    }
+                }
+                Variable_Conexion.Close();//se cierra la conexion
+                return usuarios;
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
 
         //---------------OTROS---------------//
 
