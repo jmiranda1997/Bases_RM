@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bases_RM
 {
-    class Cliente
+    public class Cliente
     {
         public String nombre,dpi,apellido;
         public int clasificacion, dias;
