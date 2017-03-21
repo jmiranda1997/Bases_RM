@@ -195,7 +195,10 @@ namespace Bases_RM
                         seg.cifrar(trabajadores, clave);
                         String sTrabajadores = seg.getMC();
                         try{
-                            conexion.ingresoUsuario(userText.Text, contraText1.Text, sPedidos, sClientes, sTrabajadores,sUsuarios);
+                            seg.cifrar(contraText1.Text, clave);
+
+                            String contra = seg.getMC();
+                            conexion.ingresoUsuario(userText.Text, contra, sPedidos, sClientes, sTrabajadores,sUsuarios);
                             MessageBox.Show("Ingreso exitoso", "Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             limpiar();
                         }catch(Exception ex)
