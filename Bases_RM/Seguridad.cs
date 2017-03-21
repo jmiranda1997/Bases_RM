@@ -17,11 +17,11 @@ namespace Bases_RM
         private Usuario user;
         private String clave = "3JOR";
         private bool modificacion = false;
-        public Seguridad(/*Usuario user*/)
+        public Seguridad(Usuario user)
         {
             InitializeComponent();
-            //this.user = user;
-            user = new Usuario("a", "q", null, null, null, null);
+            this.user = user;
+            //user = new Usuario("a", "q", null, null, null, null);
         }
         private void modificaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
