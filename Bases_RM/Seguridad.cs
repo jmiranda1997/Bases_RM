@@ -29,7 +29,6 @@ namespace Bases_RM
             
             if (usuarios.Length != 0)
             {
-                cargarCheckBoxes(conexion.obtenerPermisos(user.Nombre));
                 for (int i = 0; i < usuarios.Length; i++)
                 {
                     userCombo.Items.Add(usuarios[i]);
@@ -44,16 +43,74 @@ namespace Bases_RM
         }
         private void cargarCheckBoxes(String[,] cadena)
         {
-            String usuario = cadena[0, 0];
-            String clientes = cadena[0, 1];
-            String pedidos = cadena[0, 2];
-            String trabajadores = cadena[0, 3];
+            Char[] usuario = cadena[0, 0].ToCharArray();
+            Char[] clientes = cadena[0, 1].ToCharArray();
+            Char[] pedidos = cadena[0, 2].ToCharArray();
+            Char[] trabajadores = cadena[0, 3].ToCharArray();
+            //Carga de los accesos de usuarios
+            if (usuario[0] == '1')
+                uIngresoCheck.Checked = true;
+            if (usuario[1] == '1')
+                uModificacionCheck.Checked = true;
+            if (usuario[2] == '1')
+                uEliminacionCheck.Checked = true;
+            //Carga de accesos de clientes
+            if (clientes[0] == '1')
+                cIngresoCheck.Checked = true;
+            if (clientes[1] == '1')
+                cModificacionCheck.Checked = true;
+            if (clientes[2] == '1')
+                cExportarCheck.Checked = true;
+            if (clientes[3] == '1')
+                cIDeudasCheck.Checked = true;
+            if (clientes[4] == '1')
+                cIPagosCheck.Checked = true;
+            if (clientes[5] == '1')
+                cMDeudasCheck.Checked = true;
+            if (clientes[6] == '1')
+                cMPagosCheck.Checked = true;
+            if (clientes[7] == '1')
+                cADeudasCheck.Checked = true;
+            if (clientes[8] == '1')
+                cAPagosCheck.Checked = true;
+            if (clientes[9] == '1')
+                cCuentaCheck.Checked = true;
+            //Carga de accesos de pedidos
+            if (pedidos[0] == '1')
+                pIngresoCheck.Checked = true;
+            if (pedidos[1] == '1')
+                pModificacionCheck.Checked = true;
+            if (pedidos[2] == '1')
+                pConsultaCheck.Checked = true;
+            if (pedidos[3] == '1')
+                pExportarCheck.Checked = true;
+            //Carga de accesos de trabajadores
+            if (trabajadores[0] == '1')
+                tIngresoCheck.Checked = true;
+            if (trabajadores[1] == '1')
+                tModificacionCheck.Checked = true;
+            if (trabajadores[2] == '1')
+                tEliminacionCheck.Checked = true;
+            if (trabajadores[3] == '1')
+                tIPrestamoCheck.Checked = true;
+            if (trabajadores[4] == '1')
+                tIPagosCheck.Checked = true;
+            if (trabajadores[5] == '1')
+                tMPrestamoCheck.Checked = true;
+            if (trabajadores[6] == '1')
+                tMPagosCheck.Checked = true;
+            if (trabajadores[7] == '1')
+                tAPrestamoCheck.Checked = true;
+            if (trabajadores[8] == '1')
+                tAPagoCheck.Checked = true;
+
         }
         private void userCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((userCombo.SelectedIndex != -1)&&modificacion)
             {
                 todoGroup.Enabled = true;
+                cargarCheckBoxes(conexion.obtenerPermisos(userCombo.Text));
             }
         }
 
