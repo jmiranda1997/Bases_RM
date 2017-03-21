@@ -24,12 +24,18 @@ namespace Bases_RM
             //Thread tare = new Thread(ejecutar);
             //tare.Start();
 
-
+            
 
             this.datos_us = user;
         }
 
-        public void ejecutar(object pb)
+        public void ejecutar()
+        {
+            Conexion_Fox fox = new Conexion_Fox();
+            fox.Insertar_Codigos();
+            //btnpedidos.Enabled = true;
+        }
+        public void ejecutar2()
         {
             Conexion_Fox fox = new Conexion_Fox();
             fox.Insertar_Codigos();

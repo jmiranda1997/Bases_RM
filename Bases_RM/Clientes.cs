@@ -15,16 +15,21 @@ namespace Bases_RM
         private bool nuevo=false;//bandera booleana que sirve para alternar el formulario entre consultar clientes o ingresar Cliente
         private AbonoDeuda formulario=null;
         private Conexion_DB conexion=new Conexion_DB();
+        private Cliente cliente_actual=null;
+        String[,] clientes = null;
         public Clientes()
         {
             InitializeComponent();
-            String[,] clientes = conexion.obtener_clientes();
+            clientes = conexion.obtener_clientes();
             if(clientes!=null)
             {
+                TreeNode holi = new TreeNode("holi");
                 for(int i=0; i<clientes.Length/3;i++)
                 {
-                    arbolClientes.Nodes.Add(clientes[i,0]+"  "+clientes[i,1]+"  "+clientes[i,2]);
+                    
+                    holi.Nodes.Add(clientes[i,0]+"  "+clientes[i,1]);
                 }
+                arbolClientes.Nodes.Add(holi);
 
             }
         }
@@ -56,19 +61,27 @@ namespace Bases_RM
 
         private void btnAbono_Click(object sender, EventArgs e)
         {
-           formulario = new AbonoDeuda(false);
+           formulario = new AbonoDeuda(false,null);
            formulario.ShowDialog();
         }
 
         private void btnDeuda_Click(object sender, EventArgs e)
         {
-            formulario = new AbonoDeuda(true);
+            formulario = new AbonoDeuda(true,null);
             formulario.ShowDialog();
         }
 
         private void Clientes_Load(object sender, EventArgs e)
         {
-
+            if (clientes != null)
+            {
+                //cliente_actual = conexion.getCliente(int.Parse(clientes[0, 2]));
+                TxtApe.Text = cliente_actual.apellido;
+                TxtNom.Text = cliente_actual.nombre;
+                TxtDias.Text = cliente_actual.dias.ToString();
+                TxtNit.Text = cliente_actual.dpi;
+                TxtLimic.Text = cliente_actual.limite.ToString();
+            }
         }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -165,6 +178,11 @@ namespace Bases_RM
         }
 
         private void arbolClientes_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void archivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

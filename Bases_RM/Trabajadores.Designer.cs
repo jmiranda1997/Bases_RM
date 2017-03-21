@@ -36,12 +36,17 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnEC = new System.Windows.Forms.Button();
             this.TxtSala = new System.Windows.Forms.TextBox();
             this.ComboSucu = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnIzq = new System.Windows.Forms.Button();
+            this.btnDer = new System.Windows.Forms.Button();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.archivoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMG = new System.Windows.Forms.Button();
+            this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNom
@@ -89,7 +94,7 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 24);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(590, 24);
             this.menuStrip1.TabIndex = 7;
@@ -107,24 +112,14 @@
             this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo ";
             // 
-            // button1
+            // btnEC
             // 
-            this.button1.Location = new System.Drawing.Point(359, 271);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 26);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Modificar/Guardar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(474, 271);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(109, 26);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Eliminar/Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEC.Location = new System.Drawing.Point(474, 271);
+            this.btnEC.Name = "btnEC";
+            this.btnEC.Size = new System.Drawing.Size(109, 26);
+            this.btnEC.TabIndex = 9;
+            this.btnEC.Text = "Eliminar/Cancelar";
+            this.btnEC.UseVisualStyleBackColor = true;
             // 
             // TxtSala
             // 
@@ -144,36 +139,79 @@
             this.ComboSucu.TabIndex = 10;
             this.ComboSucu.SelectedIndexChanged += new System.EventHandler(this.ComboSucu_SelectedIndexChanged);
             // 
-            // button3
+            // btnIzq
             // 
-            this.button3.Location = new System.Drawing.Point(238, 148);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(29, 23);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "<";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button1_Click);
+            this.btnIzq.Location = new System.Drawing.Point(238, 148);
+            this.btnIzq.Name = "btnIzq";
+            this.btnIzq.Size = new System.Drawing.Size(29, 23);
+            this.btnIzq.TabIndex = 11;
+            this.btnIzq.Text = "<";
+            this.btnIzq.UseVisualStyleBackColor = true;
+            this.btnIzq.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button4
+            // btnDer
             // 
-            this.button4.Location = new System.Drawing.Point(273, 148);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(26, 23);
-            this.button4.TabIndex = 12;
-            this.button4.Text = ">";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnDer.Location = new System.Drawing.Point(273, 148);
+            this.btnDer.Name = "btnDer";
+            this.btnDer.Size = new System.Drawing.Size(26, 23);
+            this.btnDer.TabIndex = 12;
+            this.btnDer.Text = ">";
+            this.btnDer.UseVisualStyleBackColor = true;
+            this.btnDer.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // menuStrip2
+            // 
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.archivoToolStripMenuItem1});
+            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Size = new System.Drawing.Size(590, 24);
+            this.menuStrip2.TabIndex = 13;
+            this.menuStrip2.Text = "menuStrip2";
+            // 
+            // archivoToolStripMenuItem1
+            // 
+            this.archivoToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevoToolStripMenuItem1,
+            this.exportarToolStripMenuItem});
+            this.archivoToolStripMenuItem1.Name = "archivoToolStripMenuItem1";
+            this.archivoToolStripMenuItem1.Size = new System.Drawing.Size(60, 20);
+            this.archivoToolStripMenuItem1.Text = "&Archivo";
+            this.archivoToolStripMenuItem1.Click += new System.EventHandler(this.archivoToolStripMenuItem1_Click);
+            // 
+            // nuevoToolStripMenuItem1
+            // 
+            this.nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
+            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem1.Text = "&Nuevo";
+            this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
+            // 
+            // exportarToolStripMenuItem
+            // 
+            this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportarToolStripMenuItem.Text = "&Exportar";
+            // 
+            // btnMG
+            // 
+            this.btnMG.Location = new System.Drawing.Point(364, 271);
+            this.btnMG.Name = "btnMG";
+            this.btnMG.Size = new System.Drawing.Size(104, 26);
+            this.btnMG.TabIndex = 14;
+            this.btnMG.Text = "Modificar/Guardar";
+            this.btnMG.UseVisualStyleBackColor = true;
+            this.btnMG.Click += new System.EventHandler(this.btnMG_Click);
             // 
             // Trabajadores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 316);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnMG);
+            this.Controls.Add(this.btnDer);
+            this.Controls.Add(this.btnIzq);
             this.Controls.Add(this.ComboSucu);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnEC);
             this.Controls.Add(this.trabajadoresTree);
             this.Controls.Add(this.TxtSala);
             this.Controls.Add(this.TxtNom);
@@ -181,9 +219,12 @@
             this.Controls.Add(this.lbSala);
             this.Controls.Add(this.lblNom);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip2);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Trabajadores";
             this.Text = "Trabajadores";
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,11 +240,15 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnEC;
         private System.Windows.Forms.TextBox TxtSala;
         private System.Windows.Forms.ComboBox ComboSucu;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnIzq;
+        private System.Windows.Forms.Button btnDer;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exportarToolStripMenuItem;
+        private System.Windows.Forms.Button btnMG;
     }
 }
