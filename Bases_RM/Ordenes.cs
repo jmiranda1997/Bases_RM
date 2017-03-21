@@ -57,8 +57,8 @@ namespace Bases_RM
 
         private void OrdenesTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            String codigo = OrdenesTree.SelectedNode.Text;
-            Producto producto = Conexion_DB.obtener_Producto(codigo.Trim());
+            String codigo = OrdenesTree.SelectedNode.Text.Trim();
+            Producto producto = Conexion_DB.obtener_Producto(codigo);
             if (producto != null)
             {
                 txtDesc.Text = producto.Descripcion;
@@ -68,6 +68,7 @@ namespace Bases_RM
                 txtMar.Text = producto.Marca;
                 txtPC.Text = producto.Precio_Costo.ToString();
                 txtPV.Text = producto.Precio_Venta.ToString();
+                txtexistencias.Text = Conexion_DB.obtener_Existencias(codigo).ToString();
             }
            
         }
@@ -90,6 +91,11 @@ namespace Bases_RM
         private void txtDesc_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
