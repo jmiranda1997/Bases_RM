@@ -26,8 +26,10 @@ namespace Bases_RM
         private void modificaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String[] usuarios = conexion.obtenerUsuarios();
+            
             if (usuarios.Length != 0)
             {
+                cargarCheckBoxes(conexion.obtenerPermisos(user.Nombre));
                 for (int i = 0; i < usuarios.Length; i++)
                 {
                     userCombo.Items.Add(usuarios[i]);
@@ -40,7 +42,13 @@ namespace Bases_RM
             }
            
         }
-
+        private void cargarCheckBoxes(String[,] cadena)
+        {
+            String usuario = cadena[0, 0];
+            String clientes = cadena[0, 1];
+            String pedidos = cadena[0, 2];
+            String trabajadores = cadena[0, 3];
+        }
         private void userCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((userCombo.SelectedIndex != -1)&&modificacion)

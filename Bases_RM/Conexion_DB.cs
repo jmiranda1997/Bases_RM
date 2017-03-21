@@ -1096,11 +1096,19 @@ namespace Bases_RM
                 Variable_Conexion.Open();
                 Variable_Lectura = comando.ExecuteReader();
                 //int contador = 0;
+                Vigenere seg = new Vigenere();
+                String clave="3JOR";
                 while (Variable_Lectura.Read())
                 {
-                    permisos[0, 0] = Variable_Lectura["Nombre"].ToString();
-                    permisos[0, 1] = Variable_Lectura["Apellido"].ToString();
-                    permisos[0, 2] = Variable_Lectura["NIT_DPI"].ToString();
+                    seg.descifrar(Variable_Lectura["Acceso_Seguridad"].ToString(),clave );
+                    permisos[0, 0] = seg.getMD();
+                    seg.descifrar(Variable_Lectura["Acceso_Clientes"].ToString(), clave);
+                    permisos[0, 1] = seg.getMD();
+                    seg.descifrar( Variable_Lectura["Acceso_Pedidos"].ToString(),clave);
+                    permisos[0, 2] = seg.getMD();
+                    seg.descifrar(Variable_Lectura["Acceso_Trabajadores"].ToString(),clave);
+                    permisos[0, 3] = seg.getMD();
+                    
                     //contador++;
                 }
                 //}
