@@ -75,7 +75,7 @@ namespace Bases_RM
         {
             if (clientes != null)
             {
-                cliente_actual = conexion.getCliente(int.Parse(clientes[0, 2]));
+                //cliente_actual = conexion.getCliente(int.Parse(clientes[0, 2]));
                 TxtApe.Text = cliente_actual.apellido;
                 TxtNom.Text = cliente_actual.nombre;
                 TxtDias.Text = cliente_actual.dias.ToString();
