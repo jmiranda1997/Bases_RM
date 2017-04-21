@@ -453,7 +453,6 @@ namespace Bases_RM
             uModificacionCheck.Checked = true;
             uEliminacionCheck.Checked = true;
         }
-
         private void uNingunoButton_Click(object sender, EventArgs e)
         {
             uIngresoCheck.Checked = false;
