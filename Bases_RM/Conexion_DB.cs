@@ -1090,7 +1090,7 @@ namespace Bases_RM
                 //if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
                 //{
                 //total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
-                permisos = new String[1, 4];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
+                permisos = new String[1, 3];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
                 comando.CommandText = "SELECT Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad FROM usuario WHERE Nombre='" + usuario + "';";
                 //Variable_Conexion.Close();//se cierra la conexion
                 Variable_Conexion.Open();
