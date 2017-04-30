@@ -81,6 +81,7 @@ namespace Bases_RM
         private void btnsalir_Click(object sender, EventArgs e)
         {
             this.Close();
+            Application.Exit();
         }
     }
 }

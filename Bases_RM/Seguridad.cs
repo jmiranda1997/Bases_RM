@@ -117,7 +117,9 @@ namespace Bases_RM
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             limpiar();
+            Seguridad1 nuevo = new Seguridad1(user);
             this.Close();
+            nuevo.Show();
         }
 
         private void ingresoToolStripMenuItem_Click(object sender, EventArgs e)

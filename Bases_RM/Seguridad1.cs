@@ -34,12 +34,12 @@ namespace Bases_RM
                 {
                     this.Hide();
                     Seguridad segu = new Seguridad(datos_us);
-                    segu.Show();
+                    segu.ShowDialog();
 
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña Incorrecta\nIngresada " + contrasena + "\nConsultada " + Clave_Usuario, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Show();
 
                 }
@@ -56,7 +56,8 @@ namespace Bases_RM
                 if (Clave_Usuario.Equals(contrasena))
                 {
                     lblRI lb = new lblRI(user);
-                    lb.Show();
+                    this.Close();
+                    lb.ShowDialog();
                    
                     //Menu men = new Menu(user);
                     //men.Show();
@@ -64,7 +65,7 @@ namespace Bases_RM
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña Incorrecta\nIngresada " + contrasena + "\nConsultada " + Clave_Usuario, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Show();
 
                 }

@@ -16,9 +16,9 @@ namespace Bases_RM
         private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
         private MySqlCommand comando;//Comando SQL para hacer las consultas
         public Conexion_DB(){
-            Constructor_Conexion.Server = "25.73.161.33";//Direccion IP del servidor
+            Constructor_Conexion.Server = "127.0.0.1";//"25.3.39.210";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
-            Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Password = "jpmrpamr";//"@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
@@ -52,7 +52,35 @@ namespace Bases_RM
                 throw e;
             }
         }
+        /// <summary>
+        /// Metodo que verifica si la contraseña es válida para iniciar sesión
+        /// </summary>
+        /// <param name="usuario">El usuario del cual se obtendrá la contraseña</param>
+        /// <param name="password">La contraseña ingresada para intentar iniciar sesión</param>
+        /// <returns></returns>
+        public bool login(String usuario, String password)
+        {
+            try
+            {
+                int valido = 0;
+                comando = Variable_Conexion.CreateCommand();           //Inicializacion del comando 
+                comando.CommandText = "SELECT LOGIN('"+usuario+"','"+password+"') \"R\";";   //Consulta para la base
+                Variable_Conexion.Open();                              //se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();            //se guarda la contraseña en la variable de lectura
+                if (Variable_Lectura.Read() == true)                   //se verifica si se obtiene algun dato de la base
+                {
+                    valido = int.Parse(Variable_Lectura["R"].ToString());
+                }
 
+                Variable_Conexion.Close();                                                               //se cierra la conexion
+                return valido==1;                                    //regresa la contraseña obtenida de la base
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
         /// <summary>
         /// Obtiene los datos de los usuarios y devuelve los datos en un objeto de la clase Usuario 
         /// </summary>
@@ -234,7 +262,7 @@ namespace Bases_RM
         public void ingresoUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO usuario (Nombre, Clave, Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad) VALUES ('" + nombre + "','" + clave + "','" + pedidos + "','" + clientes + "','" + trabajadores + "','" + seguridad + "');";
+            comando.CommandText = "INSERT INTO usuario (Nombre, Clave, Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad) VALUES ('" + nombre + "',AES_ENCRYPT('" + clave.Substring(0,44) + "','" + clave.Substring(0,44) + "'),'" + pedidos + "','" + clientes + "','" + trabajadores + "','" + seguridad + "');";
             try
             {
                 Variable_Conexion.Open();
@@ -700,7 +728,7 @@ namespace Bases_RM
         public void modificacionUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE usuario SET Clave='" + clave + "', Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
+            comando.CommandText = "UPDATE usuario SET Clave=AES_ENCRYPT('" + clave.Substring(0, 44) + "','" + clave.Substring(0, 44) + "'), Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
             try
             {
                 Variable_Conexion.Open();
@@ -745,7 +773,7 @@ namespace Bases_RM
         public void modificacionUsuario(String nombre, String clave)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE usuario SET Clave='" + clave + "' WHERE nombre='" + nombre + "';";
+            comando.CommandText = "UPDATE usuario SET Clave=AES_ENCRYPT('" + clave.Substring(0, 44) + "','" + clave.Substring(0, 44) + "') WHERE nombre='" + nombre + "';";
             try
             {
                 Variable_Conexion.Open();
