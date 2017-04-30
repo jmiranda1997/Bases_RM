@@ -140,11 +140,12 @@ namespace Bases_RM
                 {
                     try
                     {
-                        conexion.ingresoCliente(TxtNit.Text, TxtNom.Text,TxtApe.Text, int.Parse(TxtDias.Text), int.Parse(TxtLimic.Text),2);        
+                        conexion.ingresoCliente(TxtNit.Text, TxtNom.Text,TxtApe.Text, int.Parse(TxtDias.Text), Double.Parse(TxtLimic.Text));
+                    
                     }
                     catch(Exception ex)
                         {
-                            MessageBox.Show("Algunos datos no son validos");
+                            MessageBox.Show("Algunos datos no son validos "+ex.ToString());
                         }
                 }
                 
@@ -201,6 +202,11 @@ namespace Bases_RM
         }
 
         private void archivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

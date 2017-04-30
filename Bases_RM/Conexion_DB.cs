@@ -247,26 +247,7 @@ namespace Bases_RM
                 throw e;
             }
         }
-        /// <summary>
-        /// Ingreso de clasificación de usuarios
-        /// </summary>
-        /// <param name="tipo">Nombre del tipo de clasificación</param>
-        public void ingresoClasificacion(String tipo)
-        {
-            comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO clasificacion (Tipo) VALUES ('" + tipo + "');"; 
-            try
-            {
-                Variable_Conexion.Open();
-                comando.ExecuteNonQuery();
-                Variable_Conexion.Close();
-            }
-            catch (MySqlException e)
-            {
-                Variable_Conexion.Close();
-                throw e;
-            }
-        }
+
         /// <summary>
         /// Ingreso de los paises donde se encuentran los proveedores
         /// </summary>
@@ -297,10 +278,10 @@ namespace Bases_RM
         /// <param name="diasCredito">Días de crédito para darle al cliente</param>
         /// <param name="limiteCredito">Monto máximo el cual el cliente puede debernos</param>
         /// <param name="clasificacionId">ID del la clasificación que será el cliente</param>
-        public void ingresoCliente(String NitDpi, String nombre, String apellido, int diasCredito, int limiteCredito, int clasificacionId)
+        public void ingresoCliente(String NitDpi, String nombre, String apellido, int diasCredito, Double limiteCredito)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Apellido, Dias_Credito, Limite_Credito, Clasicacion_Id) VALUES ('" + NitDpi + "','" + nombre + "','"+apellido+"'," + diasCredito.ToString() + "," + limiteCredito.ToString() + "," + clasificacionId.ToString() + ");";
+            comando.CommandText = "INSERT INTO cliente (NIT_DPI, Nombre, Apellido, Dias_Credito, Limite_Credito) VALUES ('" + NitDpi + "','" + nombre + "','"+apellido+"'," + diasCredito.ToString() + "," + limiteCredito.ToString() + ");";
             try
             {
                 Variable_Conexion.Open();
