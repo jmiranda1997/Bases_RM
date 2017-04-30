@@ -262,7 +262,7 @@ namespace Bases_RM
         public void ingresoUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO usuario (Nombre, Clave, Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad) VALUES ('" + nombre + "',AES_ENCRYPT('" + clave.Substring(0,44) + "','" + clave.Substring(0,44) + "'),'" + pedidos + "','" + clientes + "','" + trabajadores + "','" + seguridad + "');";
+            comando.CommandText = "INSERT INTO usuario (Nombre, Clave, Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad) VALUES ('" + nombre + "',AES_ENCRYPT('" + clave + "','" + clave + "'),'" + pedidos + "','" + clientes + "','" + trabajadores + "','" + seguridad + "');";
             try
             {
                 Variable_Conexion.Open();
@@ -728,7 +728,7 @@ namespace Bases_RM
         public void modificacionUsuario(String nombre, String clave, String pedidos, String clientes, String trabajadores, String seguridad)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE usuario SET Clave=AES_ENCRYPT('" + clave.Substring(0, 44) + "','" + clave.Substring(0, 44) + "'), Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
+            comando.CommandText = "UPDATE usuario SET Clave=AES_ENCRYPT('" + clave + "','" + clave + "'), Acceso_Pedidos='" + pedidos + "', Acceso_Clientes='" + clientes + "', Acceso_Trabajadores='" + trabajadores + "', Acceso_Seguridad='" + seguridad + "' WHERE nombre='" + nombre + "';";
             try
             {
                 Variable_Conexion.Open();
@@ -773,7 +773,7 @@ namespace Bases_RM
         public void modificacionUsuario(String nombre, String clave)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE usuario SET Clave=AES_ENCRYPT('" + clave.Substring(0, 44) + "','" + clave.Substring(0, 44) + "') WHERE nombre='" + nombre + "';";
+            comando.CommandText = "UPDATE usuario SET Clave=AES_ENCRYPT('" + clave + "','" + clave + "') WHERE nombre='" + nombre + "';";
             try
             {
                 Variable_Conexion.Open();

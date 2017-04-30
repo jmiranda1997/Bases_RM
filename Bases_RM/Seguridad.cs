@@ -137,145 +137,157 @@ namespace Bases_RM
             {
                 if ((contraText1.Text == contraText2.Text)&&!contraText1.Text.Equals(""))
                 {
-                    //Ingreso a la cadena de todos los permisos de usuarios
-                    String usuarios = "";
-                    if (uIngresoCheck.Checked == true)
-                        usuarios += "1";
-                    else
-                        usuarios += "0";
-                    if (uModificacionCheck.Checked == true)
-                        usuarios += "1";
-                    else
-                        usuarios += "0";
-                    if (uEliminacionCheck.Checked == true)
-                        usuarios += "1";
-                    else
-                        usuarios += "0";
-                    //Ingreso a la cadena de todos los permisos de clientes
-                    String clientes = "";
-                    if (cIngresoCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cModificacionCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cExportarCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cIDeudasCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cIPagosCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cMDeudasCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cMPagosCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cADeudasCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cAPagosCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    if (cCuentaCheck.Checked == true)
-                        clientes += "1";
-                    else
-                        clientes += "0";
-                    //Ingreso cadena de todos los permisos de pedidos
-                    String pedidos = "";
-                    if (pIngresoCheck.Checked == true)
-                        pedidos += "1";
-                    else
-                        pedidos += "0";
-                    if (pModificacionCheck.Checked == true)
-                        pedidos += "1";
-                    else
-                        pedidos += "0";
-                    if (pConsultaCheck.Checked == true)
-                        pedidos += "1";
-                    else
-                        pedidos += "0";
-                    if (pExportarCheck.Checked == true)
-                        pedidos += "1";
-                    else
-                        pedidos += "0";
-                    //Ingreso cadena de todos los permisos de trabajadores
-                    String trabajadores = "";
-                    if (tIngresoCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tModificacionCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tEliminacionCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tIPrestamoCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tIPagosCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tMPrestamoCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tMPagosCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tAPrestamoCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    if (tAPagoCheck.Checked == true)
-                        trabajadores += "1";
-                    else
-                        trabajadores += "0";
-                    //Comprobación de que por lo menos tenga 1 permiso
-                    if (!usuarios.Equals("000") || !clientes.Equals("0000000000") || !pedidos.Equals("0000") || !trabajadores.Equals("000000000"))
+                    if (contraText1.Text.Length < 45)
                     {
-                        Vigenere seg = new Vigenere();
-                        seg.cifrar(usuarios, clave);
-                        String sUsuarios = seg.getMC();
-                        seg.cifrar(clientes, clave);
-                        String sClientes = seg.getMC();
-                        seg.cifrar(pedidos, clave);
-                        String sPedidos = seg.getMC();
-                        seg.cifrar(trabajadores, clave);
-                        String sTrabajadores = seg.getMC();
-                        try{
-                            seg.cifrar(contraText1.Text, clave);
-
-                            String contra = seg.getMC();
-                            conexion.ingresoUsuario(userText.Text, contra, sPedidos, sClientes, sTrabajadores,sUsuarios);
-                            MessageBox.Show("Ingreso exitoso", "Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            limpiar();
-                        }catch(Exception ex)
+                        //Ingreso a la cadena de todos los permisos de usuarios
+                        String usuarios = "";
+                        if (uIngresoCheck.Checked == true)
+                            usuarios += "1";
+                        else
+                            usuarios += "0";
+                        if (uModificacionCheck.Checked == true)
+                            usuarios += "1";
+                        else
+                            usuarios += "0";
+                        if (uEliminacionCheck.Checked == true)
+                            usuarios += "1";
+                        else
+                            usuarios += "0";
+                        //Ingreso a la cadena de todos los permisos de clientes
+                        String clientes = "";
+                        if (cIngresoCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cModificacionCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cExportarCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cIDeudasCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cIPagosCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cMDeudasCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cMPagosCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cADeudasCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cAPagosCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        if (cCuentaCheck.Checked == true)
+                            clientes += "1";
+                        else
+                            clientes += "0";
+                        //Ingreso cadena de todos los permisos de pedidos
+                        String pedidos = "";
+                        if (pIngresoCheck.Checked == true)
+                            pedidos += "1";
+                        else
+                            pedidos += "0";
+                        if (pModificacionCheck.Checked == true)
+                            pedidos += "1";
+                        else
+                            pedidos += "0";
+                        if (pConsultaCheck.Checked == true)
+                            pedidos += "1";
+                        else
+                            pedidos += "0";
+                        if (pExportarCheck.Checked == true)
+                            pedidos += "1";
+                        else
+                            pedidos += "0";
+                        //Ingreso cadena de todos los permisos de trabajadores
+                        String trabajadores = "";
+                        if (tIngresoCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tModificacionCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tEliminacionCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tIPrestamoCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tIPagosCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tMPrestamoCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tMPagosCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tAPrestamoCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        if (tAPagoCheck.Checked == true)
+                            trabajadores += "1";
+                        else
+                            trabajadores += "0";
+                        //Comprobación de que por lo menos tenga 1 permiso
+                        if (!usuarios.Equals("000") || !clientes.Equals("0000000000") || !pedidos.Equals("0000") || !trabajadores.Equals("000000000"))
                         {
-                            MessageBox.Show(ex.ToString(),"Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                            Vigenere seg = new Vigenere();
+                            seg.cifrar(usuarios, clave);
+                            String sUsuarios = seg.getMC();
+                            seg.cifrar(clientes, clave);
+                            String sClientes = seg.getMC();
+                            seg.cifrar(pedidos, clave);
+                            String sPedidos = seg.getMC();
+                            seg.cifrar(trabajadores, clave);
+                            String sTrabajadores = seg.getMC();
+                            try
+                            {
+                                seg.cifrar(contraText1.Text, clave);
+
+                                String contra = seg.getMC();
+                                conexion.ingresoUsuario(userText.Text, contra, sPedidos, sClientes, sTrabajadores, sUsuarios);
+                                MessageBox.Show("Ingreso exitoso", "Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                limpiar();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Debe seleccionar al menos un permiso", "Atencíón", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Debe seleccionar al menos un permiso", "Atencíón", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("La contraseña debe tener 45 carácteres máximo", "Atencíón", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        contraText1.Clear();
+                        contraText2.Clear();
+                        contraText1.Focus();
                     }
                 }
                 else

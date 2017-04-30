@@ -81,6 +81,10 @@ namespace Bases_RM
         private void btnsalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
+        {
             Application.Exit();
         }
     }
