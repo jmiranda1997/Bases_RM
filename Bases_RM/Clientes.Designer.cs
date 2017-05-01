@@ -55,11 +55,11 @@
             this.btnDeuda = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.TxtApe = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.lblSucursal = new System.Windows.Forms.Label();
+            this.cbSucursal = new System.Windows.Forms.ComboBox();
             this.filtrosGB = new System.Windows.Forms.GroupBox();
-            this.sucursalRBTN = new System.Windows.Forms.RadioButton();
-            this.generalRBTN = new System.Windows.Forms.RadioButton();
+            this.rbtnGeneral = new System.Windows.Forms.RadioButton();
+            this.rbtnSucursal = new System.Windows.Forms.RadioButton();
             this.menuOpciones.SuspendLayout();
             this.filtrosGB.SuspendLayout();
             this.SuspendLayout();
@@ -176,7 +176,7 @@
             // TxtLimic
             // 
             this.TxtLimic.Enabled = false;
-            this.TxtLimic.Location = new System.Drawing.Point(368, 198);
+            this.TxtLimic.Location = new System.Drawing.Point(368, 202);
             this.TxtLimic.Name = "TxtLimic";
             this.TxtLimic.Size = new System.Drawing.Size(122, 20);
             this.TxtLimic.TabIndex = 13;
@@ -199,6 +199,7 @@
             this.btnEC.TabIndex = 15;
             this.btnEC.Text = "Eliminar";
             this.btnEC.UseVisualStyleBackColor = true;
+            this.btnEC.Click += new System.EventHandler(this.btnEC_Click);
             // 
             // lbClasi2
             // 
@@ -307,27 +308,27 @@
             this.TxtApe.Size = new System.Drawing.Size(134, 20);
             this.TxtApe.TabIndex = 23;
             // 
-            // label2
+            // lblSucursal
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(272, 144);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "label2";
+            this.lblSucursal.AutoSize = true;
+            this.lblSucursal.Location = new System.Drawing.Point(272, 147);
+            this.lblSucursal.Name = "lblSucursal";
+            this.lblSucursal.Size = new System.Drawing.Size(107, 13);
+            this.lblSucursal.TabIndex = 25;
+            this.lblSucursal.Text = "Sucursal de la deuda";
             // 
-            // comboBox1
+            // cbSucursal
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(329, 141);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(161, 21);
-            this.comboBox1.TabIndex = 26;
+            this.cbSucursal.FormattingEnabled = true;
+            this.cbSucursal.Location = new System.Drawing.Point(385, 144);
+            this.cbSucursal.Name = "cbSucursal";
+            this.cbSucursal.Size = new System.Drawing.Size(161, 21);
+            this.cbSucursal.TabIndex = 26;
             // 
             // filtrosGB
             // 
-            this.filtrosGB.Controls.Add(this.generalRBTN);
-            this.filtrosGB.Controls.Add(this.sucursalRBTN);
+            this.filtrosGB.Controls.Add(this.rbtnGeneral);
+            this.filtrosGB.Controls.Add(this.rbtnSucursal);
             this.filtrosGB.Location = new System.Drawing.Point(12, 272);
             this.filtrosGB.Name = "filtrosGB";
             this.filtrosGB.Size = new System.Drawing.Size(198, 44);
@@ -336,28 +337,27 @@
             this.filtrosGB.Text = "Filtros";
             this.filtrosGB.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // sucursalRBTN
+            // rbtnGeneral
             // 
-            this.sucursalRBTN.AutoSize = true;
-            this.sucursalRBTN.Checked = true;
-            this.sucursalRBTN.Location = new System.Drawing.Point(6, 19);
-            this.sucursalRBTN.Name = "sucursalRBTN";
-            this.sucursalRBTN.Size = new System.Drawing.Size(66, 17);
-            this.sucursalRBTN.TabIndex = 0;
-            this.sucursalRBTN.TabStop = true;
-            this.sucursalRBTN.Text = "Sucursal";
-            this.sucursalRBTN.UseVisualStyleBackColor = true;
+            this.rbtnGeneral.AutoSize = true;
+            this.rbtnGeneral.Checked = true;
+            this.rbtnGeneral.Location = new System.Drawing.Point(108, 19);
+            this.rbtnGeneral.Name = "rbtnGeneral";
+            this.rbtnGeneral.Size = new System.Drawing.Size(62, 17);
+            this.rbtnGeneral.TabIndex = 1;
+            this.rbtnGeneral.TabStop = true;
+            this.rbtnGeneral.Text = "General";
+            this.rbtnGeneral.UseVisualStyleBackColor = true;
             // 
-            // generalRBTN
+            // rbtnSucursal
             // 
-            this.generalRBTN.AutoSize = true;
-            this.generalRBTN.Location = new System.Drawing.Point(108, 19);
-            this.generalRBTN.Name = "generalRBTN";
-            this.generalRBTN.Size = new System.Drawing.Size(62, 17);
-            this.generalRBTN.TabIndex = 1;
-            this.generalRBTN.TabStop = true;
-            this.generalRBTN.Text = "General";
-            this.generalRBTN.UseVisualStyleBackColor = true;
+            this.rbtnSucursal.AutoSize = true;
+            this.rbtnSucursal.Location = new System.Drawing.Point(6, 19);
+            this.rbtnSucursal.Name = "rbtnSucursal";
+            this.rbtnSucursal.Size = new System.Drawing.Size(66, 17);
+            this.rbtnSucursal.TabIndex = 0;
+            this.rbtnSucursal.Text = "Sucursal";
+            this.rbtnSucursal.UseVisualStyleBackColor = true;
             // 
             // Clientes
             // 
@@ -365,8 +365,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(673, 328);
             this.Controls.Add(this.filtrosGB);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cbSucursal);
+            this.Controls.Add(this.lblSucursal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TxtApe);
             this.Controls.Add(this.btnDeuda);
@@ -433,10 +433,10 @@
         private System.Windows.Forms.Button btnDeuda;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TxtApe;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label lblSucursal;
+        private System.Windows.Forms.ComboBox cbSucursal;
         private System.Windows.Forms.GroupBox filtrosGB;
-        private System.Windows.Forms.RadioButton generalRBTN;
-        private System.Windows.Forms.RadioButton sucursalRBTN;
+        private System.Windows.Forms.RadioButton rbtnGeneral;
+        private System.Windows.Forms.RadioButton rbtnSucursal;
     }
 }

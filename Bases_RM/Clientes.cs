@@ -20,17 +20,26 @@ namespace Bases_RM
         public Clientes()
         {
             InitializeComponent();
+            filtroGeneral();
+            
+        }
+        /// <summary>
+        /// Metodo que llena el TreeNode con los nombres y apellidos de los clientes en forma secuencial
+        /// recibe por medio de la conexion una matriz String de n x 3, donde la primera columna tiene 
+        /// nombres, la segunda apellidos y la tercera la id del cliente
+        /// </summary>
+        private void filtroGeneral()
+        {
             clientes = conexion.obtener_clientes();
-            if(clientes!=null)
+            if (clientes != null)
             {
-                for(int i=0; i<clientes.Length/3;i++)
+                for (int i = 0; i < clientes.Length / 3; i++)
                 {
-                    arbolClientes.Nodes.Add(clientes[i,2].ToString());
+                    arbolClientes.Nodes.Add(clientes[i, 0].ToString()+" "+clientes[i,1].ToString());
                 }
 
             }
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -56,22 +65,49 @@ namespace Bases_RM
 
         }
 
+        /// <summary>
+        /// Si se hace click sobre el boton abono, este abrira la ventana AbonoDeuda
+        /// en modo de abono, enviandole un FALSE como primer parametro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAbono_Click(object sender, EventArgs e)
         {
-           formulario = new AbonoDeuda(false,null);
-           formulario.ShowDialog();
+            if (cliente_actual != null)
+            {
+                formulario = new AbonoDeuda(false, cliente_actual);
+                formulario.ShowDialog();
+            }
+            else
+                MessageBox.Show("No se ha seleccionado ningun cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
+        /// <summary>
+        /// Si se hace click en boton deuda, se abre el formulario AbonoDeuda en modo Deuda
+        /// enviandole un TRUE como´primer parametro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeuda_Click(object sender, EventArgs e)
         {
-            formulario = new AbonoDeuda(true,null);
-            formulario.ShowDialog();
-        }
-        public void cargarClientes()
-        {
-            if (clientes != null)
+            if (cliente_actual != null)
             {
-                cliente_actual = conexion.getCliente(clientes[0, 2]);
+                formulario = new AbonoDeuda(true, cliente_actual);
+                formulario.ShowDialog();
+            }
+            else
+                MessageBox.Show("No se ha seleccionado ningun cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        /// <summary>
+        /// Metodo que carga el cliente de la posicion indicada en los campos del formulario
+        /// </summary>
+        /// <param name="posicion"></param>posicion del cliente en la matriz
+        public void cargarClientes(int posicion)
+        {
+            if (clientes != null && rbtnGeneral.Checked)
+            {
+                if(posicion<clientes.Length/3)
+                cliente_actual = conexion.getCliente(clientes[posicion, 2]);//se llama  a la funcion get cliente, enviandole la id
+                //se llenan los campos con los datos extraidos de la base
                 TxtApe.Text = cliente_actual.apellido;
                 TxtNom.Text = cliente_actual.nombre;
                 TxtDias.Text = cliente_actual.dias.ToString();
@@ -82,7 +118,13 @@ namespace Bases_RM
 
         private void Clientes_Load(object sender, EventArgs e)
         {
-            cargarClientes();
+            String[,] sucursales = conexion.obtener_sucursales();
+            cbSucursal.Items.Add("Total");
+            for (int i = 0; i < sucursales.Length/2; i++)
+            {
+                cbSucursal.Items.Add(sucursales[i,0]);
+            }
+            cargarClientes(0);    
         }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,12 +149,13 @@ namespace Bases_RM
                 btnDeuda.Visible = false;
                 btnAbono.Visible = false;
                 lbBuscar.Visible = false;
-                
+                lblSucursal.Visible = false;
+                cbSucursal.Visible = false;
             }
             else
             {
                 nuevo = false;
-                cargarClientes();
+                cargarClientes(0);
                 nuevoToolStripMenuItem.Text = "Nuevo";
                 btnMG.Text = "Modificar";
                 btnEC.Text = "Eliminar";
@@ -125,6 +168,8 @@ namespace Bases_RM
                 btnDeuda.Visible = true;
                 btnAbono.Visible = true;
                 lbBuscar.Visible = true;
+                lblSucursal.Visible = true;
+                cbSucursal.Visible = true;
             }
         }
 
@@ -134,14 +179,18 @@ namespace Bases_RM
             {
                 if(campos_vacios())
                 {
-                    MessageBox.Show("Uno o mas campos estan vacios", "Error");
+                    MessageBox.Show("Uno o mas campos estan vacios", "Error");     
                 }
                 else
                 {
                     try
                     {
                         conexion.ingresoCliente(TxtNit.Text, TxtNom.Text,TxtApe.Text, int.Parse(TxtDias.Text), Double.Parse(TxtLimic.Text));
-                    
+                        arbolClientes.Nodes.Clear();
+                        filtroGeneral();
+                        nuevoToolStripMenuItem_Click(sender, e);
+                        MessageBox.Show("Se ha añadido correctamente");
+                        
                     }
                     catch(Exception ex)
                         {
@@ -191,8 +240,10 @@ namespace Bases_RM
 
             try
             {
-                cliente_actual = conexion.getCliente(arbolClientes.SelectedNode.ToString());
-                cargarClientes();
+                if(rbtnGeneral.Checked)
+                {
+                    cargarClientes(arbolClientes.SelectedNode.Index);
+                }
             }
             catch(Exception ex)
             {
@@ -209,6 +260,14 @@ namespace Bases_RM
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEC_Click(object sender, EventArgs e)
+        {
+            if(nuevo)
+            {
+                nuevoToolStripMenuItem_Click(sender, e);
+            }
         }
     }
 }

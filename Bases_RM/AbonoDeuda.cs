@@ -14,6 +14,7 @@ namespace Bases_RM
     {
         private bool deuda;//bandera booleana para diferenciar si se utilizara el form para deudas o pagos
         Conexion_DB conexion = new Conexion_DB();
+        Cliente cliente = null;
         private String nombre_tabla = "";//cadena que guardar el nombre de la tabla en que se debe agregar la informacion ingresada
         public AbonoDeuda(bool deuda, Cliente persona)
         {
@@ -28,16 +29,17 @@ namespace Bases_RM
                 nombre_tabla = "Pago";
             }
             this.Text = nombre_tabla;
-            String[] sucursales = conexion.obtener_sucursales();
-            for (int i = 0; i < sucursales.Length; i++)
+            String[,] sucursales = conexion.obtener_sucursales();
+            for (int i = 0; i < sucursales.Length/2; i++)
             {
-                cbSucursales.Items.Add(sucursales[i]);
+                cbSucursales.Items.Add(sucursales[i,0]);
             }
+            cliente = persona;
         }
         private void AbonoDeuda_Load(object sender, EventArgs e)
         {
-            if(cbSucursales.Items.Count>0)
-                cbSucursales.SelectedIndex=0;
+            txtNom.Text = cliente.nombre;
+            txtApe.Text = cliente.apellido;
         }
 
         private void btnguar_Click(object sender, EventArgs e)
@@ -48,6 +50,11 @@ namespace Bases_RM
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cbSucursales_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -16,9 +16,9 @@ namespace Bases_RM
         private MySqlDataReader Variable_Lectura;//Variable que se usa para leer datos
         private MySqlCommand comando;//Comando SQL para hacer las consultas
         public Conexion_DB(){
-            Constructor_Conexion.Server = "25.3.39.210";//Direccion IP del servidor
+            Constructor_Conexion.Server = "localhost";//"25.3.39.210";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
-            Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Password = "blackdiamond";//"@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
@@ -1102,9 +1102,9 @@ namespace Bases_RM
             }
         }
 
-        public String[] obtener_sucursales()
+        public String[,] obtener_sucursales()
         {
-            String[] sucursales=null;
+            String[,] sucursales=null;
             int total;
             comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
             comando.CommandText = "SELECT COUNT(*) FROM sucursal;";//Consulta para la base, obtener el numero de sucursales
@@ -1115,15 +1115,16 @@ namespace Bases_RM
                 if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
                 {
                     total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
-                    sucursales = new String[total];//se crea un arreglo de cadenas del tamaño del conteo obtenido de sucursales
-                    comando.CommandText = "SELECT Nombre FROM sucursal;";
+                    sucursales = new String[total,2];//se crea un arreglo de cadenas del tamaño del conteo obtenido de sucursales
+                    comando.CommandText = "SELECT Nombre,id FROM sucursal;";
                     Variable_Conexion.Close();//se cierra la conexion
                     Variable_Conexion.Open();
                     Variable_Lectura = comando.ExecuteReader();
                     int contador = 0;
                     while (Variable_Lectura.Read())
                     {
-                        sucursales[contador] = Variable_Lectura[0].ToString();
+                        sucursales[contador,0] = Variable_Lectura[0].ToString();
+                        sucursales[contador,1] = Variable_Lectura[1].ToString();
                         contador++;
                     }
                 }
@@ -1535,11 +1536,11 @@ namespace Bases_RM
             }
             return Existe;//regresamos el valor booleano de la consulta
         }
-        public Cliente getCliente(String dpi)
+        public Cliente getCliente(String id)
         {
             Cliente clienteB = null;
             comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
-            comando.CommandText = "SELECT * FROM cliente WHERE NIT_DPI='" + dpi + "';";//Consulta para la base, obtener el numero de clientes
+            comando.CommandText = "SELECT * FROM cliente WHERE id = " + id+ ";";//Consulta para la base, obtener el numero de clientes
             Variable_Conexion.Open();//se abre la conexion a la base
             Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
             if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
@@ -1548,11 +1549,13 @@ namespace Bases_RM
                 clienteB.dpi = Variable_Lectura["NIT_DPI"].ToString();
                 clienteB.nombre = Variable_Lectura["Nombre"].ToString();
                 clienteB.apellido = Variable_Lectura["Apellido"].ToString();
-                clienteB.clasificacion = int.Parse(Variable_Lectura["Clasicacion_Id"].ToString());
+                clienteB.clasificacion = int.Parse(Variable_Lectura["Clasificacion_id"].ToString());
                 clienteB.limite = Double.Parse(Variable_Lectura["Limite_Credito"].ToString());
                 clienteB.dias = int.Parse(Variable_Lectura["Dias_Credito"].ToString());
+                clienteB.id = int.Parse(id);
 
             }
+            Variable_Conexion.Close();
             return clienteB;
         }
         public String[,] obtener_clientes()
@@ -1567,7 +1570,7 @@ namespace Bases_RM
             {
                 total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
                 clientes = new String[total,3];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
-                comando.CommandText = "SELECT Nombre,Apellido,NIT_DPI FROM cliente;";
+                comando.CommandText = "SELECT Nombre,Apellido,id FROM cliente;";
                 Variable_Conexion.Close();//se cierra la conexion
                 Variable_Conexion.Open();
                 Variable_Lectura = comando.ExecuteReader();
@@ -1576,7 +1579,7 @@ namespace Bases_RM
                 {
                     clientes[contador,0] = Variable_Lectura["Nombre"].ToString();
                     clientes[contador,1] = Variable_Lectura["Apellido"].ToString();
-                    clientes[contador,2] = Variable_Lectura["NIT_DPI"].ToString();
+                    clientes[contador,2] = Variable_Lectura["id"].ToString();
                     contador++;
                 }
             }

@@ -42,6 +42,8 @@
             this.btnguar = new System.Windows.Forms.Button();
             this.lbSucursal = new System.Windows.Forms.Label();
             this.cbSucursales = new System.Windows.Forms.ComboBox();
+            this.txtApe = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbNom
@@ -49,14 +51,14 @@
             this.lbNom.AutoSize = true;
             this.lbNom.Location = new System.Drawing.Point(12, 21);
             this.lbNom.Name = "lbNom";
-            this.lbNom.Size = new System.Drawing.Size(47, 13);
+            this.lbNom.Size = new System.Drawing.Size(52, 13);
             this.lbNom.TabIndex = 0;
-            this.lbNom.Text = "Nombre:";
+            this.lbNom.Text = "Nombres:";
             // 
             // lbFecha
             // 
             this.lbFecha.AutoSize = true;
-            this.lbFecha.Location = new System.Drawing.Point(12, 50);
+            this.lbFecha.Location = new System.Drawing.Point(12, 85);
             this.lbFecha.Name = "lbFecha";
             this.lbFecha.Size = new System.Drawing.Size(40, 13);
             this.lbFecha.TabIndex = 1;
@@ -65,7 +67,7 @@
             // lbSaldoant
             // 
             this.lbSaldoant.AutoSize = true;
-            this.lbSaldoant.Location = new System.Drawing.Point(12, 74);
+            this.lbSaldoant.Location = new System.Drawing.Point(12, 109);
             this.lbSaldoant.Name = "lbSaldoant";
             this.lbSaldoant.Size = new System.Drawing.Size(76, 13);
             this.lbSaldoant.TabIndex = 2;
@@ -74,7 +76,7 @@
             // lbMont
             // 
             this.lbMont.AutoSize = true;
-            this.lbMont.Location = new System.Drawing.Point(12, 103);
+            this.lbMont.Location = new System.Drawing.Point(12, 138);
             this.lbMont.Name = "lbMont";
             this.lbMont.Size = new System.Drawing.Size(40, 13);
             this.lbMont.TabIndex = 3;
@@ -83,7 +85,7 @@
             // lbSaldoactu
             // 
             this.lbSaldoactu.AutoSize = true;
-            this.lbSaldoactu.Location = new System.Drawing.Point(12, 132);
+            this.lbSaldoactu.Location = new System.Drawing.Point(234, 82);
             this.lbSaldoactu.Name = "lbSaldoactu";
             this.lbSaldoactu.Size = new System.Drawing.Size(70, 13);
             this.lbSaldoactu.TabIndex = 4;
@@ -91,46 +93,47 @@
             // 
             // txtNom
             // 
+            this.txtNom.Enabled = false;
             this.txtNom.Location = new System.Drawing.Point(94, 18);
             this.txtNom.Name = "txtNom";
-            this.txtNom.Size = new System.Drawing.Size(378, 20);
+            this.txtNom.Size = new System.Drawing.Size(238, 20);
             this.txtNom.TabIndex = 5;
             // 
             // Datetimepic
             // 
             this.Datetimepic.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.Datetimepic.Location = new System.Drawing.Point(94, 44);
+            this.Datetimepic.Location = new System.Drawing.Point(94, 79);
             this.Datetimepic.Name = "Datetimepic";
             this.Datetimepic.Size = new System.Drawing.Size(105, 20);
             this.Datetimepic.TabIndex = 6;
             // 
             // TxtSaldoA
             // 
-            this.TxtSaldoA.Location = new System.Drawing.Point(94, 74);
+            this.TxtSaldoA.Location = new System.Drawing.Point(94, 109);
             this.TxtSaldoA.Name = "TxtSaldoA";
-            this.TxtSaldoA.Size = new System.Drawing.Size(100, 20);
+            this.TxtSaldoA.Size = new System.Drawing.Size(105, 20);
             this.TxtSaldoA.TabIndex = 7;
             this.TxtSaldoA.Text = "0.00";
             // 
             // TxtMonto
             // 
-            this.TxtMonto.Location = new System.Drawing.Point(94, 103);
+            this.TxtMonto.Location = new System.Drawing.Point(94, 138);
             this.TxtMonto.Name = "TxtMonto";
-            this.TxtMonto.Size = new System.Drawing.Size(100, 20);
+            this.TxtMonto.Size = new System.Drawing.Size(105, 20);
             this.TxtMonto.TabIndex = 8;
             this.TxtMonto.Text = "0.00";
             // 
             // TxtSaldoActu
             // 
-            this.TxtSaldoActu.Location = new System.Drawing.Point(94, 132);
+            this.TxtSaldoActu.Location = new System.Drawing.Point(316, 82);
             this.TxtSaldoActu.Name = "TxtSaldoActu";
-            this.TxtSaldoActu.Size = new System.Drawing.Size(100, 20);
+            this.TxtSaldoActu.Size = new System.Drawing.Size(127, 20);
             this.TxtSaldoActu.TabIndex = 9;
             this.TxtSaldoActu.Text = "0.00";
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(316, 212);
+            this.btnCancel.Location = new System.Drawing.Point(314, 172);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 10;
@@ -140,7 +143,7 @@
             // 
             // btnguar
             // 
-            this.btnguar.Location = new System.Drawing.Point(397, 212);
+            this.btnguar.Location = new System.Drawing.Point(395, 172);
             this.btnguar.Name = "btnguar";
             this.btnguar.Size = new System.Drawing.Size(75, 23);
             this.btnguar.TabIndex = 11;
@@ -151,7 +154,7 @@
             // lbSucursal
             // 
             this.lbSucursal.AutoSize = true;
-            this.lbSucursal.Location = new System.Drawing.Point(12, 161);
+            this.lbSucursal.Location = new System.Drawing.Point(234, 111);
             this.lbSucursal.Name = "lbSucursal";
             this.lbSucursal.Size = new System.Drawing.Size(51, 13);
             this.lbSucursal.TabIndex = 12;
@@ -160,16 +163,36 @@
             // cbSucursales
             // 
             this.cbSucursales.FormattingEnabled = true;
-            this.cbSucursales.Location = new System.Drawing.Point(94, 161);
+            this.cbSucursales.Location = new System.Drawing.Point(316, 111);
             this.cbSucursales.Name = "cbSucursales";
             this.cbSucursales.Size = new System.Drawing.Size(127, 21);
             this.cbSucursales.TabIndex = 13;
+            this.cbSucursales.SelectedIndexChanged += new System.EventHandler(this.cbSucursales_SelectedIndexChanged);
+            // 
+            // txtApe
+            // 
+            this.txtApe.Enabled = false;
+            this.txtApe.Location = new System.Drawing.Point(94, 44);
+            this.txtApe.Name = "txtApe";
+            this.txtApe.Size = new System.Drawing.Size(238, 20);
+            this.txtApe.TabIndex = 15;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Apellidos";
             // 
             // AbonoDeuda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 247);
+            this.ClientSize = new System.Drawing.Size(482, 216);
+            this.Controls.Add(this.txtApe);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cbSucursales);
             this.Controls.Add(this.lbSucursal);
             this.Controls.Add(this.btnguar);
@@ -208,5 +231,7 @@
         private System.Windows.Forms.Button btnguar;
         private System.Windows.Forms.Label lbSucursal;
         private System.Windows.Forms.ComboBox cbSucursales;
+        private System.Windows.Forms.TextBox txtApe;
+        private System.Windows.Forms.Label label1;
     }
 }
