@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pedidos));
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnabrir = new System.Windows.Forms.ToolStripMenuItem();
             this.btnimportar = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +86,7 @@
             this.pbprogreso.Name = "pbprogreso";
             this.pbprogreso.Size = new System.Drawing.Size(418, 23);
             this.pbprogreso.TabIndex = 0;
+            this.pbprogreso.Click += new System.EventHandler(this.pbprogreso_Click);
             // 
             // lbprogreso
             // 
@@ -103,6 +105,7 @@
             this.Controls.Add(this.lbprogreso);
             this.Controls.Add(this.pbprogreso);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Pedidos";
             this.Text = "Actualizacion  de Base";
