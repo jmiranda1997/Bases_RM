@@ -52,7 +52,9 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            InicioSesion();
+            //InicioSesion();
+            Menu men = new Menu(datos_us);
+            men.Show();
         }
 
         private void txtContraseña_KeyPress(object sender, KeyPressEventArgs e)

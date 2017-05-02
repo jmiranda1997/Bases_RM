@@ -69,7 +69,7 @@ namespace Bases_RM
         }
         public void cargarClientes()
         {
-            if (clientes != null)
+            if (clientes.Length > 0)
             {
                 cliente_actual = conexion.getCliente(clientes[0, 2]);
                 TxtApe.Text = cliente_actual.apellido;
@@ -195,7 +195,7 @@ namespace Bases_RM
             }
             catch(Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
             
         }
