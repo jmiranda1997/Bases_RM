@@ -49,5 +49,10 @@ namespace Bases_RM
         {
             this.Close();
         }
+
+        private void txtNom_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

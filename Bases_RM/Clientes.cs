@@ -186,5 +186,20 @@ namespace Bases_RM
         {
 
         }
+
+        private void lbClasi2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exportarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuOpciones_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }
