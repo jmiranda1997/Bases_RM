@@ -82,5 +82,10 @@ namespace Bases_RM
         {
             this.Close();
         }
+
+        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
