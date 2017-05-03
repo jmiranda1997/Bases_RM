@@ -109,6 +109,7 @@
             this.Controls.Add(this.btntrabajadores);
             this.Controls.Add(this.btnpedidos);
             this.Controls.Add(this.ptbLogo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Menu";
             this.Text = "Menu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Menu_FormClosed);

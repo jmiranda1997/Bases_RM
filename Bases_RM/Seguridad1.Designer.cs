@@ -61,7 +61,9 @@
             this.Controls.Add(this.btnCambioContra);
             this.Name = "Seguridad1";
             this.Text = "Seguridad1";
+
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Seguridad1_FormClosed);
+
             this.ResumeLayout(false);
 
         }
