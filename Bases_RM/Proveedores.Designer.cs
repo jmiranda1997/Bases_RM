@@ -34,10 +34,16 @@
             this.btnMG = new System.Windows.Forms.Button();
             this.btnEC = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.archivoToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.proveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contactosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.paisesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contactoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.paisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +51,6 @@
             this.comboProveedores = new System.Windows.Forms.ComboBox();
             this.lbCorreo = new System.Windows.Forms.Label();
             this.groupContacto = new System.Windows.Forms.GroupBox();
-            this.btnNContacto = new System.Windows.Forms.Button();
             this.btnQCorreo = new System.Windows.Forms.Button();
             this.btnQProveedor = new System.Windows.Forms.Button();
             this.comboCorreos = new System.Windows.Forms.ComboBox();
@@ -54,7 +59,6 @@
             this.btnAprov = new System.Windows.Forms.Button();
             this.lbTelefono = new System.Windows.Forms.Label();
             this.groupProveedor = new System.Windows.Forms.GroupBox();
-            this.btnNuevoProveedor = new System.Windows.Forms.Button();
             this.btnQContacto = new System.Windows.Forms.Button();
             this.comboPais = new System.Windows.Forms.ComboBox();
             this.btnAContacto = new System.Windows.Forms.Button();
@@ -66,7 +70,6 @@
             this.groupPais = new System.Windows.Forms.GroupBox();
             this.txtNombrePais = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnNPais = new System.Windows.Forms.Button();
             this.treeContacto = new System.Windows.Forms.TreeView();
             this.treePais = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
@@ -122,43 +125,92 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archivoToolStripMenuItem2});
+            this.pedidosToolStripMenuItem,
+            this.contactoToolStripMenuItem,
+            this.paisToolStripMenuItem,
+            this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(569, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(728, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // archivoToolStripMenuItem2
+            // pedidosToolStripMenuItem
             // 
-            this.archivoToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.proveedoresToolStripMenuItem,
-            this.contactosToolStripMenuItem,
-            this.paisesToolStripMenuItem});
-            this.archivoToolStripMenuItem2.Name = "archivoToolStripMenuItem2";
-            this.archivoToolStripMenuItem2.Size = new System.Drawing.Size(60, 20);
-            this.archivoToolStripMenuItem2.Text = "&Archivo";
+            this.pedidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.consultaToolStripMenuItem,
+            this.nuevoToolStripMenuItem1});
+            this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
+            this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.pedidosToolStripMenuItem.Text = "&Proveedor";
+            this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
             // 
-            // proveedoresToolStripMenuItem
+            // consultaToolStripMenuItem
             // 
-            this.proveedoresToolStripMenuItem.Name = "proveedoresToolStripMenuItem";
-            this.proveedoresToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.proveedoresToolStripMenuItem.Text = "&Proveedores";
-            this.proveedoresToolStripMenuItem.Click += new System.EventHandler(this.proveedoresToolStripMenuItem_Click);
+            this.consultaToolStripMenuItem.Name = "consultaToolStripMenuItem";
+            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.consultaToolStripMenuItem.Text = "&Consulta";
+            this.consultaToolStripMenuItem.Click += new System.EventHandler(this.consultaToolStripMenuItem_Click);
             // 
-            // contactosToolStripMenuItem
+            // nuevoToolStripMenuItem1
             // 
-            this.contactosToolStripMenuItem.Name = "contactosToolStripMenuItem";
-            this.contactosToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.contactosToolStripMenuItem.Text = "&Contactos";
-            this.contactosToolStripMenuItem.Click += new System.EventHandler(this.contactosToolStripMenuItem_Click);
+            this.nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
+            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
+            this.nuevoToolStripMenuItem1.Text = "&Nuevo";
+            this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
             // 
-            // paisesToolStripMenuItem
+            // contactoToolStripMenuItem
             // 
-            this.paisesToolStripMenuItem.Name = "paisesToolStripMenuItem";
-            this.paisesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.paisesToolStripMenuItem.Text = "&Paises";
-            this.paisesToolStripMenuItem.Click += new System.EventHandler(this.paisesToolStripMenuItem_Click);
+            this.contactoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.consultarToolStripMenuItem,
+            this.nuevoToolStripMenuItem2});
+            this.contactoToolStripMenuItem.Name = "contactoToolStripMenuItem";
+            this.contactoToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.contactoToolStripMenuItem.Text = "&Contacto";
+            // 
+            // consultarToolStripMenuItem
+            // 
+            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.consultarToolStripMenuItem.Text = "&Consulta";
+            this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
+            // 
+            // nuevoToolStripMenuItem2
+            // 
+            this.nuevoToolStripMenuItem2.Name = "nuevoToolStripMenuItem2";
+            this.nuevoToolStripMenuItem2.Size = new System.Drawing.Size(121, 22);
+            this.nuevoToolStripMenuItem2.Text = "&Nuevo";
+            this.nuevoToolStripMenuItem2.Click += new System.EventHandler(this.nuevoToolStripMenuItem2_Click);
+            // 
+            // paisToolStripMenuItem
+            // 
+            this.paisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.consultaToolStripMenuItem1,
+            this.nuevoToolStripMenuItem3});
+            this.paisToolStripMenuItem.Name = "paisToolStripMenuItem";
+            this.paisToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.paisToolStripMenuItem.Text = "&Pais";
+            // 
+            // consultaToolStripMenuItem1
+            // 
+            this.consultaToolStripMenuItem1.Name = "consultaToolStripMenuItem1";
+            this.consultaToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
+            this.consultaToolStripMenuItem1.Text = "&Consulta";
+            this.consultaToolStripMenuItem1.Click += new System.EventHandler(this.consultaToolStripMenuItem1_Click);
+            // 
+            // nuevoToolStripMenuItem3
+            // 
+            this.nuevoToolStripMenuItem3.Name = "nuevoToolStripMenuItem3";
+            this.nuevoToolStripMenuItem3.Size = new System.Drawing.Size(121, 22);
+            this.nuevoToolStripMenuItem3.Text = "&Nuevo";
+            this.nuevoToolStripMenuItem3.Click += new System.EventHandler(this.nuevoToolStripMenuItem3_Click_1);
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.salirToolStripMenuItem.Text = "&Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // archivoToolStripMenuItem
             // 
@@ -205,7 +257,6 @@
             // 
             // groupContacto
             // 
-            this.groupContacto.Controls.Add(this.btnNContacto);
             this.groupContacto.Controls.Add(this.btnQCorreo);
             this.groupContacto.Controls.Add(this.btnQProveedor);
             this.groupContacto.Controls.Add(this.comboCorreos);
@@ -218,22 +269,12 @@
             this.groupContacto.Controls.Add(this.lblNom);
             this.groupContacto.Controls.Add(this.TxtNombreContac);
             this.groupContacto.Controls.Add(this.lbP);
-            this.groupContacto.Location = new System.Drawing.Point(207, 27);
+            this.groupContacto.Location = new System.Drawing.Point(206, 28);
             this.groupContacto.Name = "groupContacto";
-            this.groupContacto.Size = new System.Drawing.Size(353, 224);
+            this.groupContacto.Size = new System.Drawing.Size(353, 191);
             this.groupContacto.TabIndex = 13;
             this.groupContacto.TabStop = false;
             this.groupContacto.Text = "Contacto";
-            // 
-            // btnNContacto
-            // 
-            this.btnNContacto.Location = new System.Drawing.Point(6, 195);
-            this.btnNContacto.Name = "btnNContacto";
-            this.btnNContacto.Size = new System.Drawing.Size(341, 23);
-            this.btnNContacto.TabIndex = 21;
-            this.btnNContacto.Text = "Nuevo Contacto";
-            this.btnNContacto.UseVisualStyleBackColor = true;
-            this.btnNContacto.Click += new System.EventHandler(this.btnNContacto_Click);
             // 
             // btnQCorreo
             // 
@@ -297,7 +338,6 @@
             // 
             // groupProveedor
             // 
-            this.groupProveedor.Controls.Add(this.btnNuevoProveedor);
             this.groupProveedor.Controls.Add(this.btnQContacto);
             this.groupProveedor.Controls.Add(this.comboPais);
             this.groupProveedor.Controls.Add(this.btnAContacto);
@@ -306,28 +346,18 @@
             this.groupProveedor.Controls.Add(this.lbNproveedor);
             this.groupProveedor.Controls.Add(this.txtNombreProv);
             this.groupProveedor.Controls.Add(this.label4);
-            this.groupProveedor.Location = new System.Drawing.Point(208, 29);
+            this.groupProveedor.Location = new System.Drawing.Point(12, 300);
             this.groupProveedor.Name = "groupProveedor";
             this.groupProveedor.Size = new System.Drawing.Size(353, 162);
             this.groupProveedor.TabIndex = 20;
             this.groupProveedor.TabStop = false;
             this.groupProveedor.Text = "Proveedor";
             // 
-            // btnNuevoProveedor
-            // 
-            this.btnNuevoProveedor.Location = new System.Drawing.Point(8, 133);
-            this.btnNuevoProveedor.Name = "btnNuevoProveedor";
-            this.btnNuevoProveedor.Size = new System.Drawing.Size(341, 23);
-            this.btnNuevoProveedor.TabIndex = 20;
-            this.btnNuevoProveedor.Text = "Nuevo Proveedor";
-            this.btnNuevoProveedor.UseVisualStyleBackColor = true;
-            this.btnNuevoProveedor.Click += new System.EventHandler(this.btnNuevoProveedor_Click);
-            // 
             // btnQContacto
             // 
             this.btnQContacto.Location = new System.Drawing.Point(208, 76);
             this.btnQContacto.Name = "btnQContacto";
-            this.btnQContacto.Size = new System.Drawing.Size(143, 23);
+            this.btnQContacto.Size = new System.Drawing.Size(142, 23);
             this.btnQContacto.TabIndex = 18;
             this.btnQContacto.Text = "Quitar";
             this.btnQContacto.UseVisualStyleBackColor = true;
@@ -337,14 +367,14 @@
             this.comboPais.FormattingEnabled = true;
             this.comboPais.Location = new System.Drawing.Point(69, 105);
             this.comboPais.Name = "comboPais";
-            this.comboPais.Size = new System.Drawing.Size(282, 21);
+            this.comboPais.Size = new System.Drawing.Size(281, 21);
             this.comboPais.TabIndex = 17;
             // 
             // btnAContacto
             // 
             this.btnAContacto.Location = new System.Drawing.Point(69, 76);
             this.btnAContacto.Name = "btnAContacto";
-            this.btnAContacto.Size = new System.Drawing.Size(133, 23);
+            this.btnAContacto.Size = new System.Drawing.Size(132, 23);
             this.btnAContacto.TabIndex = 14;
             this.btnAContacto.Text = "Agregar";
             this.btnAContacto.UseVisualStyleBackColor = true;
@@ -354,7 +384,7 @@
             this.comboContacto.FormattingEnabled = true;
             this.comboContacto.Location = new System.Drawing.Point(69, 49);
             this.comboContacto.Name = "comboContacto";
-            this.comboContacto.Size = new System.Drawing.Size(282, 21);
+            this.comboContacto.Size = new System.Drawing.Size(281, 21);
             this.comboContacto.TabIndex = 10;
             // 
             // lbPais
@@ -379,7 +409,7 @@
             // 
             this.txtNombreProv.Location = new System.Drawing.Point(69, 23);
             this.txtNombreProv.Name = "txtNombreProv";
-            this.txtNombreProv.Size = new System.Drawing.Size(278, 20);
+            this.txtNombreProv.Size = new System.Drawing.Size(282, 20);
             this.txtNombreProv.TabIndex = 1;
             // 
             // label4
@@ -395,8 +425,7 @@
             // 
             this.groupPais.Controls.Add(this.txtNombrePais);
             this.groupPais.Controls.Add(this.label1);
-            this.groupPais.Controls.Add(this.btnNPais);
-            this.groupPais.Location = new System.Drawing.Point(209, 27);
+            this.groupPais.Location = new System.Drawing.Point(371, 300);
             this.groupPais.Name = "groupPais";
             this.groupPais.Size = new System.Drawing.Size(353, 79);
             this.groupPais.TabIndex = 21;
@@ -419,16 +448,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Nombre";
             // 
-            // btnNPais
-            // 
-            this.btnNPais.Location = new System.Drawing.Point(6, 50);
-            this.btnNPais.Name = "btnNPais";
-            this.btnNPais.Size = new System.Drawing.Size(341, 23);
-            this.btnNPais.TabIndex = 0;
-            this.btnNPais.Text = "Nuevo Pais";
-            this.btnNPais.UseVisualStyleBackColor = true;
-            this.btnNPais.Click += new System.EventHandler(this.btnNPais_Click);
-            // 
             // treeContacto
             // 
             this.treeContacto.Location = new System.Drawing.Point(12, 27);
@@ -449,11 +468,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 293);
+            this.ClientSize = new System.Drawing.Size(728, 479);
             this.Controls.Add(this.treePais);
             this.Controls.Add(this.treeContacto);
-            this.Controls.Add(this.groupProveedor);
             this.Controls.Add(this.groupContacto);
+            this.Controls.Add(this.groupProveedor);
             this.Controls.Add(this.groupPais);
             this.Controls.Add(this.treeProveedores);
             this.Controls.Add(this.btnEC);
@@ -507,17 +526,20 @@
         private System.Windows.Forms.Button btnACorreo;
         private System.Windows.Forms.Button btnAprov;
         private System.Windows.Forms.Label lbTelefono;
-        private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem contactosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem paisesToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupPais;
-        private System.Windows.Forms.Button btnNPais;
-        private System.Windows.Forms.Button btnNuevoProveedor;
-        private System.Windows.Forms.Button btnNContacto;
         private System.Windows.Forms.TextBox txtNombrePais;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TreeView treeContacto;
         private System.Windows.Forms.TreeView treePais;
+        private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem contactoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem paisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
     }
 }

@@ -13,7 +13,7 @@ namespace Bases_RM
     public partial class Ordenes : Form
     {
         private Conexion_DB Conexion_DB;
-        private ClasePedido pedido;
+        private ClasePedido pedido = null;
         public Ordenes()
         {
             InitializeComponent();
@@ -72,6 +72,17 @@ namespace Bases_RM
                 txtPC.Text = producto.Precio_Costo.ToString();
                 txtPV.Text = producto.Precio_Venta.ToString();
                 txtexistencias.Text = producto.Existencias.ToString();
+                if (pedido != null)
+                {
+                    String[] Prove = Conexion_DB.obtenerProvPed(producto.id);
+                    for (int i = 0; i < Prove.Length; i++)
+                    {
+                        if (ListaProve.Items.Contains(Prove[i]))
+                        {
+                            ListaProve.SetItemChecked(ListaProve.Items.IndexOf(Prove[i]), true);
+                        }
+                    }
+                }
             }
            
         }
@@ -129,7 +140,7 @@ namespace Bases_RM
             txtComentario.Enabled = estado;
             btnPedir.Enabled = estado;
             cerrarPedidoToolStripMenuItem.Enabled = estado;
-
+            
         }
 
         private void consultarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -185,6 +196,11 @@ namespace Bases_RM
         {
             Proveedores prov = new Proveedores();
             prov.ShowDialog();
+
+        }
+
+        private void btnPedir_Click(object sender, EventArgs e)
+        {
 
         }
     }
