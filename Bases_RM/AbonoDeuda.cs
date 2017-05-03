@@ -83,7 +83,7 @@ namespace Bases_RM
                         {
                             if (double.Parse(TxtMonto.Text) <= saldoSucursal)
                             {
-                                //conexion.ingresoDeuda(Datetimepic.Text, double.Parse(TxtMonto.Text), cliente.id, int.Parse(sucursales[cbSucursales.SelectedIndex, 1]));
+                                conexion.ingresoPagoDeuda(Datetimepic.Value, double.Parse(TxtMonto.Text), cliente.id, int.Parse(sucursales[cbSucursales.SelectedIndex, 1]));
                                 MessageBox.Show("Pago ingresado con exito", "Pago");
                                 this.Close();
                             }
@@ -121,7 +121,7 @@ namespace Bases_RM
             {
                 TxtSaldoActu.Text = (saldoSucursal - double.Parse(TxtMonto.Text)).ToString("N2");
                 if (saldoSucursal < double.Parse(TxtMonto.Text) && !String.IsNullOrEmpty(cbSucursales.Text))
-                    lblError.Text = "ESTE MONTO SUPERA LA DEUDA POR: " + (-saldoSucursal + double.Parse(TxtMonto.Text)).ToString("N2");
+                    lblError.Text = "ESTE MONTO SUPERA LA DEUDA DE LA SUCURSAL POR: " + (-saldoSucursal + double.Parse(TxtMonto.Text)).ToString("N2");
                 else
                     lblError.Text = "";
             }
@@ -147,7 +147,7 @@ namespace Bases_RM
             {
                 TxtSaldoActu.Text = (saldoSucursal - double.Parse(TxtMonto.Text)).ToString("N2");
                 if (saldoSucursal<double.Parse(TxtMonto.Text) && !String.IsNullOrEmpty(cbSucursales.Text))
-                    lblError.Text = "ESTE MONTO SUPERA LA DEUDA POR: " + (-saldoSucursal + double.Parse(TxtMonto.Text)).ToString("N2");
+                    lblError.Text = "ESTE MONTO SUPERA LA DEUDA EN LA SUCURSAL POR: " + (-saldoSucursal + double.Parse(TxtMonto.Text)).ToString("N2");
                 else
                     lblError.Text = "";
             }

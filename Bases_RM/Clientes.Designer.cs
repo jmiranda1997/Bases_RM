@@ -60,6 +60,9 @@
             this.filtrosGB = new System.Windows.Forms.GroupBox();
             this.rbtnGeneral = new System.Windows.Forms.RadioButton();
             this.rbtnSucursal = new System.Windows.Forms.RadioButton();
+            this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDeDeudasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDePagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOpciones.SuspendLayout();
             this.filtrosGB.SuspendLayout();
             this.SuspendLayout();
@@ -231,7 +234,8 @@
             // menuOpciones
             // 
             this.menuOpciones.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archivoToolStripMenuItem});
+            this.archivoToolStripMenuItem,
+            this.verToolStripMenuItem});
             this.menuOpciones.Location = new System.Drawing.Point(0, 0);
             this.menuOpciones.Name = "menuOpciones";
             this.menuOpciones.Size = new System.Drawing.Size(673, 24);
@@ -251,14 +255,14 @@
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // exportarToolStripMenuItem
             // 
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.exportarToolStripMenuItem.Text = "&Exportar";
             // 
             // lbBuscar
@@ -361,6 +365,27 @@
             this.rbtnSucursal.Text = "Sucursal";
             this.rbtnSucursal.UseVisualStyleBackColor = true;
             // 
+            // verToolStripMenuItem
+            // 
+            this.verToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registroDeDeudasToolStripMenuItem,
+            this.registroDePagosToolStripMenuItem});
+            this.verToolStripMenuItem.Name = "verToolStripMenuItem";
+            this.verToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
+            this.verToolStripMenuItem.Text = "Ver";
+            // 
+            // registroDeDeudasToolStripMenuItem
+            // 
+            this.registroDeDeudasToolStripMenuItem.Name = "registroDeDeudasToolStripMenuItem";
+            this.registroDeDeudasToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.registroDeDeudasToolStripMenuItem.Text = "Registro de Deudas";
+            // 
+            // registroDePagosToolStripMenuItem
+            // 
+            this.registroDePagosToolStripMenuItem.Name = "registroDePagosToolStripMenuItem";
+            this.registroDePagosToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.registroDePagosToolStripMenuItem.Text = "Registro de Pagos";
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -440,5 +465,8 @@
         private System.Windows.Forms.GroupBox filtrosGB;
         private System.Windows.Forms.RadioButton rbtnGeneral;
         private System.Windows.Forms.RadioButton rbtnSucursal;
+        private System.Windows.Forms.ToolStripMenuItem verToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroDeDeudasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroDePagosToolStripMenuItem;
     }
 }

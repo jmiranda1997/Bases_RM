@@ -202,14 +202,13 @@ namespace Bases_RM
         /// </summary>
         /// <param name="fecha">Fecha en que se realiza el pago</param>
         /// <param name="monto">Monto a pagar</param>
-        /// <param name="idDeuda">ID de la deuda a la cual se esta pagando</param>
+        /// <param name="idCliente">ID de la deuda a la cual se esta pagando</param>
         /// <param name="fechaIngreso">Fecha de ingreso del pago al sistema</param>
-        public void ingresoPagoDeuda(DateTime fecha, double monto, int idDeuda, DateTime fechaIngreso)
+        public void ingresoPagoDeuda(DateTime fecha, double monto, int idCliente, int idSucursal)
         {
             comando = Variable_Conexion.CreateCommand();
             String fechaString = fecha.Year.ToString() + "-" + fecha.Month.ToString() + "-" + fecha.Day.ToString();
-            String ingresoString = fechaIngreso.Year.ToString() + "-" + fechaIngreso.Month.ToString() + "-" + fechaIngreso.Day.ToString();
-            comando.CommandText = "INSERT INTO pagos (Fecha, Monto, Deuda_ID, Fecha_Ingreso) VALUES ('" + fechaString + "'," + monto.ToString() + "," + idDeuda.ToString() + ",'" + ingresoString + "');";
+            comando.CommandText = "INSERT INTO pagos (Fecha, Monto, Cliente_id, Sucursal_id) VALUES ('" + fechaString + "'," + monto.ToString() + "," + idCliente.ToString() +","+idSucursal.ToString()+");";
             try
             {
                 Variable_Conexion.Open();
@@ -1620,7 +1619,7 @@ namespace Bases_RM
             }
             else
             {
-                comando.CommandText = "SELECT SUM(total) FROM deuda WHERE Cliente_id=" + idCliente+";";//Consulta para la base, obtener el total de deuda que concuerden 
+                comando.CommandText = "SELECT SUM(Saldo) FROM deuda WHERE Cliente_id=" + idCliente+";";//Consulta para la base, obtener el total de deuda que concuerden 
                 //con la id ddel cliente
                 Variable_Conexion.Open();//se abre la conexion a la base
                 Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
