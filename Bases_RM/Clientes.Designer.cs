@@ -180,6 +180,7 @@
             this.TxtLimic.Name = "TxtLimic";
             this.TxtLimic.Size = new System.Drawing.Size(122, 20);
             this.TxtLimic.TabIndex = 13;
+            this.TxtLimic.Leave += new System.EventHandler(this.TxtLimic_Leave);
             // 
             // btnMG
             // 
@@ -250,14 +251,14 @@
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // exportarToolStripMenuItem
             // 
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportarToolStripMenuItem.Text = "&Exportar";
             // 
             // lbBuscar
@@ -324,6 +325,7 @@
             this.cbSucursal.Name = "cbSucursal";
             this.cbSucursal.Size = new System.Drawing.Size(161, 21);
             this.cbSucursal.TabIndex = 26;
+            this.cbSucursal.SelectedIndexChanged += new System.EventHandler(this.cbSucursal_SelectedIndexChanged);
             // 
             // filtrosGB
             // 

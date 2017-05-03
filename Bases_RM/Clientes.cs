@@ -16,7 +16,9 @@ namespace Bases_RM
         private AbonoDeuda formulario=null;
         private Conexion_DB conexion=new Conexion_DB();
         private Cliente cliente_actual=null;
+        private String[,] sucursales;
         String[,] clientes = null;
+        private bool modificar = false;
         public Clientes()
         {
             InitializeComponent();
@@ -75,8 +77,14 @@ namespace Bases_RM
         {
             if (cliente_actual != null)
             {
-                formulario = new AbonoDeuda(false, cliente_actual);
-                formulario.ShowDialog();
+                if (double.Parse(TxtDeuda.Text) > 0)
+                {
+                    formulario = new AbonoDeuda(false, cliente_actual);
+                    formulario.ShowDialog();
+                }
+                else
+                    MessageBox.Show("Este cliente no tiene una deuda", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             else
                 MessageBox.Show("No se ha seleccionado ningun cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -112,14 +120,26 @@ namespace Bases_RM
                 TxtNom.Text = cliente_actual.nombre;
                 TxtDias.Text = cliente_actual.dias.ToString();
                 TxtNit.Text = cliente_actual.dpi;
-                TxtLimic.Text = cliente_actual.limite.ToString();
+                TxtLimic.Text = cliente_actual.limite.ToString("N2");
+                TxtDeuda.Text = conexion.obtener_saldoTotal(cliente_actual.id, 0).ToString("N2");
+                cbSucursal.Text = "";
             }
         }
-
+        private void cargarClientesActual()
+        {
+            if (cliente_actual!=null)
+            {       
+                TxtApe.Text = cliente_actual.apellido;
+                TxtNom.Text = cliente_actual.nombre;
+                TxtDias.Text = cliente_actual.dias.ToString();
+                TxtNit.Text = cliente_actual.dpi;
+                TxtLimic.Text = cliente_actual.limite.ToString("N2");
+                cbSucursal.Text = "";
+            }
+        }
         private void Clientes_Load(object sender, EventArgs e)
         {
-            String[,] sucursales = conexion.obtener_sucursales();
-            cbSucursal.Items.Add("Total");
+            sucursales = conexion.obtener_sucursales();
             for (int i = 0; i < sucursales.Length/2; i++)
             {
                 cbSucursal.Items.Add(sucursales[i,0]);
@@ -132,31 +152,24 @@ namespace Bases_RM
             if(!nuevo)//Si la bandera es falsa, el formulario esta en modo ver, cambia a nuevo bloquea los textbox
             {
                 nuevo = true;
+                modificar = false;
                 nuevoToolStripMenuItem.Text = "Ver";
-                btnMG.Text = "Guardar";
-                btnEC.Text = "Cancelar";
-                txtBuscar.Visible = false;
-                TxtNom.Enabled = true;
+                guardar_modificar();
                 TxtNit.Enabled = true;
-                TxtDias.Enabled = true;
-                TxtLimic.Enabled = true;
-                TxtApe.Enabled = true;
-                TxtNom.Text = "";
-                TxtNit.Text = "" ;
-                TxtDias.Text="";
-                TxtLimic.Text="";
-                TxtApe.Text="";
-                btnDeuda.Visible = false;
-                btnAbono.Visible = false;
-                lbBuscar.Visible = false;
-                lblSucursal.Visible = false;
-                cbSucursal.Visible = false;
             }
             else
             {
                 nuevo = false;
-                cargarClientes(0);
                 nuevoToolStripMenuItem.Text = "Nuevo";
+                cargarClientes(0);
+                modo_vista();
+            }
+        }
+        /// <summary>
+        /// Desabilita los campos para dejar el formulario solo apto para visualizar datos de clientes
+        /// </summary>
+        private void modo_vista()
+        {
                 btnMG.Text = "Modificar";
                 btnEC.Text = "Eliminar";
                 txtBuscar.Visible = true;
@@ -170,14 +183,42 @@ namespace Bases_RM
                 lbBuscar.Visible = true;
                 lblSucursal.Visible = true;
                 cbSucursal.Visible = true;
-            }
         }
-
+        /// <summary>
+        /// Habilita y limpia los campos modificables para insercion o modificacion de clientes
+        /// </summary>
+        private void guardar_modificar()
+        {
+            btnMG.Text = "Guardar";
+            btnEC.Text = "Cancelar";
+            txtBuscar.Visible = false;
+            TxtNom.Enabled = true;
+            TxtNit.Enabled = false;
+            TxtDias.Enabled = true;
+            TxtLimic.Enabled = true;
+            TxtApe.Enabled = true;
+            TxtNom.Text = "";
+            TxtNit.Text = "";
+            TxtDias.Text = "";
+            TxtLimic.Text = "";
+            TxtApe.Text = "";
+            btnDeuda.Visible = false;
+            btnAbono.Visible = false;
+            lbBuscar.Visible = false;
+            lblSucursal.Visible = false;
+            cbSucursal.Visible = false;
+        }
+        /// <summary>
+        /// Boton utilizado para guardar un nuevo cliente o las modificaciones de este
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMG_Click(object sender, EventArgs e)
         {
-            if(nuevo)
+            
+            if(nuevo || modificar)//si una de las dos banderas es TRUE se esta ingreando o modificando un cliente
             {
-                if(campos_vacios())
+                if(campos_vacios())//Se verifica que no existan campos vacios
                 {
                     MessageBox.Show("Uno o mas campos estan vacios", "Error");     
                 }
@@ -185,20 +226,39 @@ namespace Bases_RM
                 {
                     try
                     {
-                        conexion.ingresoCliente(TxtNit.Text, TxtNom.Text,TxtApe.Text, int.Parse(TxtDias.Text), Double.Parse(TxtLimic.Text));
-                        arbolClientes.Nodes.Clear();
-                        filtroGeneral();
-                        nuevoToolStripMenuItem_Click(sender, e);
-                        MessageBox.Show("Se ha añadido correctamente");
-                        
+                        if (nuevo == true)//si la bandera nuevo es true, trata de guardar el nuevo cliente
+                        {
+                            conexion.ingresoCliente(TxtNit.Text, TxtNom.Text, TxtApe.Text, int.Parse(TxtDias.Text), Double.Parse(TxtLimic.Text));// llama al ingreso de clientes
+                            arbolClientes.Nodes.Clear();//Limpia el TreeNode
+                            filtroGeneral();//vuelve a carga a los clientes
+                            nuevoToolStripMenuItem_Click(sender, e);//Vuelve a colocar el formulario en modo visualizacion de datos
+                            MessageBox.Show("Se ha añadido correctamente");
+                        }
+                        if(modificar && cliente_actual!=null)//si la bandera es de modifcacion y el cliente actual no es nulo, trata de modificarse
+                        {
+                            conexion.modificacionCliente(TxtNom.Text, TxtApe.Text, int.Parse(TxtDias.Text), double.Parse(TxtLimic.Text), cliente_actual.id);//llama al UPDATE de clientes de la clase conexion
+                            arbolClientes.Nodes.Clear();//Limpia el TreeNode
+                            filtroGeneral();//vuelve a cargar los clientes
+                            modificar = false;//cambia la bandera de modificacion
+                            modo_vista();//poine el formulario en modo vista
+                            cliente_actual = conexion.getCliente(cliente_actual.id.ToString());//actualiza el cliente actual
+                            cargarClientesActual();//Carga los datos en el formulario
+                            MessageBox.Show("Se ha modificado correctamente");
+                        }
                     }
                     catch(Exception ex)
                         {
                             MessageBox.Show("Algunos datos no son validos "+ex.ToString());
                         }
                 }
-                
             }
+            else if (!modificar && cliente_actual != null)//si la bandera de modificar no esta actitvada y no entro al if anterior
+            {
+                modificar = true;//cambia la bandera de modificacion
+                guardar_modificar();//pone el formulario en modo guardar o modificar (limpia yy habilita los campos correspondientes)
+                cargarClientesActual();//carga los datos del cliente actual
+            }
+            
         }
 
         private void TxtDeuda_TextChanged(object sender, EventArgs e)
@@ -261,13 +321,40 @@ namespace Bases_RM
         {
 
         }
-
         private void btnEC_Click(object sender, EventArgs e)
         {
             if(nuevo)
             {
                 nuevoToolStripMenuItem_Click(sender, e);
             }
+            if(modificar)
+            {
+                modificar = false;
+                cargarClientesActual();
+                modo_vista();
+            }
+        }
+
+        private void cbSucursal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cliente_actual!=null)
+            {
+                TxtSaldo.Text = conexion.obtener_saldoTotal(cliente_actual.id, int.Parse(sucursales[cbSucursal.SelectedIndex, 1])).ToString("N2");
+            }
+        }
+
+        private void TxtLimic_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                TxtLimic.Text = double.Parse(TxtLimic.Text).ToString("N2");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Este no es un numero valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TxtLimic.Focus();
+            }
+
         }
     }
 }

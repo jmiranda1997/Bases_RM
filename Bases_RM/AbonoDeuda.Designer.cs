@@ -44,6 +44,9 @@
             this.cbSucursales = new System.Windows.Forms.ComboBox();
             this.txtApe = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblError = new System.Windows.Forms.Label();
+            this.txtSaldoT = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbNom
@@ -69,9 +72,10 @@
             this.lbSaldoant.AutoSize = true;
             this.lbSaldoant.Location = new System.Drawing.Point(12, 109);
             this.lbSaldoant.Name = "lbSaldoant";
-            this.lbSaldoant.Size = new System.Drawing.Size(76, 13);
+            this.lbSaldoant.Size = new System.Drawing.Size(77, 13);
             this.lbSaldoant.TabIndex = 2;
-            this.lbSaldoant.Text = "Saldo Anterior:";
+            this.lbSaldoant.Text = "Saldo del Mes:";
+            this.lbSaldoant.Click += new System.EventHandler(this.lbSaldoant_Click);
             // 
             // lbMont
             // 
@@ -85,7 +89,7 @@
             // lbSaldoactu
             // 
             this.lbSaldoactu.AutoSize = true;
-            this.lbSaldoactu.Location = new System.Drawing.Point(234, 82);
+            this.lbSaldoactu.Location = new System.Drawing.Point(12, 164);
             this.lbSaldoactu.Name = "lbSaldoactu";
             this.lbSaldoactu.Size = new System.Drawing.Size(70, 13);
             this.lbSaldoactu.TabIndex = 4;
@@ -109,31 +113,38 @@
             // 
             // TxtSaldoA
             // 
-            this.TxtSaldoA.Location = new System.Drawing.Point(94, 109);
+            this.TxtSaldoA.Enabled = false;
+            this.TxtSaldoA.Location = new System.Drawing.Point(95, 106);
             this.TxtSaldoA.Name = "TxtSaldoA";
             this.TxtSaldoA.Size = new System.Drawing.Size(105, 20);
             this.TxtSaldoA.TabIndex = 7;
             this.TxtSaldoA.Text = "0.00";
+            this.TxtSaldoA.TextChanged += new System.EventHandler(this.TxtSaldoA_TextChanged);
             // 
             // TxtMonto
             // 
-            this.TxtMonto.Location = new System.Drawing.Point(94, 138);
+            this.TxtMonto.Location = new System.Drawing.Point(95, 135);
             this.TxtMonto.Name = "TxtMonto";
             this.TxtMonto.Size = new System.Drawing.Size(105, 20);
             this.TxtMonto.TabIndex = 8;
             this.TxtMonto.Text = "0.00";
+            this.TxtMonto.TextChanged += new System.EventHandler(this.TxtMonto_TextChanged);
+            this.TxtMonto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMonto_KeyPress);
+            this.TxtMonto.Leave += new System.EventHandler(this.TxtMonto_Leave);
             // 
             // TxtSaldoActu
             // 
-            this.TxtSaldoActu.Location = new System.Drawing.Point(316, 82);
+            this.TxtSaldoActu.Enabled = false;
+            this.TxtSaldoActu.Location = new System.Drawing.Point(95, 161);
             this.TxtSaldoActu.Name = "TxtSaldoActu";
-            this.TxtSaldoActu.Size = new System.Drawing.Size(127, 20);
+            this.TxtSaldoActu.Size = new System.Drawing.Size(105, 20);
             this.TxtSaldoActu.TabIndex = 9;
             this.TxtSaldoActu.Text = "0.00";
+            this.TxtSaldoActu.TextChanged += new System.EventHandler(this.TxtSaldoActu_TextChanged);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(314, 172);
+            this.btnCancel.Location = new System.Drawing.Point(395, 152);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 10;
@@ -143,7 +154,7 @@
             // 
             // btnguar
             // 
-            this.btnguar.Location = new System.Drawing.Point(395, 172);
+            this.btnguar.Location = new System.Drawing.Point(314, 152);
             this.btnguar.Name = "btnguar";
             this.btnguar.Size = new System.Drawing.Size(75, 23);
             this.btnguar.TabIndex = 11;
@@ -154,7 +165,7 @@
             // lbSucursal
             // 
             this.lbSucursal.AutoSize = true;
-            this.lbSucursal.Location = new System.Drawing.Point(234, 111);
+            this.lbSucursal.Location = new System.Drawing.Point(244, 109);
             this.lbSucursal.Name = "lbSucursal";
             this.lbSucursal.Size = new System.Drawing.Size(51, 13);
             this.lbSucursal.TabIndex = 12;
@@ -163,9 +174,9 @@
             // cbSucursales
             // 
             this.cbSucursales.FormattingEnabled = true;
-            this.cbSucursales.Location = new System.Drawing.Point(316, 111);
+            this.cbSucursales.Location = new System.Drawing.Point(314, 106);
             this.cbSucursales.Name = "cbSucursales";
-            this.cbSucursales.Size = new System.Drawing.Size(127, 21);
+            this.cbSucursales.Size = new System.Drawing.Size(154, 21);
             this.cbSucursales.TabIndex = 13;
             this.cbSucursales.SelectedIndexChanged += new System.EventHandler(this.cbSucursales_SelectedIndexChanged);
             // 
@@ -186,11 +197,41 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Apellidos";
             // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(12, 217);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(0, 13);
+            this.lblError.TabIndex = 16;
+            // 
+            // txtSaldoT
+            // 
+            this.txtSaldoT.Enabled = false;
+            this.txtSaldoT.Location = new System.Drawing.Point(314, 82);
+            this.txtSaldoT.Name = "txtSaldoT";
+            this.txtSaldoT.Size = new System.Drawing.Size(105, 20);
+            this.txtSaldoT.TabIndex = 18;
+            this.txtSaldoT.Text = "0.00";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(244, 82);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Saldo Total:";
+            // 
             // AbonoDeuda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 216);
+            this.ClientSize = new System.Drawing.Size(490, 239);
+            this.Controls.Add(this.txtSaldoT);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblError);
             this.Controls.Add(this.txtApe);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbSucursales);
@@ -233,5 +274,8 @@
         private System.Windows.Forms.ComboBox cbSucursales;
         private System.Windows.Forms.TextBox txtApe;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.TextBox txtSaldoT;
+        private System.Windows.Forms.Label label2;
     }
 }
