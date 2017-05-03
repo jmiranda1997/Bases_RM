@@ -214,7 +214,7 @@
             this.lbClasi2.Size = new System.Drawing.Size(40, 13);
             this.lbClasi2.TabIndex = 16;
             this.lbClasi2.Text = "Normal";
-            this.lbClasi2.Click += new System.EventHandler(this.lbClasi2_Click);
+            //this.lbClasi2.Click += new System.EventHandler(this.lbClasi2_Click);
             // 
             // lbDias
             // 
@@ -243,7 +243,7 @@
             this.menuOpciones.Size = new System.Drawing.Size(673, 24);
             this.menuOpciones.TabIndex = 19;
             this.menuOpciones.Text = "menuStrip1";
-            this.menuOpciones.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuOpciones_ItemClicked);
+            //this.menuOpciones.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuOpciones_ItemClicked);
             // 
             // archivoToolStripMenuItem
             // 
@@ -267,7 +267,7 @@
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
             this.exportarToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.exportarToolStripMenuItem.Text = "&Exportar";
-            this.exportarToolStripMenuItem.Click += new System.EventHandler(this.exportarToolStripMenuItem_Click);
+            //this.exportarToolStripMenuItem.Click += new System.EventHandler(this.exportarToolStripMenuItem_Click);
             // 
             // lbBuscar
             // 

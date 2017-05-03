@@ -112,7 +112,7 @@ namespace Bases_RM
         public void cargarClientes(int posicion)
         {
 
-            if (clientes != null && rbtnGeneral.Checked)
+            if (clientes.Length>0 && rbtnGeneral.Checked)
 
             {
                 if(posicion<clientes.Length/3)

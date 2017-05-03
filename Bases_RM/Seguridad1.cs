@@ -29,7 +29,7 @@ namespace Bases_RM
             if (!contrasena.Trim().Equals(""))
             {
 
-                if (Conexion.login(user.Nombre,contrasena))
+                if (Conexion.login(datos_us.Nombre, contrasena))
 
                 {
                     this.Hide();
@@ -53,9 +53,9 @@ namespace Bases_RM
             if (!contrasena.Trim().Equals(""))
             {
 
-                if (Conexion.login(user.Nombre,contrasena))
+                if (Conexion.login(datos_us.Nombre,contrasena))
                 {
-                    lblRI lb = new lblRI(user);
+                    lblRI lb = new lblRI(datos_us);
                     this.Close();
                     lb.Show();
 
@@ -75,7 +75,7 @@ namespace Bases_RM
 
        private void Seguridad1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Menu menu = new Menu(user);
+            Menu menu = new Menu(datos_us);
             menu.Show();
         }
         private void Seguridad1_Load(object sender, EventArgs e)
