@@ -51,7 +51,9 @@ namespace Bases_RM
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
             if (!contrasena.Trim().Equals(""))
             {
+
                 string Clave_Usuario = Conexion.Us_con(datos_us.Nombre);
+
                 if (Clave_Usuario.Equals(contrasena))
                 {
                     lblRI lb = new lblRI(datos_us);
