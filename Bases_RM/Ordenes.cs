@@ -13,9 +13,12 @@ namespace Bases_RM
     public partial class Ordenes : Form
     {
         private Conexion_DB Conexion_DB;
+        private ClasePedido pedido = null;
         public Ordenes()
         {
             InitializeComponent();
+            
+     
             this.Conexion_DB = new Conexion_DB();
             String[] codigos = this.Conexion_DB.obtener_codigos();
             String[] proveedores = this.Conexion_DB.obtener_proveedores();
@@ -68,7 +71,18 @@ namespace Bases_RM
                 txtMar.Text = producto.Marca;
                 txtPC.Text = producto.Precio_Costo.ToString();
                 txtPV.Text = producto.Precio_Venta.ToString();
-                txtexistencias.Text = Conexion_DB.obtener_Existencias(codigo).ToString();
+                txtexistencias.Text = producto.Existencias.ToString();
+                if (pedido != null)
+                {
+                    String[] Prove = Conexion_DB.obtenerProvPed(producto.id);
+                    for (int i = 0; i < Prove.Length; i++)
+                    {
+                        if (ListaProve.Items.Contains(Prove[i]))
+                        {
+                            ListaProve.SetItemChecked(ListaProve.Items.IndexOf(Prove[i]), true);
+                        }
+                    }
+                }
             }
            
         }
@@ -96,6 +110,98 @@ namespace Bases_RM
         private void label1_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nuevoPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Conexion_DB.ingresoPedido();
+            String Nombre = Conexion_DB.obtenerNombrePedido();
+            cambiarBtn(true, "Abierto", Color.Green, Nombre);
+            pedido = Conexion_DB.obtenerPedido(Nombre);
+            lbEstado.Visible = true;
+        }
+        private void cambiarBtn(Boolean estado, String Texto, Color color, String Titulo)
+        {
+            this.Text = Titulo;
+            lbEstado.BackColor= color;
+            lbEstado.Text = Texto;
+            ListaProve.Enabled = estado;
+            txtCantidad.Enabled = estado;
+            txtComentario.Enabled = estado;
+            btnPedir.Enabled = estado;
+            cerrarPedidoToolStripMenuItem.Enabled = estado;
+            
+        }
+
+        private void consultarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cerrarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pedido = null;
+            cambiarBtn(false, "", Color.Green, "Pedidos");
+            lbEstado.Visible = false;
+        }
+
+        private void menuStrip1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void abrirPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Abrir_Pedido Abrir = new Abrir_Pedido();
+            Abrir.ShowDialog();
+            if (Abrir.idSeleccion != -1)
+            {
+                pedido = Conexion_DB.obtenerPedido(Abrir.Nombre);
+                String result = "Cerrado"; Color color = Color.Red; bool condicion = false;
+                if (!pedido.finalizado) { result = "Abierto"; color = Color.Green; condicion = true;}
+                lbEstado.Visible = true;
+                cambiarBtn(condicion, result, color, Abrir.Nombre);
+            }
+        }
+
+        private void consultarPedidoToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+        }
+
+        private void lbEstado_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            Proveedores prov = new Proveedores();
+            prov.ShowDialog();
+
+        }
+
+        private void btnPedir_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

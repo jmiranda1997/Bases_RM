@@ -111,7 +111,9 @@ namespace Bases_RM
         /// <param name="posicion"></param>posicion del cliente en la matriz
         public void cargarClientes(int posicion)
         {
+
             if (clientes != null && rbtnGeneral.Checked)
+
             {
                 if(posicion<clientes.Length/3)
                 cliente_actual = conexion.getCliente(clientes[posicion, 2]);//se llama  a la funcion get cliente, enviandole la id
@@ -307,7 +309,7 @@ namespace Bases_RM
             }
             catch(Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
             
         }
