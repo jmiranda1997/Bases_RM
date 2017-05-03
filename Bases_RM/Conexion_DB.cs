@@ -1875,7 +1875,6 @@ namespace Bases_RM
                     Variable_Conexion.Close();//se cierra la conexion
                     Variable_Conexion.Open();
                     Variable_Lectura = comando.ExecuteReader();
-                    Variable_Conexion.Close();
                     int contador = 0;
                     int id;
                     while (Variable_Lectura.Read())
@@ -1884,6 +1883,7 @@ namespace Bases_RM
                        prov[contador] = obtenerNombreProveedor(id);
                        contador++;
                     }
+                    Variable_Conexion.Close();
                 }
                //se cierra la conexion
                 return prov;
