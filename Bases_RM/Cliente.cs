@@ -9,7 +9,7 @@ namespace Bases_RM
     public class Cliente
     {
         public String nombre,dpi,apellido;
-        public int clasificacion, dias;
+        public int clasificacion, dias, id;
         public double limite;
     }
 }
