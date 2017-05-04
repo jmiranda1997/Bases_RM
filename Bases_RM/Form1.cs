@@ -104,9 +104,9 @@ namespace Bases_RM
             cancelar = double.Parse(TxtMon.Text);
             actual = double.Parse(TxtSalMes.Text);
             nuevo = actual + cancelar;
-            if (cancelar >0)
+            if (actual >0)
             {
-                Conexion_DB.ActualizarMonto(nuevo.ToString(), obtener_TrabajadorID(TxtNom.Text).ToString());
+                Conexion_DB.ActualizarMonto(obtener_TrabajadorID(TxtNom.Text).ToString(), nuevo.ToString());
                 TxtSalMes.Text = nuevo.ToString();
             }
             else
