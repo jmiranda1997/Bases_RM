@@ -1030,10 +1030,10 @@ namespace Bases_RM
         /// <param name="departamento">Nuevo departamento al que pertence</param>
         /// <param name="precioCosto">Nuevo precio de costo</param>
         /// <param name="precioVenta">Nuevo precio de venta</param>
-        public void modificacionProducto(String CodInterno, String codFabricante, String descripcion, String marca, String fabricante, String departamento, Double precioCosto, Double precioVenta, Double exi)
+        public void modificacionProducto(String CodInterno, String codFabricante, String descripcion, String marca, String departamento, Double precioCosto, Double precioVenta)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE producto SET Codigo_Fabricante='" + codFabricante + "', Descripcion='" + descripcion + "', Marca='" + marca + "', Fabricante='" + fabricante + "', Departamento='" + departamento + "', Precio_Costo='" + precioCosto.ToString() + "', Precio_Venta='" + precioVenta.ToString() + "', Existencia='" + exi.ToString() + "' WHERE Codigo_Interno='" + CodInterno + "';";
+            comando.CommandText = "UPDATE producto SET Codigo_Fabricante='" + codFabricante + "', Descripcion='" + descripcion + "', Marca='" + marca + "', Departamento='" + departamento + "', Precio_Costo='" + precioCosto.ToString() + "', Precio_Venta='" + precioVenta.ToString() + "' WHERE Codigo_Interno='" + CodInterno + "';";
             try
             {
                 Variable_Conexion.Open();
@@ -2048,6 +2048,57 @@ namespace Bases_RM
                 //se cierra la conexion
                 Variable_Conexion.Close();
                 return detalle;
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        public DataTable obtenerPedido(int Proveedor_id, int Pedido_id)
+        {
+            DataTable tabla = new DataTable();
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT COUNT(*)  FROM detalle_pedido dp inner join prov_prod pp on dp.Producto_id = pp.Producto_id inner join pedido p on dp.Pedido_id = p.id WHERE Proveedor_id =" + Proveedor_id.ToString() + ";";//Consulta para la base, obtener el numero de sucursales
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                int tamaño=0;
+                if (Variable_Lectura.Read())
+                {
+                    tamaño = Int32.Parse(Variable_Lectura[0].ToString()) + 1;
+                }
+                tabla.Columns.Add("Codigo Interno");
+                tabla.Columns.Add("Codigo de Fabricante");
+                tabla.Columns.Add("Descripcion");
+                tabla.Columns.Add("Cantidad");
+                Variable_Conexion.Close();
+
+                DataRow[] filas = new DataRow[tamaño];
+                filas[0] = tabla.NewRow();
+                filas[0][0] =  ("Codigo Interno");
+                filas[0][1] = ("Codigo de Fabricante");
+                filas[0][2] = ("Descripcion");
+                filas[0][3] = ("Cantidad");
+                comando = Variable_Conexion.CreateCommand();
+                comando.CommandText = "SELECT prod.Codigo_Interno, prod.Codigo_Fabricante, prod.Descripcion, dp.Cantidad, p.Mes FROM detalle_pedido dp inner join prov_prod pp on dp.Producto_id = pp.Producto_id inner join pedido p on dp.Pedido_id = p.id inner join producto prod on pp.Producto_id = prod.id WHERE pp.Proveedor_id = +" + Proveedor_id.ToString() + " AND dp.Pedido_id = " + Pedido_id.ToString() + ";";
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                int cont = 1;
+                while (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {
+                    filas[cont] = tabla.NewRow();
+                    filas[cont][0] = Variable_Lectura["Codigo_Interno"].ToString();
+                    filas[cont][1] = Variable_Lectura["Codigo_Fabricante"].ToString();
+                    filas[cont][2] = Variable_Lectura["Descripcion"].ToString();
+                    filas[cont][3] = Variable_Lectura["Cantidad"].ToString();
+                    tabla.Rows.Add(filas[cont]);
+                    cont++;
+                }
+                //se cierra la conexion
+                Variable_Conexion.Close();
+                return tabla;
             }
             catch (MySqlException e)
             {

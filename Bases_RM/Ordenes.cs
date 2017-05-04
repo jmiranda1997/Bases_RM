@@ -120,7 +120,7 @@ namespace Bases_RM
         }
         private void btnMod1_Click(object sender, EventArgs e)
         {
-
+            Conexion_DB.modificacionProducto(txtCI.Text, txtCF.Text, txtDesc.Text, txtMar.Text, txtDepar.Text, Double.Parse(txtPC.Text), Double.Parse(txtPV.Text));
         }
 
         private void salirToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -336,5 +336,13 @@ namespace Bases_RM
         {
             
         }
+
+        private void exportarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exportar ex = new Exportar();
+            ex.ShowDialog();
+            DataTable tabla = Conexion_DB.obtenerPedido(ex.idProveedor, ex.idPedido);
+            String direccion = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "// "+ex.nombreprov + "PEDIDO:" + ex.Nombreped;
+        }       
     }
 }

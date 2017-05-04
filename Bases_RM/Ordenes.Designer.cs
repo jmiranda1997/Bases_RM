@@ -38,7 +38,6 @@
             this.pedidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.marcarComoFinalizadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.marcarComoNoFinalizadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enviarCorreosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarPedidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.OrdenesTree = new System.Windows.Forms.TreeView();
@@ -134,7 +133,6 @@
             this.pedidoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.marcarComoFinalizadoToolStripMenuItem,
             this.marcarComoNoFinalizadoToolStripMenuItem,
-            this.enviarCorreosToolStripMenuItem,
             this.exportarPedidoToolStripMenuItem});
             this.pedidoToolStripMenuItem.Name = "pedidoToolStripMenuItem";
             this.pedidoToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
@@ -157,17 +155,12 @@
             this.marcarComoNoFinalizadoToolStripMenuItem.Text = "Marcar como &No Finalizado ";
             this.marcarComoNoFinalizadoToolStripMenuItem.Click += new System.EventHandler(this.marcarComoNoFinalizadoToolStripMenuItem_Click);
             // 
-            // enviarCorreosToolStripMenuItem
-            // 
-            this.enviarCorreosToolStripMenuItem.Name = "enviarCorreosToolStripMenuItem";
-            this.enviarCorreosToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.enviarCorreosToolStripMenuItem.Text = "&Enviar Correos";
-            // 
             // exportarPedidoToolStripMenuItem
             // 
             this.exportarPedidoToolStripMenuItem.Name = "exportarPedidoToolStripMenuItem";
             this.exportarPedidoToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.exportarPedidoToolStripMenuItem.Text = "E&xportar Pedido";
+            this.exportarPedidoToolStripMenuItem.Click += new System.EventHandler(this.exportarPedidoToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem1
             // 
@@ -533,7 +526,6 @@
         private System.Windows.Forms.ToolStripMenuItem marcarComoFinalizadoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem marcarComoNoFinalizadoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarPedidoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enviarCorreosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportarPedidoToolStripMenuItem;
         private System.Windows.Forms.Label lbEstado;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
