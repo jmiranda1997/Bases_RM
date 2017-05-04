@@ -62,6 +62,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Seguridad1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Seguridad";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Seguridad1_FormClosed);
             this.ResumeLayout(false);

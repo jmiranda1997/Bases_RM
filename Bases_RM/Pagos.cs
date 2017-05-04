@@ -19,10 +19,10 @@ namespace Bases_RM
         {
             InitializeComponent();
 
-            String[] sucursales = conexion.obtener_sucursales();
+            String[,] sucursales = conexion.obtener_sucursales();
             for (int i = 0; i < sucursales.Length; i++)
             {
-                ComboSucu.Items.Add(sucursales[i]);
+                ComboSucu.Items.Add(sucursales[i,1]);
             }
 
         }

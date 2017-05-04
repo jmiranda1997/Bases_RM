@@ -19,7 +19,7 @@ namespace Bases_RM
 
             Constructor_Conexion.Server = "localhost";//"25.3.39.210";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
-            Constructor_Conexion.Password = "@Sistemas2017";//"@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Password = "jpmrpamr";//"@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }

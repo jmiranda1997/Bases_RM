@@ -52,7 +52,7 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //InicioSesion();
+            InicioSesion();
             Menu men = new Menu(datos_us);
             men.Show();
         }
@@ -88,6 +88,7 @@ namespace Bases_RM
                     if (Conexion.login(txtUsuario.Text,txtContraseña.Text))
                     {
                         Usuario usernuevo = Conexion.Datos_De_User(txtUsuario.Text.Trim());
+                        usernuevo.obtenerPermisos();
                         Menu men = new Menu(usernuevo);
                         men.Show();
                         this.Hide();

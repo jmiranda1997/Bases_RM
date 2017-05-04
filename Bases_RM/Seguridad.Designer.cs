@@ -689,6 +689,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Seguridad";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Administración de Seguridad";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Seguridad_FormClosed);
             this.Load += new System.EventHandler(this.Seguridad_Load);

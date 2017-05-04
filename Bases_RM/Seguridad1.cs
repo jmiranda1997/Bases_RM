@@ -27,7 +27,6 @@ namespace Bases_RM
             {
                 if (Conexion.login(user.Nombre,contrasena))
                 {
-                    this.Hide();
                     Seguridad segu = new Seguridad(user);
                     segu.ShowDialog();
                 }
@@ -47,7 +46,6 @@ namespace Bases_RM
                 if (Conexion.login(user.Nombre,contrasena))
                 {
                     lblRI lb = new lblRI(user);
-                    this.Close();
                     lb.ShowDialog();
                 }
                 else
@@ -61,8 +59,6 @@ namespace Bases_RM
 
         private void Seguridad1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Menu menu = new Menu(user);
-            menu.Show();
         }
     }
 }

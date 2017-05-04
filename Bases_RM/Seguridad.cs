@@ -142,9 +142,7 @@ namespace Bases_RM
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             limpiar();
-            Seguridad1 nuevo = new Seguridad1(user);
             this.Close();
-            nuevo.Show();
         }
 
         private void ingresoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -638,8 +636,8 @@ namespace Bases_RM
         private void Seguridad_FormClosed(object sender, FormClosedEventArgs e)
         {
             limpiar();
-            Seguridad1 nuevo = new Seguridad1(user);
-            nuevo.Show();
+            //Seguridad1 nuevo = new Seguridad1(user);
+            //nuevo.Show();
         }
 
         private void Seguridad_Load(object sender, EventArgs e)
