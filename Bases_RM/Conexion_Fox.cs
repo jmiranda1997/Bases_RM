@@ -36,10 +36,15 @@ namespace Bases_RM
 
             Pedidos progres = new Pedidos(codigos);//iniciamos un progresbar
             progres.Show();
-            //Sucursales();
-
-            insertar(progres);//inserta los codigos de Fox a Maria
-
+            Sucursales();
+            try
+            {
+                insertar(progres);//inserta los codigos de Fox a Maria
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             //existencias();
 
             
@@ -203,8 +208,8 @@ namespace Bases_RM
         private void Sucursales()
         {
 
-            //try
-            //{
+            try
+            {
                 comando = new OleDbCommand("SELECT COUNT(*) FROM CORDOC.DBF WHERE Nombrebode != ' '", VARIABLE_CONEXION);//se guarda la consulta para la tabla
                 VARIABLE_CONEXION.Open();
                 Variable_Lectura = comando.ExecuteReader();
@@ -241,11 +246,11 @@ namespace Bases_RM
                     }
                 }
                 
-           // }
-            //catch (Exception e)
-            //{
-            //    MessageBox.Show(e.Message);
-            //}
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private String caracteresespeciales(String Cadena)

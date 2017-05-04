@@ -108,6 +108,7 @@ namespace Bases_RM
             this.Close();
         }
 
+
         private void cbSucursales_SelectedIndexChanged(object sender, EventArgs e)
         {
             saldoSucursal = conexion.obtener_saldoTotal(cliente.id, int.Parse(sucursales[cbSucursales.SelectedIndex, 1]));
@@ -178,6 +179,7 @@ namespace Bases_RM
         }
 
         private void TxtSaldoActu_TextChanged(object sender, EventArgs e)
+
         {
 
         }

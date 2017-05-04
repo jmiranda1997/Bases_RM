@@ -112,7 +112,9 @@ namespace Bases_RM
         public void cargarClientes(int posicion)
         {
 
-            if (clientes != null && rbtnGeneral.Checked)
+
+            if (clientes.Length>0 && rbtnGeneral.Checked)
+
 
             {
                 if(posicion<clientes.Length/3)
@@ -356,6 +358,7 @@ namespace Bases_RM
                 MessageBox.Show("Este no es un numero valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TxtLimic.Focus();
             }
+
 
         }
 

@@ -52,7 +52,7 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //InicioSesion();
+            InicioSesion();
             Menu men = new Menu(datos_us);
             men.Show();
         }
@@ -61,7 +61,7 @@ namespace Bases_RM
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                this.Hide();
+                //this.Hide();
                 InicioSesion();
             }
         }
@@ -85,13 +85,13 @@ namespace Bases_RM
             {
                 if ((txtUsuario.Text.Trim() != "") && (txtContraseña.Text.Trim() != ""))
                 {
-                    string Clave_Usuario = Conexion.Us_con(txtUsuario.Text);
-                    if (Clave_Usuario.Equals(txtContraseña.Text))
+                    if (Conexion.login(txtUsuario.Text,txtContraseña.Text))
                     {
                         Usuario usernuevo = Conexion.Datos_De_User(txtUsuario.Text.Trim());
+                        usernuevo.obtenerPermisos();
                         Menu men = new Menu(usernuevo);
                         men.Show();
-
+                        this.Hide();
                     }
                     else
                     {
