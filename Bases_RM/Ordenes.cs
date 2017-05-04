@@ -337,6 +337,11 @@ namespace Bases_RM
             
         }
 
+        private void txtCI_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void exportarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Exportar ex = new Exportar();

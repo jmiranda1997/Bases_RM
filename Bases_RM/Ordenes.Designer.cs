@@ -268,6 +268,7 @@
             this.txtCI.Name = "txtCI";
             this.txtCI.Size = new System.Drawing.Size(224, 20);
             this.txtCI.TabIndex = 14;
+            this.txtCI.TextChanged += new System.EventHandler(this.txtCI_TextChanged);
             // 
             // txtCF
             // 

@@ -10,13 +10,14 @@ using System.Windows.Forms;
 
 namespace Bases_RM
 {
-    public partial class Pagos : Form
+
+    public partial class Form1 : Form
     {
         private bool deuda;
         Conexion_DB Conexion_DB = new Conexion_DB();
         private TrabajadoresClass trab;
         private String nombre_tabla = "";
-        public Pagos(Trabajadores Trab)
+        public Form1(Trabajadores trab)
         {
             InitializeComponent();
             try
@@ -41,61 +42,9 @@ namespace Bases_RM
             {
                 MessageBox.Show(e.ToString(), "Error2", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-       }
-
-        public int obtener_TrabajadorID(String Nom)
-        {
-            int cont = 0;
-            String[,] Sucu = Conexion_DB.obtener_Trabajadores1("");
-            while (cont < Conexion_DB.obtener_IDTrabajador())
-            {
-                if (Nom == Sucu[1, cont])
-                {
-                    break;
-                }
-                cont++;
-            }
-            return int.Parse(Sucu[0, cont]);
-
-
-
-
-            //String[,] sucursales = conexion.obtener_sucursales();
-            //for (int i = 0; i < sucursales.Length/2; i++)
-            //{
-            //    ComboSucu.Items.Add(sucursales[1,i]);
-            //}
-
-
-
-
-        }
-        private void label4_Click(object sender, EventArgs e)
-        {
-
         }
 
-        private void Pagos_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
@@ -111,7 +60,20 @@ namespace Bases_RM
                 TxtSalMes.Text = Conexion_DB.Obtener_MontoTrab(obtener_TrabajadorID(TxtNom.Text).ToString()).ToString();
                 TxtSalActu.Text = TxtSalMes.Text;
             }
-
+        }
+        public int obtener_TrabajadorID(String Nom)
+        {
+            int cont = 0;
+            String[,] Sucu = Conexion_DB.obtener_Trabajadores1("");
+            while (cont < Conexion_DB.obtener_IDTrabajador())
+            {
+                if (Nom == Sucu[1, cont])
+                {
+                    break;
+                }
+                cont++;
+            }
+            return int.Parse(Sucu[0, cont]);
         }
 
         private void btnIzq_Click(object sender, EventArgs e)
@@ -141,19 +103,19 @@ namespace Bases_RM
             double cancelar = 0, actual = 0, nuevo = 0;
             cancelar = double.Parse(TxtMon.Text);
             actual = double.Parse(TxtSalMes.Text);
-            nuevo = actual - cancelar;
-            if (nuevo < 0)
+            nuevo = actual + cancelar;
+            if (cancelar >0)
             {
-                MessageBox.Show("No puede descontar ya que el saldo es '0' o le desconto mas de la cuenta...", "¡ERROR!");
+                Conexion_DB.ActualizarMonto(nuevo.ToString(), obtener_TrabajadorID(TxtNom.Text).ToString());
+                TxtSalMes.Text = nuevo.ToString();
             }
             else
             {
-                TxtSalActu.Text = nuevo.ToString();
-                Conexion_DB.ActualizarMonto(obtener_TrabajadorID(TxtNom.Text).ToString(), nuevo.ToString());
-                TxtSalMes.Text = nuevo.ToString();
-                MessageBox.Show("Monto descontado exitosamente...", "¡EXITO!");
+                Conexion_DB.InsertarMontoTrab(nuevo.ToString(), obtener_TrabajadorID(TxtNom.Text).ToString());
             }
-
+                TxtSalActu.Text = nuevo.ToString();
+                TxtSalMes.Text = nuevo.ToString();
+                MessageBox.Show("Monto Ingresado exitosamente...", "¡EXITO!");
         }
     }
 }
