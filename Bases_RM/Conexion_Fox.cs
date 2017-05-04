@@ -37,9 +37,14 @@ namespace Bases_RM
             Pedidos progres = new Pedidos(codigos);//iniciamos un progresbar
             progres.Show();
             Sucursales();
-
-            insertar(progres);//inserta los codigos de Fox a Maria
-
+            try
+            {
+                insertar(progres);//inserta los codigos de Fox a Maria
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             //existencias();
 
             
