@@ -646,10 +646,11 @@ namespace Bases_RM
             user.obtenerPermisos();
             if (user.pUsuarios.ElementAt(0) == user.pUsuarios.ElementAt(1) && user.pUsuarios.ElementAt(1) == user.pUsuarios.ElementAt(2) && user.pUsuarios.ElementAt(2) == false)
             {
+                MessageBox.Show("No tiene los permisos para ingresar a la Administración de Seguridad", "Error de permisos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Close();
                 limpiar();
-                Seguridad1 nuevo = new Seguridad1(user);
-                nuevo.Show();
+                //Seguridad1 nuevo = new Seguridad1(user);
+                //nuevo.Show();
             }
             else
             {
