@@ -131,7 +131,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(728, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(570, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -346,7 +346,7 @@
             this.groupProveedor.Controls.Add(this.lbNproveedor);
             this.groupProveedor.Controls.Add(this.txtNombreProv);
             this.groupProveedor.Controls.Add(this.label4);
-            this.groupProveedor.Location = new System.Drawing.Point(12, 300);
+            this.groupProveedor.Location = new System.Drawing.Point(207, 28);
             this.groupProveedor.Name = "groupProveedor";
             this.groupProveedor.Size = new System.Drawing.Size(353, 162);
             this.groupProveedor.TabIndex = 20;
@@ -425,7 +425,7 @@
             // 
             this.groupPais.Controls.Add(this.txtNombrePais);
             this.groupPais.Controls.Add(this.label1);
-            this.groupPais.Location = new System.Drawing.Point(371, 300);
+            this.groupPais.Location = new System.Drawing.Point(205, 28);
             this.groupPais.Name = "groupPais";
             this.groupPais.Size = new System.Drawing.Size(353, 79);
             this.groupPais.TabIndex = 21;
@@ -468,7 +468,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 479);
+            this.ClientSize = new System.Drawing.Size(570, 289);
             this.Controls.Add(this.treePais);
             this.Controls.Add(this.treeContacto);
             this.Controls.Add(this.groupContacto);

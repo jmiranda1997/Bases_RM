@@ -28,7 +28,7 @@ namespace Bases_RM
 
                 }
             }
-            else comboPedidos.Items.Add("No hay Pedidos en la base de datos");
+            else { MessageBox.Show("No hay pedidos para exportar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); this.Close(); }
 
         }
         private int existe(String elemento)

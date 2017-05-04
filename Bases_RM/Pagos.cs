@@ -56,6 +56,19 @@ namespace Bases_RM
                 cont++;
             }
             return int.Parse(Sucu[0, cont]);
+
+
+
+
+            //String[,] sucursales = conexion.obtener_sucursales();
+            //for (int i = 0; i < sucursales.Length/2; i++)
+            //{
+            //    ComboSucu.Items.Add(sucursales[1,i]);
+            //}
+
+
+
+
         }
         private void label4_Click(object sender, EventArgs e)
         {
