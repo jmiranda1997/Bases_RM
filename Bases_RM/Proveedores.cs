@@ -110,10 +110,7 @@ namespace Bases_RM
 
         private void btnNPais_Click(object sender, EventArgs e)
         {
-            String nuevoPais = Interaction.InputBox("Ingrese el nuevo país:", "Nuevo País");
-            if (!Conexion_DB.existePais(nuevoPais)) Conexion_DB.ingresoPais(nuevoPais);
-            else MessageBox.Show("El país ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            listaPais();
+            
         }
 
         private void paisesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -189,6 +186,52 @@ namespace Bases_RM
         private void treePais_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
+        }
+
+        private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void consultaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listaProv();
+
+        }
+
+        private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listaContac();
+        }
+
+        private void consultaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            listaPais();
+        }
+
+        private void nuevoToolStripMenuItem3_Click_1(object sender, EventArgs e)
+        {
+            String nuevoPais = Interaction.InputBox("Ingrese el nuevo país:", "Nuevo País");
+            if (!Conexion_DB.existePais(nuevoPais)) Conexion_DB.ingresoPais(nuevoPais);
+            else MessageBox.Show("El país ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            listaPais();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Proveedor prov = new Proveedor(0);
+            prov.ShowDialog();
+        }
+
+        private void nuevoToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Proveedor prov = new Proveedor(1);
+            prov.ShowDialog();
         }
 
 

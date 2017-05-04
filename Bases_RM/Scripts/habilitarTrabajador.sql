@@ -1,0 +1,9 @@
+DELIMITER //
+DROP TRIGGER IF EXISTS habilitarTrabajador//
+CREATE TRIGGER habilitarTrabajador
+BEFORE INSERT ON trabajador
+FOR EACH ROW
+BEGIN
+	SET NEW.Habilitado=SI;
+END//
+DELIMITER ;
