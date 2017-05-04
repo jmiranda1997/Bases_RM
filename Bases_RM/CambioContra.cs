@@ -40,6 +40,20 @@ namespace Bases_RM
                     MessageBox.Show("Contraseña modificada", "Contraseña modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
+                else
+                {
+                    MessageBox.Show("La contraseña debe ser menor a 45 carácteres", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    contraText2.Clear();
+                    contraText1.Focus();
+                    contraText1.SelectAll();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Las contraseñas no coinciden", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                contraText1.Clear();
+                contraText2.Clear();
+                contraText1.Focus();
             }
         }
     }
