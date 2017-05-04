@@ -53,8 +53,6 @@ namespace Bases_RM
         private void button1_Click(object sender, EventArgs e)
         {
             InicioSesion();
-            Menu men = new Menu(datos_us);
-            men.Show();
         }
 
         private void txtContraseña_KeyPress(object sender, KeyPressEventArgs e)
@@ -83,7 +81,7 @@ namespace Bases_RM
         {
             try
             {
-                if ((txtUsuario.Text.Trim() != "") && (txtContraseña.Text.Trim() != ""))
+                if ((!txtUsuario.Text.Trim().Equals("")) && (!txtContraseña.Text.Trim().Equals("")))
                 {
                     if (Conexion.login(txtUsuario.Text,txtContraseña.Text))
                     {
