@@ -46,7 +46,7 @@ namespace Bases_RM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Ordenes ordenes = new Ordenes(datos_us);
+            Ordenes ordenes = new Ordenes(usuario);
             ordenes.ShowDialog();
         }
 
