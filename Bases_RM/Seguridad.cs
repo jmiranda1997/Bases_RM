@@ -26,8 +26,10 @@ namespace Bases_RM
         private void modificaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String[] usuarios = conexion.obtenerUsuarios();
+            
             if (usuarios.Length != 0)
             {
+                cargarCheckBoxes(conexion.obtenerPermisos(user.Nombre));
                 for (int i = 0; i < usuarios.Length; i++)
                 {
                     userCombo.Items.Add(usuarios[i]);
@@ -40,7 +42,13 @@ namespace Bases_RM
             }
            
         }
-
+        private void cargarCheckBoxes(String[,] cadena)
+        {
+            String usuario = cadena[0, 0];
+            String clientes = cadena[0, 1];
+            String pedidos = cadena[0, 2];
+            String trabajadores = cadena[0, 3];
+        }
         private void userCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((userCombo.SelectedIndex != -1)&&modificacion)
@@ -68,7 +76,7 @@ namespace Bases_RM
         {
             if (ingresoPanel.Visible)
             {
-                if (contraText1.Text == contraText2.Text)
+                if ((contraText1.Text == contraText2.Text)&&!contraText1.Text.Equals(""))
                 {
                     //Ingreso a la cadena de todos los permisos de usuarios
                     String usuarios = "";
@@ -470,9 +478,11 @@ namespace Bases_RM
             userText.Clear();
             contraText1.Clear();
             contraText2.Clear();
-            for (int i = 0; i < userCombo.Items.Count; i++)
+            userCombo.SelectedIndex = -1;
+            int datos = userCombo.Items.Count;
+            for (int i = 0; i < datos; i++)
 			{
-                userCombo.Items.RemoveAt(i);
+                userCombo.Items.RemoveAt(0);
 			}
             uIngresoCheck.Checked = false;
             uModificacionCheck.Checked = false;
@@ -529,6 +539,12 @@ namespace Bases_RM
                 menuStrip1.Enabled = false;
                 modificacion = false;
             }
+        }
+
+        private void Seguridad_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Seguridad1 anterior = new Seguridad1(user);
+            anterior.Show();
         }
         
     }

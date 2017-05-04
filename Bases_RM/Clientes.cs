@@ -23,13 +23,10 @@ namespace Bases_RM
             clientes = conexion.obtener_clientes();
             if(clientes!=null)
             {
-                TreeNode holi = new TreeNode("holi");
                 for(int i=0; i<clientes.Length/3;i++)
                 {
-                    
-                    holi.Nodes.Add(clientes[i,0]+"  "+clientes[i,1]);
+                    arbolClientes.Nodes.Add(clientes[i,2].ToString());
                 }
-                arbolClientes.Nodes.Add(holi);
 
             }
         }
@@ -70,12 +67,11 @@ namespace Bases_RM
             formulario = new AbonoDeuda(true,null);
             formulario.ShowDialog();
         }
-
-        private void Clientes_Load(object sender, EventArgs e)
+        public void cargarClientes()
         {
-            if (clientes != null)
+            if (clientes.Length > 0)
             {
-                //cliente_actual = conexion.getCliente(int.Parse(clientes[0, 2]));
+                cliente_actual = conexion.getCliente(clientes[0, 2]);
                 TxtApe.Text = cliente_actual.apellido;
                 TxtNom.Text = cliente_actual.nombre;
                 TxtDias.Text = cliente_actual.dias.ToString();
@@ -84,9 +80,14 @@ namespace Bases_RM
             }
         }
 
+        private void Clientes_Load(object sender, EventArgs e)
+        {
+            cargarClientes();
+        }
+
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(!nuevo)//Si la bandera es falsa, el formulario esta en modo ver, bloquea los textbox
+            if(!nuevo)//Si la bandera es falsa, el formulario esta en modo ver, cambia a nuevo bloquea los textbox
             {
                 nuevo = true;
                 nuevoToolStripMenuItem.Text = "Ver";
@@ -98,13 +99,20 @@ namespace Bases_RM
                 TxtDias.Enabled = true;
                 TxtLimic.Enabled = true;
                 TxtApe.Enabled = true;
+                TxtNom.Text = "";
+                TxtNit.Text = "" ;
+                TxtDias.Text="";
+                TxtLimic.Text="";
+                TxtApe.Text="";
                 btnDeuda.Visible = false;
                 btnAbono.Visible = false;
                 lbBuscar.Visible = false;
+                
             }
             else
             {
                 nuevo = false;
+                cargarClientes();
                 nuevoToolStripMenuItem.Text = "Nuevo";
                 btnMG.Text = "Modificar";
                 btnEC.Text = "Eliminar";
@@ -115,7 +123,7 @@ namespace Bases_RM
                 TxtLimic.Enabled = false;
                 TxtApe.Enabled =   false;
                 btnDeuda.Visible = true;
-                btnDeuda.Visible = true;
+                btnAbono.Visible = true;
                 lbBuscar.Visible = true;
             }
         }
@@ -180,6 +188,16 @@ namespace Bases_RM
         private void arbolClientes_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
+            try
+            {
+                cliente_actual = conexion.getCliente(arbolClientes.SelectedNode.ToString());
+                cargarClientes();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void archivoToolStripMenuItem_Click(object sender, EventArgs e)
