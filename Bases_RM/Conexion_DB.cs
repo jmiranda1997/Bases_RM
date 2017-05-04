@@ -19,7 +19,7 @@ namespace Bases_RM
 
             Constructor_Conexion.Server = "localhost";//"25.3.39.210";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
-            Constructor_Conexion.Password = "jpmrpamr";//"@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
@@ -2362,6 +2362,12 @@ namespace Bases_RM
             }
             return Existe;//regresamos el valor booleano de la consulta
         }
+        /// <summary>
+        /// Funcion que devuelve un objeto de la Clase clientes, extrae los datos de un cliente por medio
+        /// de su id y luego los ingresa en el objeto
+        /// </summary>
+        /// <param name="id"></param>Id del cliente que se busca
+        /// <returns></returns>Objeto cliente
         public Cliente getCliente(String id)
         {
             Cliente clienteB = null;
@@ -2433,6 +2439,10 @@ namespace Bases_RM
             }
             return saldo;
         }
+        /// <summary>
+        /// FUncion que devueve una matriz String de N x 3 que contiene el nombre, apellido e id de cada cliente 
+        /// </summary>
+        /// <returns></returns>
         public String[,] obtener_clientes()
         {
             String[,] clientes = null;
@@ -2461,11 +2471,109 @@ namespace Bases_RM
             Variable_Conexion.Close();//se cierra la conexion
             return clientes;
         }
+        /// <summary>
+        /// Funcion que retorna una DataTable para un datagrid
+        /// dependiendo de la bandera y la id de la sucursal se genera la consulta de la tabla
+        /// </summary>
+        /// <param name="deuda"></param>Bandera booleana que indica si el registro es de deuda o no
+        /// TRUE el registro es para deuda - FALSE el registro es de pagos
+        /// <param name="idCliente"></param> Id del cliente del que se quiere el registro
+        /// <param name="idSucursal"></param> Id de la sucursal de la que se quiere el registro
+        /// Si es 0, se hace un registro general
+        /// <returns></returns>
+        public DataTable tabla(bool deuda, int idCliente, int idSucursal)
+        {
+            DataTable ds = new DataTable();
+            String consulta="";
+            if (deuda)
+            {
+                if(idSucursal>0)
+                    consulta = "SELECT d.Fecha_Pago as 'Fecha Deuda',Fecha_Ingreso as 'Fecha de Ingreso',"+
+                        "d.Total as 'Deuda', d.Saldo FROM deuda d WHERE d.Cliente_id="+idCliente+
+                        " AND d.Sucursal_id="+idSucursal+";";
+                else
+                    consulta = "SELECT d.Fecha_Pago as 'Fecha Deuda',Fecha_Ingreso as 'Fecha de Ingreso',"+
+                        "d.Total as 'Deuda', d.Saldo, s.Nombre as 'Sucursal' FROM deuda d INNER JOIN sucursal "+
+                        "s ON s.id=d.Sucursal_id WHERE Cliente_id="+idCliente+" ORDER BY s.Nombre AND d.Fecha_Ingreso;";
+            }
+            else
+            {
+                if (idSucursal > 0)
+                    consulta = "SELECT d.Fecha as 'Fecha Pago',Fecha_Ingreso as 'Fecha de Ingreso'," +
+                        "d.Monto FROM pagos d WHERE d.Cliente_id=" + idCliente +
+                        " AND d.Sucursal_id=" + idSucursal + ";";
+                else
+                    consulta = "SELECT d.Fecha as 'Fecha Pago',Fecha_Ingreso as 'Fecha de Ingreso'," +
+                    "d.Monto, s.Nombre as 'Sucursal' FROM pagos d INNER JOIN sucursal " +
+                    "s ON s.id=d.Sucursal_id WHERE Cliente_id=" + idCliente + " ORDER BY s.Nombre AND d.Fecha_Ingreso;";
+            }
+            MySqlDataAdapter data = new MySqlDataAdapter(consulta, Variable_Conexion);
+            data.Fill(ds);
+            return (ds);
+        }
         public Cliente datos_cliente()
         {
             Cliente cliente=null;
             
             return cliente;
+        }
+        public DataTable exportarDeuda(int mesInicio, int mes)
+        {
+            DataTable tabla=new DataTable();
+            String[,] clientes = obtener_clientes();
+            String[,] sucursales= obtener_sucursales();
+            if (sucursales.Length > 0)
+            {
+                tabla.Columns.Add("Nombres");
+                for(int i=0;i<sucursales.Length/2;i++)
+                {
+                    tabla.Columns.Add(sucursales[i,0]);
+                }
+                DataRow filaNombre = tabla.NewRow();
+                filaNombre[0] = "Nombre";
+                for (int i = 0; i < sucursales.Length / 2; i++)
+                {
+                    filaNombre[i+1]=(sucursales[i, 0]);
+                }
+                tabla.Rows.Add(filaNombre);
+                DataRow[] fila=new DataRow[clientes.Length/3];
+                for(int i=0;i<clientes.Length/3;i++)
+                {
+                    fila[i] = tabla.NewRow();
+                    fila[i][0]=clientes[i,0]+" "+clientes[i,1];
+                    for(int o=1;o<tabla.Columns.Count;o++)
+                    {
+                        fila[i][o]=obtener_saldoTotal(int.Parse(clientes[i,2]),int.Parse(sucursales[o-1,1]));
+                    }
+                    tabla.Rows.Add(fila[i]);
+                }
+            }
+            return tabla;
+        }
+        public void exportar(DataTable tabla, String direccion)
+        {
+            Microsoft.Office.Interop.Excel.Application aplicacion;
+            Microsoft.Office.Interop.Excel.Workbook libros_trabajo;
+            Microsoft.Office.Interop.Excel.Worksheet hoja_trabajo;
+            aplicacion = new Microsoft.Office.Interop.Excel.Application();
+            libros_trabajo = aplicacion.Workbooks.Add();
+            hoja_trabajo =
+                (Microsoft.Office.Interop.Excel.Worksheet)libros_trabajo.Worksheets[1];
+            hoja_trabajo.Name = "Hoja1";
+       
+            //Recorremos el DataGridView rellenando la hoja de trabajo
+            for (int i = 0; i < tabla.Rows.Count; i++)
+            {
+                for (int j = 0; j < tabla.Columns.Count; j++)
+                {
+                    hoja_trabajo.Cells[i + 1, j + 1] = tabla.Rows[i][j];
+                }
+            }
+            hoja_trabajo.Columns.AutoFit();
+            libros_trabajo.SaveAs(direccion,
+            Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+            libros_trabajo.Close(true);
+            aplicacion.Quit();
         }
         /// <summary>
         /// Método que ingresa los permisos

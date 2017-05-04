@@ -361,5 +361,45 @@ namespace Bases_RM
 
 
         }
+
+        private void registroDeDeudasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(cliente_actual!=null)
+            {
+                Registro res = new Registro(true, cliente_actual);
+                res.Show();
+            }
+            else
+                MessageBox.Show("No se ha seleccionado un cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+           }
+
+        private void registroDePagosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cliente_actual != null)
+            {
+                Registro res = new Registro(false, cliente_actual);
+                res.Show();
+            }
+            else
+                MessageBox.Show("No se ha seleccionado un cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void exportarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog fichero = new SaveFileDialog();
+                fichero.Filter = "Excel (*.xls)|*.xls";
+                if (fichero.ShowDialog() == DialogResult.OK)
+                {
+                    conexion.exportar(conexion.exportarDeuda(0, 0), fichero.FileName);
+                    MessageBox.Show("Se ha guardado correctamente", "Exportar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ocurrio un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
