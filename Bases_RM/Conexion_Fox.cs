@@ -15,7 +15,7 @@ namespace Bases_RM
     class Conexion_Fox
     {
         private Conexion_DB Conexion_DB;//Objeto de la clase Conexion_DB 
-        private OleDbConnection Variable_Conexion;//Conexion con la base de Fox_Pro
+        private  OleDbConnection VARIABLE_CONEXION = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//Conexion con la base de Fox_Pro
         private OleDbCommand comando;//Variable en la cual se asignan los comando 
         private OleDbDataReader Variable_Lectura;//Variable de lectura de datos
         private OleDbDataAdapter Adaptador_Datos;//adaptador para  guardar los datos en un DataTable
@@ -36,7 +36,7 @@ namespace Bases_RM
 
             Pedidos progres = new Pedidos(codigos);//iniciamos un progresbar
             progres.Show();
-            Sucursales();
+            //Sucursales();
 
             insertar(progres);//inserta los codigos de Fox a Maria
 
@@ -73,44 +73,30 @@ namespace Bases_RM
         }
         private void insertar(Pedidos progres)
         {
-            try
+        try
             {
-                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
-                comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2, Uni01 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
-                Variable_Conexion.Open();//Se abre la conexion con la base de datos
+                comando = new OleDbCommand("SELECT codigo, codigobarr, articulo1, costo, venta1, marca1, marca2, Uni01 FROM INVENT.DBF", VARIABLE_CONEXION);//se guarda la consulta para la tabla
+                VARIABLE_CONEXION.Open();//Se abre la conexion con la base de datos
                 Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
                 int Cont = 0;
                 while (Variable_Lectura.Read())//Se ejecuta el ciclo si existen datos por leer
                 {
                     Cont++;
                     progres.progreso(Cont.ToString());
-                    String[,] sucursales = Conexion_DB.obtener_sucursales("");
-                    double[] exi = existencias(Variable_Lectura["Uni01"].ToString()); 
+                    Double exi = existencias(Variable_Lectura["Uni01"].ToString()); 
                     if (Conexion_DB.existe_Codigo(Variable_Lectura["codigo"].ToString().Trim()))//se compara si el codigo existe se modifica
                     {
                         Conexion_DB.modificacionProducto(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), caracteresespeciales(Variable_Lectura["codigobarr"].ToString().Trim()), caracteresespeciales(Variable_Lectura["articulo1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()),
-                            caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca2"].ToString().Trim()), double.Parse(Variable_Lectura["costo"].ToString().Trim()), double.Parse(Variable_Lectura["venta1"].ToString().Trim()));
+                            caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca2"].ToString().Trim()), double.Parse(Variable_Lectura["costo"].ToString().Trim()), double.Parse(Variable_Lectura["venta1"].ToString().Trim()), exi);
                     }
                     else// si no existe el codigo se ingresa
                     {
                         Conexion_DB.ingresoProducto(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), caracteresespeciales(Variable_Lectura["codigobarr"].ToString().Trim()), caracteresespeciales(Variable_Lectura["articulo1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()),
-                            caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca2"].ToString().Trim()), double.Parse(Variable_Lectura["costo"].ToString().Trim()), double.Parse(Variable_Lectura["venta1"].ToString().Trim()));
-                    }
-                    int sucu = Conexion_DB.obtener_Nbodegas();
-                   for (int i = 0; i < sucu; i++)
-                    {
-                        if (Conexion_DB.existe_exsitencias(caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), int.Parse(sucursales[0,i])))
-                        {
-                            Conexion_DB.modificacionProductoSucursal(int.Parse(sucursales[0, i]), caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), exi[i]);    
-                        }
-                        else
-                        {
-                            Conexion_DB.ingresoProductoSucursal(int.Parse(sucursales[0, i]), caracteresespeciales(Variable_Lectura["codigo"].ToString().Trim()), exi[i]);    
-                        }
+                            caracteresespeciales(Variable_Lectura["marca1"].ToString().Trim()), caracteresespeciales(Variable_Lectura["marca2"].ToString().Trim()), double.Parse(Variable_Lectura["costo"].ToString().Trim()), double.Parse(Variable_Lectura["venta1"].ToString().Trim()), exi);
                     }
                 }
-                Variable_Conexion.Close();//se cierra la conexion con la base de datos
-            }
+                VARIABLE_CONEXION.Close();//se cierra la conexion con la base de datos
+           }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
@@ -118,17 +104,15 @@ namespace Bases_RM
         }
         private int cantidad_codigos()
         {
-            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
-
-            Variable_Conexion.Open();
-            comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF", Variable_Conexion);
+            comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF", VARIABLE_CONEXION);
+            VARIABLE_CONEXION.Open();
             Variable_Lectura = comando.ExecuteReader();
             int codigos = 0;
             if (Variable_Lectura.Read())
             {
                 codigos = int.Parse(Variable_Lectura[0].ToString());
             }
-            Variable_Conexion.Close();
+            VARIABLE_CONEXION.Close();
 
             return codigos;
         }
@@ -139,10 +123,10 @@ namespace Bases_RM
         /// </summary>
         /// <param name="texto">Cadena con los decimales separados por espacios</param>
         /// <returns>Arreglo con 10 decimales</returns>
-        private double[] existencias(String texto)
+        private Double existencias(String texto)
         {
-            double[] deci;
-
+            Double[] deci;
+            Double exi = 0;
             string cadena = texto.Trim(), txt = "";//elimino los espacios inecesarios
             char[] letras = cadena.ToCharArray();//convierte la cadena a un arreglo de caracteres
             int cont = 0;//bandera para poner una coma
@@ -160,13 +144,16 @@ namespace Bases_RM
                 }
             }
             string[] cad = txt.Split(',');//se separan los numeros
-            deci = new double[cad.Length];
+            deci = new Double[cad.Length];
             for (int i = 0; i < cad.Length; i++)
             {
-                deci[i] = double.Parse(cad[i]);//se convierten a decimales 
+                deci[i] = Double.Parse(cad[i]);//se convierten a decimales 
             }
-
-            return deci;
+            for (int i = 0; i < deci.Length; i++)
+            {
+                exi += deci[i];
+            }
+            return exi;
         }
         /// <summary>
         /// Verifica si exite in codigo en la base Fox_Pro
@@ -178,11 +165,8 @@ namespace Bases_RM
             try
             {
                 Boolean existe = false;
-
-                Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos
-
-                Variable_Conexion.Open();//abrimos la conexion 
-                comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF WHERE codigo =='" + codigo + "'", Variable_Conexion);//Consulta para el conteo segun el codigo
+                comando = new OleDbCommand("SELECT COUNT(*) FROM INVENT.DBF WHERE codigo =='" + codigo + "'", VARIABLE_CONEXION);//Consulta para el conteo segun el codigo
+                VARIABLE_CONEXION.Open();//abrimos la conexion 
                 Variable_Lectura = comando.ExecuteReader();//Guardamos los datos en la variable de lectura
 
                 int cuenta = 0;
@@ -195,7 +179,7 @@ namespace Bases_RM
                 {
                     existe = true;//se dice que si existe el codigo
                 }
-                Variable_Conexion.Close();
+                VARIABLE_CONEXION.Close();
                 return existe;
 
             }
@@ -207,9 +191,8 @@ namespace Bases_RM
 
         private void existencias()
         {
-            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
-            comando = new OleDbCommand("SELECT uni01 FROM INVENT.DBF", Variable_Conexion);//se guarda la consulta para la tabla
-            Variable_Conexion.Open();//Se abre la conexion con la base de datos
+            comando = new OleDbCommand("SELECT uni01 FROM INVENT.DBF", VARIABLE_CONEXION);//se guarda la consulta para la tabla
+            VARIABLE_CONEXION.Open();//Se abre la conexion con la base de datos
             Variable_Lectura = comando.ExecuteReader();//se guarda la iniformacion del comando
 
             while (Variable_Lectura.Read())
@@ -222,19 +205,18 @@ namespace Bases_RM
 
             //try
             //{
-            Variable_Conexion = new OleDbConnection("Provider=VFPOLEDB.1; Data Source=" + System.Windows.Forms.Application.StartupPath.ToString() + "\\..\\..\\Bases_Fox;");//parametros a la conexion con la base de datos de Fox_Pro
-                comando = new OleDbCommand("SELECT COUNT(*) FROM CORDOC.DBF WHERE Nombrebode != ' '", Variable_Conexion);//se guarda la consulta para la tabla
-                Variable_Conexion.Open();
+                comando = new OleDbCommand("SELECT COUNT(*) FROM CORDOC.DBF WHERE Nombrebode != ' '", VARIABLE_CONEXION);//se guarda la consulta para la tabla
+                VARIABLE_CONEXION.Open();
                 Variable_Lectura = comando.ExecuteReader();
                 int bodegas = 0;
                 if (Variable_Lectura.Read())
                 {
                     bodegas = int.Parse(Variable_Lectura[0].ToString());
                 }
-                Variable_Conexion.Close();
+                VARIABLE_CONEXION.Close();
 
-                comando = new OleDbCommand("SELECT Nombrebode FROM CORDOC.DBF WHERE Nombrebode != ' '", Variable_Conexion);//se guarda la consulta para la tabla
-                Variable_Conexion.Open();
+                comando = new OleDbCommand("SELECT Nombrebode FROM CORDOC.DBF WHERE Nombrebode != ' '", VARIABLE_CONEXION);//se guarda la consulta para la tabla
+                VARIABLE_CONEXION.Open();
                 Variable_Lectura = comando.ExecuteReader();
                 String[,] sucur;
                 String[] sucurFox = new String[bodegas];
@@ -244,7 +226,7 @@ namespace Bases_RM
                     sucurFox[cont] = Variable_Lectura[0].ToString().Trim();
                     cont++;
                 }
-                Variable_Conexion.Close();
+                VARIABLE_CONEXION.Close();
 
                 sucur = modificarsucursales(Conexion_DB.obtener_sucursales(""), sucurFox);
                 for (int i = 0; i < bodegas; i++)

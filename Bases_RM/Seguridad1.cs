@@ -15,13 +15,12 @@ namespace Bases_RM
     {
         public Usuario datos_us;
         private Conexion_DB Conexion = new Conexion_DB();
-        public Usuario user;
 
    
         public Seguridad1(Usuario uso)
         {
             InitializeComponent();
-            this.user = uso;
+            this.datos_us = uso;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -29,7 +28,7 @@ namespace Bases_RM
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
             if (!contrasena.Trim().Equals(""))
             {
-                string Clave_Usuario = Conexion.Us_con(user.Nombre);
+                string Clave_Usuario = Conexion.Us_con(datos_us.Nombre);
                 if (Clave_Usuario.Equals(contrasena))
                 {
                     this.Hide();
@@ -52,10 +51,10 @@ namespace Bases_RM
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
             if (!contrasena.Trim().Equals(""))
             {
-                string Clave_Usuario = Conexion.Us_con(user.Clave);
+                string Clave_Usuario = Conexion.Us_con(datos_us.Nombre);
                 if (Clave_Usuario.Equals(contrasena))
                 {
-                    lblRI lb = new lblRI(user);
+                    lblRI lb = new lblRI(datos_us);
                     lb.Show();
                    
                     //Menu men = new Menu(user);
@@ -69,6 +68,11 @@ namespace Bases_RM
 
                 }
             }
+        }
+
+        private void Seguridad1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

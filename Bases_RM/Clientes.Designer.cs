@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clientes));
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.TxtNit = new System.Windows.Forms.TextBox();
             this.TxtNom = new System.Windows.Forms.TextBox();
@@ -420,6 +421,7 @@
             this.Controls.Add(this.TxtNit);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.menuOpciones);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuOpciones;
             this.Name = "Clientes";
             this.Text = "Clientes";
