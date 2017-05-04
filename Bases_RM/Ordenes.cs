@@ -14,6 +14,7 @@ namespace Bases_RM
     {
         private Conexion_DB Conexion_DB;
         private ClasePedido pedido = null;
+        private Producto producto;
         public Ordenes()
         {
             InitializeComponent();
@@ -46,11 +47,13 @@ namespace Bases_RM
         {
             OrdenesTree.SelectedNode= OrdenesTree.SelectedNode.NextNode;
             OrdenesTree.Select();
+            txtCantidad.Focus();
         }
         private void button1_Click(object sender, EventArgs e)
         {
             OrdenesTree.SelectedNode = OrdenesTree.SelectedNode.PrevNode;
             OrdenesTree.Select();
+            txtCantidad.Focus();
         }
 
         private void Ordenes_Load(object sender, EventArgs e)
@@ -61,9 +64,11 @@ namespace Bases_RM
         private void OrdenesTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             String codigo = OrdenesTree.SelectedNode.Text.Trim();
-            Producto producto = Conexion_DB.obtener_Producto(codigo);
+            producto = Conexion_DB.obtener_Producto(codigo);
             if (producto != null)
             {
+                
+                desCheck();
                 txtDesc.Text = producto.Descripcion;
                 txtCI.Text = producto.Codigo_Interno;
                 txtCF.Text = producto.Codigo_Barras;
@@ -82,11 +87,38 @@ namespace Bases_RM
                             ListaProve.SetItemChecked(ListaProve.Items.IndexOf(Prove[i]), true);
                         }
                     }
+                    if (Conexion_DB.existeDetalle(producto.id, pedido.id))
+                    {
+                        String[] datos = Conexion_DB.obtenerDetalle(producto.id , pedido.id);
+                        txtCantidad.Text = datos[0];
+                        txtPrecio.Text = datos[1];
+                        txtComentario.Text = datos[2];
+                    }
+                    else
+                    {
+                        txtCantidad.Text = "0";
+                        txtPrecio.Text = "0.00";
+                        txtComentario.Text = "";
+                    }
+                }else
+                {
+                    txtCantidad.Text = "0";
+                    txtPrecio.Text = "0.00";
+                    txtComentario.Text = "";
                 }
+            
             }
+            
            
         }
 
+        private void desCheck(){
+            for (int i = 0; i < ListaProve.Items.Count; i++)
+            {
+                ListaProve.SetItemChecked(i, false);
+                
+            }
+        }
         private void btnMod1_Click(object sender, EventArgs e)
         {
 
@@ -129,18 +161,19 @@ namespace Bases_RM
             cambiarBtn(true, "Abierto", Color.Green, Nombre);
             pedido = Conexion_DB.obtenerPedido(Nombre);
             lbEstado.Visible = true;
+            marcarComoFinalizadoToolStripMenuItem.Enabled = true;
+            marcarComoNoFinalizadoToolStripMenuItem.Enabled = true;
         }
         private void cambiarBtn(Boolean estado, String Texto, Color color, String Titulo)
         {
             this.Text = Titulo;
             lbEstado.BackColor= color;
             lbEstado.Text = Texto;
-            ListaProve.Enabled = estado;
+            //ListaProve.Enabled = estado;
             txtCantidad.Enabled = estado;
-            txtComentario.Enabled = estado;
             btnPedir.Enabled = estado;
             cerrarPedidoToolStripMenuItem.Enabled = estado;
-            
+            txtPrecio.Enabled = estado;
         }
 
         private void consultarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -158,6 +191,8 @@ namespace Bases_RM
             pedido = null;
             cambiarBtn(false, "", Color.Green, "Pedidos");
             lbEstado.Visible = false;
+            marcarComoFinalizadoToolStripMenuItem.Enabled = false;
+            marcarComoNoFinalizadoToolStripMenuItem.Enabled = false;
         }
 
         private void menuStrip1_Click(object sender, EventArgs e)
@@ -180,6 +215,8 @@ namespace Bases_RM
                 if (!pedido.finalizado) { result = "Abierto"; color = Color.Green; condicion = true;}
                 lbEstado.Visible = true;
                 cambiarBtn(condicion, result, color, Abrir.Nombre);
+                marcarComoFinalizadoToolStripMenuItem.Enabled = true;
+                marcarComoNoFinalizadoToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -194,14 +231,108 @@ namespace Bases_RM
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            Proveedores prov = new Proveedores();
-            prov.ShowDialog();
-
+            int est = ListaProve.SelectedIndex;
+            Conexion_DB.eliminarProdProv(producto.id);
+            for (int i = 0; i < ListaProve.Items.Count; i++)
+            {
+                ListaProve.SelectedIndex = i;
+                if (ListaProve.GetItemChecked(i))
+                {
+                    Conexion_DB.ingresarProdProv(Conexion_DB.obtenerIdProveedor(ListaProve.Text), producto.id);
+                }
+            }
+            ListaProve.SelectedIndex = est;
         }
 
         private void btnPedir_Click(object sender, EventArgs e)
         {
+            
+            if (txtCantidad.Text.Length > 0)
+            {
+                Double Precio = 0.00;
+                String Comentario = "";
+                int Cantidad;
+                Cantidad = Int32.Parse(txtCantidad.Text);
+                if (txtPrecio.Text.Length > 0)
+                {
+                    Precio = Double.Parse(txtPrecio.Text);
+                } if (txtComentario.Text.Length > 0)
+                {
+                    Comentario = txtComentario.Text;
+                }
+                if (Conexion_DB.existeDetalle(producto.id, pedido.id))
+                {
+                    Conexion_DB.modificacionDetallePedido(producto.id, pedido.id, Int32.Parse(txtCantidad.Text), Double.Parse(txtPrecio.Text), txtComentario.Text);
+                }
+                else Conexion_DB.ingresoDetallePedido(Int32.Parse(txtCantidad.Text), Double.Parse(txtPrecio.Text), producto.id, pedido.id, txtComentario.Text);
 
+                button2_Click(sender, e);
+            }
+            else MessageBox.Show("El campo \"Cantidad\" NO puede estar vacio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ListaProve_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListaProve_DoubleClick(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void ListaProve_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+          
+        }
+
+        private void ListaProve_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Proveedores prov = new Proveedores();
+            prov.ShowDialog();
+        }
+
+        private void marcarComoFinalizadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Conexion_DB.estadoPedido(pedido.Nombre, "si");
+            cambiarBtn(false, "Cerrado", Color.Red, pedido.Nombre);
+        }
+
+        private void marcarComoNoFinalizadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Conexion_DB.estadoPedido(pedido.Nombre, "no");
+            cambiarBtn(true, "Abierto", Color.Green, pedido.Nombre);
+        }
+
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                btnPedir_Click(sender, e);
+            }
+        }
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                btnPedir_Click(sender, e);
+            }
+        }
+
+        private void txtComentario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
         }
     }
 }

@@ -507,10 +507,10 @@ namespace Bases_RM
         /// <param name="numeroPedido">Número del pedido el cual se está detallando</param>
         /// <param name="cantidad">Cantidad comprada del producto</param>
         /// <param name="precioCompra">Precio al cual se compró el producto en este pedido</param>
-        public void ingresoDetallePedido(String codInternoProducto, int numeroPedido, int cantidad, double precioCompra)
+        public void ingresoDetallePedido(int Cantidad, Double Precio, int Producto_id, int Pedido_id, String Comentario)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad, Precio_Compra) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ","+precioCompra.ToString()+");";
+            comando.CommandText = "INSERT INTO detalle_pedido (Cantidad, Precio_Compra, Producto_id, Pedido_id, Comentario) VALUES ("+ Cantidad.ToString() +", "+ Precio.ToString()+ ", "+ Producto_id.ToString()+", "+ Pedido_id.ToString()+", '"+ Comentario +"');";
             try
             {
                 Variable_Conexion.Open();
@@ -1049,16 +1049,45 @@ namespace Bases_RM
         //--------------------MODIFICACION RELACIONES--------------------//
 
 
-        public void modificacionDetallePedido(String codInternoProducto, int numeroPedido, int cantidad, double precioCompra)
+        public void modificacionDetallePedido(int Producto_id, int Pedido_id, int cantidad, double Precio_Compra, String Comentario)
         {
             comando = Variable_Conexion.CreateCommand();
-            comando.CommandText = "UPDATE detalle_pedido (Producto_Codigo_Interno, Pedido_Numero, Cantidad, Precio_Compra) VALUES ('" + codInternoProducto + "'," + numeroPedido.ToString() + "," + cantidad.ToString() + ","+precioCompra.ToString()+");";
+            comando.CommandText = "UPDATE detalle_pedido SET Cantidad =" + cantidad.ToString() + ", Precio_Compra=" + Precio_Compra.ToString() + ", Comentario = '" + Comentario + "' WHERE Producto_id =" + Producto_id.ToString() + " AND Pedido_id =" + Pedido_id.ToString() + ";";
             try
             {
                 Variable_Conexion.Open();
                 comando.ExecuteNonQuery();
                 Variable_Conexion.Close();
             }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+
+        public bool existeDetalle(int Producto_id, int Pedido_id)
+        {
+            bool existe= false;
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "SELECT COUNT(*) FROM detalle_pedido WHERE Producto_id =" + Producto_id.ToString() + " AND Pedido_id =" + Pedido_id.ToString() + ";";
+            try
+            {
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                if (Variable_Lectura.Read())
+                {
+                    int cantidad = Int32.Parse(Variable_Lectura[0].ToString());
+                    if (cantidad > 0)
+                    {
+                        existe = true;
+                    }
+                }
+
+                Variable_Conexion.Close();
+                return existe;
+            }
+
             catch (MySqlException e)
             {
                 Variable_Conexion.Close();
@@ -2000,6 +2029,32 @@ namespace Bases_RM
             }
         }
 
+        public String[] obtenerDetalle(int Producto_id, int Pedido_id)
+        {
+            String[] detalle = null;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT Cantidad, Precio_Compra, Comentario FROM detalle_pedido WHERE Producto_id = " + Producto_id + " AND Pedido_id = " + Pedido_id.ToString() + ";";//Consulta para la base, obtener el numero de sucursales
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+                detalle = new String[3];
+                if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+                {                  
+                    detalle[0] = Variable_Lectura["Cantidad"].ToString();
+                    detalle[1] = Variable_Lectura["Precio_Compra"].ToString();
+                    detalle[2] = Variable_Lectura["Comentario"].ToString();
+                }
+                //se cierra la conexion
+                Variable_Conexion.Close();
+                return detalle;
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
         public String[] obtenerProvPed(int Producto_id)
         {
             String[] prov = null;
@@ -2014,7 +2069,7 @@ namespace Bases_RM
                 {
                     total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
                     prov = new String[total];//se crea un arreglo de cadenas del tamaño del conteo obtenido de sucursales
-                    comando.CommandText = "SELECT Proveedor_id FROM prov_prod WHERE Producto_id = " + Producto_id + ";";
+                    comando.CommandText = "SELECT p.Nombre  AS 'Nombre' FROM prov_prod r INNER JOIN proveedor p on r.Proveedor_id = p.id WHERE Producto_id = " + Producto_id + ";";
                     Variable_Conexion.Close();//se cierra la conexion
                     Variable_Conexion.Open();
                     Variable_Lectura = comando.ExecuteReader();
@@ -2022,14 +2077,63 @@ namespace Bases_RM
                     int id;
                     while (Variable_Lectura.Read())
                     {
-                       id = Int32.Parse(Variable_Lectura["Proveedor_id"].ToString());
-                       prov[contador] = obtenerNombreProveedor(id);
-                       contador++;
+                        prov[contador] = Variable_Lectura["Nombre"].ToString();
+                        contador++;
                     }
-                    Variable_Conexion.Close();
                 }
-               //se cierra la conexion
+                //se cierra la conexion
+                Variable_Conexion.Close();
                 return prov;
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        public void eliminarProdProv(int Producto_id)
+        {
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "DELETE FROM prov_prod WHERE Producto_id = " + Producto_id + ";";//Consulta para la base, obtener el numero de sucursales
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        public void ingresarProdProv(int Proveedor_id, int Producto_id)
+        {
+            
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "INSERT INTO prov_prod (Proveedor_id, Producto_id) VALUES (" + Proveedor_id.ToString() + ", " + Producto_id.ToString() + ");";//Consulta para la base, obtener el numero de sucursales
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        public void estadoPedido(String Nombre, String Estado)
+        {
+
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "UPDATE pedido SET Finalizado = '" + Estado + "' WHERE Mes = '" + Nombre + "';";//Consulta para la base, obtener el numero de sucursales
+            try
+            {
+                Variable_Conexion.Open();//se abre la conexion a la base
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
             }
             catch (MySqlException e)
             {
