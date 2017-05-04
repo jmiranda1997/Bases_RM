@@ -35,6 +35,7 @@ namespace Bases_RM
             }
             cbSucursales.SelectedIndex = 0;
             dataGridView1.DataSource = conexion.tabla(deuda, cliente.id, 0);
+            
 
         }
 

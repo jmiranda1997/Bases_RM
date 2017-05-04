@@ -380,5 +380,23 @@ namespace Bases_RM
             else
                 MessageBox.Show("No se ha seleccionado un cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void exportarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog fichero = new SaveFileDialog();
+                fichero.Filter = "Excel (*.xls)|*.xls";
+                if (fichero.ShowDialog() == DialogResult.OK)
+                {
+                    conexion.exportar(conexion.exportarDeuda(0, 0), fichero.FileName);
+                    MessageBox.Show("Se ha guardado correctamente", "Exportar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ocurrio un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

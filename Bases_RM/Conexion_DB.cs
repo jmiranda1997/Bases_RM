@@ -18,9 +18,8 @@ namespace Bases_RM
         public Conexion_DB(){
 
             Constructor_Conexion.Server = "localhost";//"25.3.39.210";//Direccion IP del servidor
-
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
-            Constructor_Conexion.Password = "@Sistemas2017";//"@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Password = "blackdiamond";//"@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
@@ -2193,6 +2192,64 @@ namespace Bases_RM
             Cliente cliente=null;
             
             return cliente;
+        }
+        public DataTable exportarDeuda(int mesInicio, int mes)
+        {
+            DataTable tabla=new DataTable();
+            String[,] clientes = obtener_clientes();
+            String[,] sucursales= obtener_sucursales();
+            if (sucursales.Length > 0)
+            {
+                tabla.Columns.Add("Nombres");
+                for(int i=0;i<sucursales.Length/2;i++)
+                {
+                    tabla.Columns.Add(sucursales[i,0]);
+                }
+                DataRow filaNombre = tabla.NewRow();
+                filaNombre[0] = "Nombre";
+                for (int i = 0; i < sucursales.Length / 2; i++)
+                {
+                    filaNombre[i+1]=(sucursales[i, 0]);
+                }
+                tabla.Rows.Add(filaNombre);
+                DataRow[] fila=new DataRow[clientes.Length/3];
+                for(int i=0;i<clientes.Length/3;i++)
+                {
+                    fila[i] = tabla.NewRow();
+                    fila[i][0]=clientes[i,0]+" "+clientes[i,1];
+                    for(int o=1;o<tabla.Columns.Count;o++)
+                    {
+                        fila[i][o]=obtener_saldoTotal(int.Parse(clientes[i,2]),int.Parse(sucursales[o-1,1]));
+                    }
+                    tabla.Rows.Add(fila[i]);
+                }
+            }
+            return tabla;
+        }
+        public void exportar(DataTable tabla, String direccion)
+        {
+            Microsoft.Office.Interop.Excel.Application aplicacion;
+            Microsoft.Office.Interop.Excel.Workbook libros_trabajo;
+            Microsoft.Office.Interop.Excel.Worksheet hoja_trabajo;
+            aplicacion = new Microsoft.Office.Interop.Excel.Application();
+            libros_trabajo = aplicacion.Workbooks.Add();
+            hoja_trabajo =
+                (Microsoft.Office.Interop.Excel.Worksheet)libros_trabajo.Worksheets[1];
+            hoja_trabajo.Name = "Hoja1";
+       
+            //Recorremos el DataGridView rellenando la hoja de trabajo
+            for (int i = 0; i < tabla.Rows.Count; i++)
+            {
+                for (int j = 0; j < tabla.Columns.Count; j++)
+                {
+                    hoja_trabajo.Cells[i + 1, j + 1] = tabla.Rows[i][j];
+                }
+            }
+            hoja_trabajo.Columns.AutoFit();
+            libros_trabajo.SaveAs(direccion,
+            Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+            libros_trabajo.Close(true);
+            aplicacion.Quit();
         }
 
 
