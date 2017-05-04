@@ -15,11 +15,10 @@ namespace Bases_RM
         private Conexion_DB Conexion_DB;
         private ClasePedido pedido = null;
         private Producto producto;
-        public Ordenes()
+        public Ordenes(Usuario User)
         {
             InitializeComponent();
             
-     
             this.Conexion_DB = new Conexion_DB();
             String[] codigos = this.Conexion_DB.obtener_codigos();
             String[] proveedores = this.Conexion_DB.obtener_proveedores();
@@ -193,6 +192,9 @@ namespace Bases_RM
             lbEstado.Visible = false;
             marcarComoFinalizadoToolStripMenuItem.Enabled = false;
             marcarComoNoFinalizadoToolStripMenuItem.Enabled = false;
+            txtCantidad.Text = "0";
+            txtPrecio.Text = "0.00";
+            txtComentario.Text = "";
         }
 
         private void menuStrip1_Click(object sender, EventArgs e)
