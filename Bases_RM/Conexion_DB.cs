@@ -1238,7 +1238,7 @@ namespace Bases_RM
             try
             {
                 comando = Variable_Conexion.CreateCommand();
-                comando.CommandText = "SELECT Monto from Prestamo WHERE id=" + vID + ";";
+                comando.CommandText = "SELECT Monto from Prestamo WHERE id =" + vID + ";";
                 Variable_Conexion.Open();
                    Variable_Lectura = comando.ExecuteReader();
                 while (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
