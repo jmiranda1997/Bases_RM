@@ -138,8 +138,8 @@ namespace Bases_RM
 
         private void button4_Click(object sender, EventArgs e)
         {
-            trabajadoresTree.SelectedNode = trabajadoresTree.SelectedNode.NextNode;
-            trabajadoresTree.Select();
+                trabajadoresTree.SelectedNode = trabajadoresTree.SelectedNode.NextNode;
+                trabajadoresTree.Select();
         }
 
         private void archivoToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -231,16 +231,14 @@ namespace Bases_RM
                     try
                    {
                         String SucuSucu = ComboSucu.Text;
-                        //trabajadoresTree.SelectedNode.BeginEdit();
                         String Nombre = trabajadoresTree.SelectedNode.Text;
-                        trab = Conexion_DB.obtener_Trabajador(Nombre.Trim());
+                        //trab = Conexion_DB.obtener_Trabajador(Nombre.Trim());
                         Conexion_DB.modificacionTrabajador(obtener_TrabajadorID(Nombre), TxtNom.Text, double.Parse(TxtSala.Text), obtener_IDSucu(SucuSucu),int.Parse(TxtCod.Text));
                         MessageBox.Show("Trabajador Modificado");
                         TxtNom.Text = "";
                         TxtSala.Text = "";
                         ComboSucu.Text = "";
                         TxtCod.Text = "";
-                        //trabajadoresTree.SelectedNode.EndEdit(true);
                     }
                     catch (Exception ex)
                     {
@@ -261,7 +259,9 @@ namespace Bases_RM
             trabajadoresTree.BeginUpdate();
             trabajadoresTree.Nodes.Clear();
             trabajadoresTree.EndUpdate();
+            trabajadoresTree.Enabled = true;
             Habilitar.Visible = true;
+            Habilitar.Enabled = false;
             button2.Visible = false;
             btnMG.Visible = false;
             btnEC.Visible = false;
@@ -324,6 +324,7 @@ namespace Bases_RM
             }
             return int.Parse(Sucu[0, cont]);
         }
+        /////////////////////////////////////////////
 
 
         private bool campos_vacios()
@@ -424,13 +425,26 @@ namespace Bases_RM
                     }
                     else
                     {
-                        string hola = TxtCod.Text;
-                        Conexion_DB.HabilitarUsuario(trabajadoresTree.SelectedNode.Text, hola);   /////////////////////////
-                        MessageBox.Show("Trabajador Habilitado");
-                        TxtNom.Text = "";
-                        TxtSala.Text = "";
-                        ComboSucu.Text = "";
-                        TxtCod.Text = "";
+                        Boolean existe =  Conexion_DB.existe_CodigoTrabajador(TxtCod.Text);
+                        if (existe != false)
+                        {
+                            MessageBox.Show("Codigo de trabajador ya existente, porfavor ingrese otro....");
+                            TxtNom.Text = "";
+                            TxtSala.Text = "";
+                            ComboSucu.Text = "";
+                            TxtCod.Text = "";
+
+                        }
+                        else
+                        {
+                            Conexion_DB.HabilitarUsuario(trabajadoresTree.SelectedNode.Text, TxtCod.Text);
+                            MessageBox.Show("Trabajador habilitado...", "¡EXITOSO!");
+                            TxtNom.Text = "";
+                            TxtSala.Text = "";
+                            ComboSucu.Text = "";
+                            TxtCod.Text = "";
+                            
+                        }   
                     }
                 }
                 catch (Exception ex)
@@ -450,6 +464,17 @@ namespace Bases_RM
             {
                 Habilitar.Enabled = true;
             }
+        }
+
+        private void Trabajadores_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            Form1 pg = new Form1(null);
+            pg.Show();
         }
     }
 }

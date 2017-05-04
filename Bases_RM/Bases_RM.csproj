@@ -102,6 +102,12 @@
       <DependentUpon>Component1.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion_Fox.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="IngresoProve.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Component1.resx">
       <DependentUpon>Component1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IngresoProve.resx">
       <DependentUpon>IngresoProve.cs</DependentUpon>

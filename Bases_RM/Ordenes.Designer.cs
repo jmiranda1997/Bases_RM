@@ -99,14 +99,14 @@
             // nuevoPedidoToolStripMenuItem
             // 
             this.nuevoPedidoToolStripMenuItem.Name = "nuevoPedidoToolStripMenuItem";
-            this.nuevoPedidoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nuevoPedidoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.nuevoPedidoToolStripMenuItem.Text = "&Nuevo Pedido";
             this.nuevoPedidoToolStripMenuItem.Click += new System.EventHandler(this.nuevoPedidoToolStripMenuItem_Click);
             // 
             // abrirPedidoToolStripMenuItem
             // 
             this.abrirPedidoToolStripMenuItem.Name = "abrirPedidoToolStripMenuItem";
-            this.abrirPedidoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirPedidoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.abrirPedidoToolStripMenuItem.Text = "&Abrir Pedido";
             this.abrirPedidoToolStripMenuItem.Click += new System.EventHandler(this.abrirPedidoToolStripMenuItem_Click);
             // 
@@ -114,7 +114,7 @@
             // 
             this.cerrarPedidoToolStripMenuItem.Enabled = false;
             this.cerrarPedidoToolStripMenuItem.Name = "cerrarPedidoToolStripMenuItem";
-            this.cerrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cerrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.cerrarPedidoToolStripMenuItem.Text = "&Cerrar Pedido";
             this.cerrarPedidoToolStripMenuItem.Click += new System.EventHandler(this.cerrarPedidoToolStripMenuItem_Click);
             // 
@@ -257,6 +257,7 @@
             this.txtCI.Name = "txtCI";
             this.txtCI.Size = new System.Drawing.Size(216, 20);
             this.txtCI.TabIndex = 14;
+            this.txtCI.TextChanged += new System.EventHandler(this.txtCI_TextChanged);
             // 
             // txtCF
             // 
