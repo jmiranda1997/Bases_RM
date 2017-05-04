@@ -15,13 +15,12 @@ namespace Bases_RM
     {
         public Usuario datos_us;
         private Conexion_DB Conexion = new Conexion_DB();
-        public Usuario user;
 
    
         public Seguridad1(Usuario uso)
         {
             InitializeComponent();
-            this.user = uso;
+            this.datos_us = uso;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -29,18 +28,20 @@ namespace Bases_RM
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
             if (!contrasena.Trim().Equals(""))
             {
-                string Clave_Usuario = Conexion.Us_con(user.Nombre);
-                if (Clave_Usuario.Equals(contrasena))
+
+                if (Conexion.login(datos_us.Nombre, contrasena))
+
+
                 {
                     this.Hide();
                     Seguridad segu = new Seguridad(datos_us);
-                    segu.Show();
+                    segu.ShowDialog();
 
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña Incorrecta\nIngresada " + contrasena + "\nConsultada " + Clave_Usuario, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Show();
+                    MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //this.Show();
 
                 }
             }
@@ -52,11 +53,14 @@ namespace Bases_RM
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
             if (!contrasena.Trim().Equals(""))
             {
-                string Clave_Usuario = Conexion.Us_con(user.Clave);
-                if (Clave_Usuario.Equals(contrasena))
+
+                if (Conexion.login(datos_us.Nombre,contrasena))
                 {
-                    lblRI lb = new lblRI(user);
+                    lblRI lb = new lblRI(datos_us);
+
+                    this.Close();
                     lb.Show();
+
                    
                     //Menu men = new Menu(user);
                     //men.Show();
@@ -64,11 +68,22 @@ namespace Bases_RM
                 }
                 else
                 {
-                    MessageBox.Show("Contraseña Incorrecta\nIngresada " + contrasena + "\nConsultada " + Clave_Usuario, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Show();
 
                 }
             }
+        }
+
+       private void Seguridad1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu menu = new Menu(datos_us);
+
+            menu.Show();
+        }
+        private void Seguridad1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

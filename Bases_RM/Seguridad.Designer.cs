@@ -690,6 +690,7 @@
             this.MaximizeBox = false;
             this.Name = "Seguridad";
             this.Text = "Administración de Seguridad";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Seguridad_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

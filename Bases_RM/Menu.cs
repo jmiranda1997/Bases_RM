@@ -21,8 +21,8 @@ namespace Bases_RM
             InitializeComponent();
 
         //    btnpedidos.Enabled = false;
-            //Thread tare = new Thread(ejecutar);
-            //tare.Start();
+          Thread tare = new Thread(ejecutar);
+          tare.Start();
 
             
 
@@ -81,6 +81,11 @@ namespace Bases_RM
         private void btnsalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
