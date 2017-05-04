@@ -13,17 +13,13 @@ namespace Bases_RM
 {
     public partial class Seguridad1 : Form
     {
-        public Usuario datos_us;
         private Conexion_DB Conexion = new Conexion_DB();
         public Usuario user;
-
-   
         public Seguridad1(Usuario uso)
         {
             InitializeComponent();
             this.user = uso;
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
@@ -32,15 +28,12 @@ namespace Bases_RM
                 if (Conexion.login(user.Nombre,contrasena))
                 {
                     this.Hide();
-                    Seguridad segu = new Seguridad(datos_us);
+                    Seguridad segu = new Seguridad(user);
                     segu.ShowDialog();
-
                 }
                 else
                 {
                     MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //this.Show();
-
                 }
             }
           
@@ -56,10 +49,6 @@ namespace Bases_RM
                     lblRI lb = new lblRI(user);
                     this.Close();
                     lb.ShowDialog();
-                   
-                    //Menu men = new Menu(user);
-                    //men.Show();
-
                 }
                 else
                 {

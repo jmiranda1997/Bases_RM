@@ -691,6 +691,7 @@
             this.Name = "Seguridad";
             this.Text = "Administración de Seguridad";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Seguridad_FormClosed);
+            this.Load += new System.EventHandler(this.Seguridad_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
