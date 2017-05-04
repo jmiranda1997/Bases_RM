@@ -34,7 +34,7 @@
             // 
             // btnCambioContra
             // 
-            this.btnCambioContra.Location = new System.Drawing.Point(24, 25);
+            this.btnCambioContra.Location = new System.Drawing.Point(12, 12);
             this.btnCambioContra.Name = "btnCambioContra";
             this.btnCambioContra.Size = new System.Drawing.Size(132, 43);
             this.btnCambioContra.TabIndex = 0;
@@ -44,7 +44,7 @@
             // 
             // btnConfig
             // 
-            this.btnConfig.Location = new System.Drawing.Point(162, 25);
+            this.btnConfig.Location = new System.Drawing.Point(150, 12);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(105, 43);
             this.btnConfig.TabIndex = 1;
@@ -56,14 +56,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 91);
+            this.ClientSize = new System.Drawing.Size(265, 67);
             this.Controls.Add(this.btnConfig);
             this.Controls.Add(this.btnCambioContra);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Seguridad1";
-            this.Text = "Seguridad1";
-
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Seguridad";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Seguridad1_FormClosed);
-
             this.ResumeLayout(false);
 
         }

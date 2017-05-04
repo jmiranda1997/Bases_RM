@@ -19,7 +19,7 @@ namespace Bases_RM
 
             Constructor_Conexion.Server = "localhost";//"25.3.39.210";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
-            Constructor_Conexion.Password = "@Sistemas2017";//"@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Password = "jpmrpamr";//"@Sistemas2017";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
@@ -100,17 +100,11 @@ namespace Bases_RM
             if (Variable_Lectura.Read() == true)                        //se verifica si se obtiene algun dato de la base
             {
                 Nombre = Variable_Lectura["Nombre"].ToString();
-                clave = Variable_Lectura["Clave"].ToString();
-                Pedidos = Variable_Lectura["Acceso_Pedidos"].ToString();
-                Clientes = Variable_Lectura["Acceso_Clientes"].ToString();
-                Trabajadores = Variable_Lectura["Acceso_Trabajadores"].ToString();
-                Seguridad = Variable_Lectura["Acceso_Seguridad"].ToString();
-                //se guarda el nombre
             }
 
             
             Variable_Conexion.Close();//se cierra la conexion
-            temp = new Usuario(Nombre,clave,Seguridad,Clientes,Trabajadores,Pedidos);
+            temp = new Usuario(Nombre);
             return temp;
         }
 
@@ -295,6 +289,47 @@ namespace Bases_RM
             }
         }
 
+        /// <summary>
+        /// Método que ingresa los usuarios
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="clave"></param>
+        public void ingresoUsuario(String nombre, String clave)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "INSERT INTO usuario (Nombre, Clave) VALUES ('" + nombre + "',AES_ENCRYPT('" + clave + "','" + clave + "'));";
+            try
+            {
+                Variable_Conexion.Open();
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
+        /// <summary>
+        /// Ingreso de clasificación de usuarios
+        /// </summary>
+        /// <param name="tipo">Nombre del tipo de clasificación</param>
+        public void ingresoClasificacion(String tipo)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "INSERT INTO clasificacion (Tipo) VALUES ('" + tipo + "');"; 
+            try
+            {
+                Variable_Conexion.Open();
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
         /// <summary>
         /// Ingreso de los paises donde se encuentran los proveedores
         /// </summary>
@@ -616,8 +651,6 @@ namespace Bases_RM
                 throw e;
             }
         }
-
-
         /// <summary>
         /// Modifica los datos del trabajador
         /// </summary>
@@ -968,13 +1001,6 @@ namespace Bases_RM
                 throw e;
             }
         }
-        public void modificar_saldo(bool deuda,double monto, double saldo)
-        {
-            if(deuda)
-            {
-
-            }
-        }
         /// <summary>
         /// Modifica el teléfono de un encargado de un proveedor
         /// </summary>
@@ -1161,7 +1187,7 @@ namespace Bases_RM
         {
             comando = Variable_Conexion.CreateCommand();
             comando.CommandText = "UPDATE trabajador SET Habilitado='NO', Codigo = -1 WHERE Nombre='" + nombre + "';"; 
-          
+
             try
             {
                 Variable_Conexion.Open();
@@ -1247,38 +1273,37 @@ namespace Bases_RM
         {
             try
             {
+                String clave = "";
+                int ascii = usuario.ElementAt(0);
+                clave += ascii.ToString();
+                for (int i = 0; i < usuario.Length; i++)
+                {
+                    clave += usuario.ElementAt(usuario.Length - 1 - i);
+                }
+                ascii = usuario.ElementAt(usuario.Length - 1);
+                clave += ascii.ToString();
                 String[,] permisos = null;
-                //int total;
-                //comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
-                //comando.CommandText = "SELECT COUNT(*) FROM usuarios;";//Consulta para la base, obtener el numero de clientes
-                //Variable_Conexion.Open();//se abre la conexion a la base
-                //Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
-                //if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
-                //{
-                //total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
                 permisos = new String[1, 4];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
-                comando.CommandText = "SELECT Acceso_Pedidos, Acceso_Clientes, Acceso_Trabajadores, Acceso_Seguridad FROM usuario WHERE Nombre='" + usuario + "';";
-                //Variable_Conexion.Close();//se cierra la conexion
+                for (int i = 0; i < 4; i++)
+                {
+                    comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+                    int temp = i + 1;
+                    comando.CommandText = "SELECT descifraAccesos("+temp+",'"+clave+"','"+usuario+"') \"R\";";
                 Variable_Conexion.Open();
                 Variable_Lectura = comando.ExecuteReader();
-                //int contador = 0;
-                Vigenere seg = new Vigenere();
-                String clave="3JOR";
                 while (Variable_Lectura.Read())
                 {
-                    seg.descifrar(Variable_Lectura["Acceso_Seguridad"].ToString(),clave );
-                    permisos[0, 0] = seg.getMD();
-                    seg.descifrar(Variable_Lectura["Acceso_Clientes"].ToString(), clave);
-                    permisos[0, 1] = seg.getMD();
-                    seg.descifrar( Variable_Lectura["Acceso_Pedidos"].ToString(),clave);
-                    permisos[0, 2] = seg.getMD();
-                    seg.descifrar(Variable_Lectura["Acceso_Trabajadores"].ToString(),clave);
-                    permisos[0, 3] = seg.getMD();
-                    
-                    //contador++;
+                        if (i == 0)
+                            permisos[0, 0] = Variable_Lectura["R"].ToString();
+                        else if(i==1)
+                            permisos[0, 1] = Variable_Lectura["R"].ToString();
+                        else if (i == 2)
+                            permisos[0, 2] = Variable_Lectura["R"].ToString();
+                        else if (i == 3)
+                            permisos[0, 3] = Variable_Lectura["R"].ToString();                        
                 }
-                //}
                 Variable_Conexion.Close();//se cierra la conexion
+                }
                 return permisos;
             }
             catch (MySqlException ex)
@@ -1400,7 +1425,6 @@ namespace Bases_RM
                 comando.CommandText = "SELECT * FROM producto WHERE Codigo_Interno='" + Codigo + "';";//Consulta que obtiene todos los datos de un codigo codigos  de la base 
                 Variable_Conexion.Open();//se abre nuevamente la conexion con la base
                 Variable_Lectura = comando.ExecuteReader();//se ejecuta el comando
-                
                 if (Variable_Lectura.Read())//Se verifica si se hizo una lectura
                 {
                     Producto = new Producto(Int32.Parse(Variable_Lectura["id"].ToString()),Variable_Lectura["Codigo_Interno"].ToString(), Variable_Lectura["Codigo_Fabricante"].ToString(), Variable_Lectura["Descripcion"].ToString(), Variable_Lectura["Marca"].ToString(),
@@ -2153,7 +2177,7 @@ namespace Bases_RM
             Boolean Existe = false;
             try
             {
-
+               
                 int contador = 0;
 
                 comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
@@ -2170,9 +2194,8 @@ namespace Bases_RM
                 {
                     Existe = true;
                 }
-
+       
             }
-
             catch (MySqlException e)
             {
                 Variable_Conexion.Close();
@@ -2444,7 +2467,32 @@ namespace Bases_RM
             
             return cliente;
         }
-
+        /// <summary>
+        /// Método que ingresa los permisos
+        /// </summary>
+        /// <param name="usuarios">Cadena de accesos de usuarios</param>
+        /// <param name="clientes">Cadena </param>
+        /// <param name="pedidos"></param>
+        /// <param name="trabajadores"></param>
+        /// <param name="clave"></param>
+        /// <param name="usuario"></param>
+        public void ingresaPermisos(String usuarios, String clientes, String pedidos, String trabajadores, String clave, String usuario)
+        {
+            comando = Variable_Conexion.CreateCommand();
+            comando.CommandText = "CALL ingresaModificaUsuarios ('"+usuarios+"','"+clientes+"','"+pedidos+"','"+trabajadores+"','"+clave+"','"+usuario+"');";
+            try
+            {
+                Variable_Conexion.Open();
+                comando.ExecuteNonQuery();
+                Variable_Conexion.Close();
+            }
+            catch (MySqlException e)
+            {
+                Variable_Conexion.Close();
+                throw e;
+            }
+        }
     }
-    
 }
+
+    

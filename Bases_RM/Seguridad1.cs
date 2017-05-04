@@ -13,36 +13,26 @@ namespace Bases_RM
 {
     public partial class Seguridad1 : Form
     {
-        public Usuario datos_us;
         private Conexion_DB Conexion = new Conexion_DB();
-
-   
+        public Usuario user;
         public Seguridad1(Usuario uso)
         {
             InitializeComponent();
-            this.datos_us = uso;
+            this.user = uso;
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
             if (!contrasena.Trim().Equals(""))
             {
-
-                if (Conexion.login(datos_us.Nombre, contrasena))
-
-
+                if (Conexion.login(user.Nombre,contrasena))
                 {
-                    this.Hide();
-                    Seguridad segu = new Seguridad(datos_us);
+                    Seguridad segu = new Seguridad(user);
                     segu.ShowDialog();
-
                 }
                 else
                 {
                     MessageBox.Show("Contraseña Incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //this.Show();
-
                 }
             }
           
@@ -53,18 +43,10 @@ namespace Bases_RM
             String contrasena = Interaction.InputBox("Ingrese la Contraseña actual, para poder realizar el cambio:", "Ingreso de Contraseña Actual");
             if (!contrasena.Trim().Equals(""))
             {
-
-                if (Conexion.login(datos_us.Nombre,contrasena))
+                if (Conexion.login(user.Nombre,contrasena))
                 {
-                    lblRI lb = new lblRI(datos_us);
-
-                    this.Close();
-                    lb.Show();
-
-                   
-                    //Menu men = new Menu(user);
-                    //men.Show();
-
+                    lblRI lb = new lblRI(user);
+                    lb.ShowDialog();
                 }
                 else
                 {
@@ -75,15 +57,8 @@ namespace Bases_RM
             }
         }
 
-       private void Seguridad1_FormClosed(object sender, FormClosedEventArgs e)
+        private void Seguridad1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Menu menu = new Menu(datos_us);
-
-            menu.Show();
-        }
-        private void Seguridad1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

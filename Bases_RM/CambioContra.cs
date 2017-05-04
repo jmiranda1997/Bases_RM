@@ -12,41 +12,35 @@ namespace Bases_RM
 {
     public partial class lblRI : Form
     {
-        private Vigenere Vig = new Vigenere();
         private Conexion_DB Conexion = new Conexion_DB();
-        public Usuario datos_us;
         public Usuario user;
-        
-        String clave = "3JOR";
         public lblRI(Usuario us)
         {
             InitializeComponent();
             this.user = us;
         }
-
-        private void lblCC_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            string mensaje = "", cifrado = "", usuario="";
-            mensaje = txtCCN.Text.Trim();
-            Vig.cifrar(mensaje, clave);
-            cifrado = Vig.getMC();
-            usuario = user.Nombre;
-            Conexion.modificacionUsuario(usuario, cifrado);
+            cambio();
         }
-
-        private void lblRI_Load(object sender, EventArgs e)
+        private void txtCCN_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                cambio();
+            }
         }
-
-        private void txtCCN_TextChanged(object sender, EventArgs e)
+        private void cambio()
         {
-
+            if ((contraText1.Text == contraText2.Text) && !contraText1.Text.Trim().Equals(""))
+            {
+                if (contraText1.Text.Length < 45)
+                {
+                    Conexion.modificacionUsuario(user.Nombre, contraText1.Text);
+                    MessageBox.Show("Contraseña modificada", "Contraseña modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+            }
         }
     }
 }
