@@ -102,7 +102,9 @@
             this.txtNom.Name = "txtNom";
             this.txtNom.Size = new System.Drawing.Size(238, 20);
             this.txtNom.TabIndex = 5;
+
             //this.txtNom.TextChanged += new System.EventHandler(this.txtNom_TextChanged);
+
             // 
             // Datetimepic
             // 

@@ -64,6 +64,7 @@ namespace Bases_RM
             String Nombre = trabajadoresTree.SelectedNode.Text;
             trab = Conexion_DB.obtener_Trabajador(Nombre.Trim());
             //trab1 = Conexion_DB.obtener_Trabajadordesha();
+
             if (trab != null)
             {
                 //String[] sucursales = Conexion_DB.obtener_sucursales();
@@ -76,7 +77,9 @@ namespace Bases_RM
                 TxtSala.Text = trab.Salario.ToString();
                 ComboSucu.Text = Conexion_DB.obtener_Nombredemens(trab.Sucursal_ID);
                 TxtCod.Text = trab.codigo.ToString();
+
                 grupo2.Visible = false;
+
                 
                 
             }
@@ -120,6 +123,7 @@ namespace Bases_RM
                 TxtSala.Text = "";
                 ComboSucu.Text = "";
                 grupo2.Visible = false;
+
                 TxtCod.Text = "";
                 TxtNom.Enabled = true;
                 TxtSala.Enabled = true;

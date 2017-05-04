@@ -31,6 +31,7 @@ namespace Bases_RM
 
                 if (Conexion.login(datos_us.Nombre, contrasena))
 
+
                 {
                     this.Hide();
                     Seguridad segu = new Seguridad(datos_us);
@@ -56,6 +57,7 @@ namespace Bases_RM
                 if (Conexion.login(datos_us.Nombre,contrasena))
                 {
                     lblRI lb = new lblRI(datos_us);
+
                     this.Close();
                     lb.Show();
 
@@ -76,6 +78,7 @@ namespace Bases_RM
        private void Seguridad1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Menu menu = new Menu(datos_us);
+
             menu.Show();
         }
         private void Seguridad1_Load(object sender, EventArgs e)
