@@ -21,15 +21,16 @@ namespace Bases_RM
             pbprogreso.Maximum = maximo;
             pbprogreso.Minimum = 0;
         }
-
+        
         public void progreso(String Progreso)
         {
+            lbprogreso.Text = Progreso + "/" + pbprogreso.Maximum.ToString();
             pbprogreso.Value++;
-            lbprogreso.Text = Progreso + "/"+ pbprogreso.Maximum.ToString();
+            
         }
         private void Pedidos_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnimportar_Click(object sender, EventArgs e)
@@ -90,6 +91,11 @@ namespace Bases_RM
         public void hilo(ProgressBar p, Label l)
         {
             
+        }
+
+        private void pbprogreso_Click(object sender, EventArgs e)
+        {
+
         }
        
     }
