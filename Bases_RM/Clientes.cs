@@ -356,5 +356,27 @@ namespace Bases_RM
             }
 
         }
+
+        private void registroDeDeudasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(cliente_actual!=null)
+            {
+                Registro res = new Registro(true, cliente_actual);
+                res.Show();
+            }
+            else
+                MessageBox.Show("No se ha seleccionado un cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+           }
+
+        private void registroDePagosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cliente_actual != null)
+            {
+                Registro res = new Registro(false, cliente_actual);
+                res.Show();
+            }
+            else
+                MessageBox.Show("No se ha seleccionado un cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

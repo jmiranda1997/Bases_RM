@@ -1561,6 +1561,12 @@ namespace Bases_RM
             }
             return Existe;//regresamos el valor booleano de la consulta
         }
+        /// <summary>
+        /// Funcion que devuelve un objeto de la Clase clientes, extrae los datos de un cliente por medio
+        /// de su id y luego los ingresa en el objeto
+        /// </summary>
+        /// <param name="id"></param>Id del cliente que se busca
+        /// <returns></returns>Objeto cliente
         public Cliente getCliente(String id)
         {
             Cliente clienteB = null;
@@ -1632,6 +1638,10 @@ namespace Bases_RM
             }
             return saldo;
         }
+        /// <summary>
+        /// FUncion que devueve una matriz String de N x 3 que contiene el nombre, apellido e id de cada cliente 
+        /// </summary>
+        /// <returns></returns>
         public String[,] obtener_clientes()
         {
             String[,] clientes = null;
@@ -1660,12 +1670,53 @@ namespace Bases_RM
             Variable_Conexion.Close();//se cierra la conexion
             return clientes;
         }
+        /// <summary>
+        /// Funcion que retorna una DataTable para un datagrid
+        /// dependiendo de la bandera y la id de la sucursal se genera la consulta de la tabla
+        /// </summary>
+        /// <param name="deuda"></param>Bandera booleana que indica si el registro es de deuda o no
+        /// TRUE el registro es para deuda - FALSE el registro es de pagos
+        /// <param name="idCliente"></param> Id del cliente del que se quiere el registro
+        /// <param name="idSucursal"></param> Id de la sucursal de la que se quiere el registro
+        /// Si es 0, se hace un registro general
+        /// <returns></returns>
+        public DataTable tabla(bool deuda, int idCliente, int idSucursal)
+        {
+            DataTable ds = new DataTable();
+            String consulta="";
+            if (deuda)
+            {
+                if(idSucursal>0)
+                    consulta = "SELECT d.Fecha_Pago as 'Fecha Deuda',Fecha_Ingreso as 'Fecha de Ingreso',"+
+                        "d.Total as 'Deuda', d.Saldo FROM deuda d WHERE d.Cliente_id="+idCliente+
+                        " AND d.Sucursal_id="+idSucursal+";";
+                else
+                    consulta = "SELECT d.Fecha_Pago as 'Fecha Deuda',Fecha_Ingreso as 'Fecha de Ingreso',"+
+                        "d.Total as 'Deuda', d.Saldo, s.Nombre as 'Sucursal' FROM deuda d INNER JOIN sucursal "+
+                        "s ON s.id=d.Sucursal_id WHERE Cliente_id="+idCliente+" ORDER BY s.Nombre AND d.Fecha_Ingreso;";
+            }
+            else
+            {
+                if (idSucursal > 0)
+                    consulta = "SELECT d.Fecha as 'Fecha Pago',Fecha_Ingreso as 'Fecha de Ingreso'," +
+                        "d.Monto FROM pagos d WHERE d.Cliente_id=" + idCliente +
+                        " AND d.Sucursal_id=" + idSucursal + ";";
+                else
+                    consulta = "SELECT d.Fecha as 'Fecha Pago',Fecha_Ingreso as 'Fecha de Ingreso'," +
+                    "d.Monto, s.Nombre as 'Sucursal' FROM pagos d INNER JOIN sucursal " +
+                    "s ON s.id=d.Sucursal_id WHERE Cliente_id=" + idCliente + " ORDER BY s.Nombre AND d.Fecha_Ingreso;";
+            }
+            MySqlDataAdapter data = new MySqlDataAdapter(consulta, Variable_Conexion);
+            data.Fill(ds);
+            return (ds);
+        }
         public Cliente datos_cliente()
         {
             Cliente cliente=null;
             
             return cliente;
         }
+
 
     }
     
