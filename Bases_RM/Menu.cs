@@ -21,8 +21,8 @@ namespace Bases_RM
             InitializeComponent();
 
         //    btnpedidos.Enabled = false;
-          Thread tare = new Thread(ejecutar);
-          tare.Start();
+          //Thread tare = new Thread(ejecutar);
+          //tare.Start();
 
             
 

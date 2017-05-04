@@ -31,7 +31,7 @@ namespace Bases_RM
             try
             {
                 this.Conexion_DB = new Conexion_DB();
-                String[] trabajadores = this.Conexion_DB.obtener_Trabajadores();
+                String[] trabajadores = this.Conexion_DB.obtener_Trabajadordesha1();
                 for (int i = 0; i < trabajadores.Length; i++)
                 {
                     trabajadoresTree.Nodes.Add(trabajadores[i]);
@@ -41,13 +41,48 @@ namespace Bases_RM
                 {
                     ComboSucu.Items.Add(sucus[1, i]);
                 }
+                Habilitar.Visible = false;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void iniciar()
+        {
+            try
+            {
+                this.Conexion_DB = new Conexion_DB();
+                String[] trabajadores = this.Conexion_DB.obtener_Trabajadordesha1();
+                for (int i = 0; i < trabajadores.Length; i++)
+                {
+                    trabajadoresTree.Nodes.Add(trabajadores[i]);
+                }
+               
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Error2", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void iniciar2()
+        {
+            try
+            {
+                this.Conexion_DB = new Conexion_DB();
+                String[] trabajadores = this.Conexion_DB.obtener_Trabajadordesha();
+                for (int i = 0; i < trabajadores.Length; i++)
+                {
+                    trabajadoresTree.Nodes.Add(trabajadores[i]);
+                }
 
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             trabajadoresTree.SelectedNode = trabajadoresTree.SelectedNode.PrevNode;
@@ -77,11 +112,12 @@ namespace Bases_RM
                 TxtSala.Text = trab.Salario.ToString();
                 ComboSucu.Text = Conexion_DB.obtener_Nombredemens(trab.Sucursal_ID);
                 TxtCod.Text = trab.codigo.ToString();
-
-                grupo2.Visible = false;
-
-                
-                
+                if (!trab.codigo.ToString().Equals("-1")) TxtCod.Text = trab.codigo.ToString();
+                else
+                {
+                    Habilitar.Enabled = false;
+                    TxtCod.Text = "";
+                }
             }
         }
 
@@ -113,6 +149,9 @@ namespace Bases_RM
 
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            button2.Visible = true;
+            btnMG.Visible = true;
+            btnEC.Visible = true;
             if (!permitir)
             {
                 permitir = true;
@@ -122,15 +161,14 @@ namespace Bases_RM
                 TxtNom.Text = "";
                 TxtSala.Text = "";
                 ComboSucu.Text = "";
-                grupo2.Visible = false;
-
+                Habilitar.Visible = false;
                 TxtCod.Text = "";
                 TxtNom.Enabled = true;
                 TxtSala.Enabled = true;
                 trabajadoresTree.Enabled = false;
                 btnDer.Visible = false;
                 btnIzq.Visible = false;
-
+                trabajadoresTree.EndUpdate();
             }
             else
             {
@@ -139,16 +177,16 @@ namespace Bases_RM
                 btnMG.Text = "Modificar";
                 btnEC.Text = "Eliminar";
                 TxtNom.Enabled = true;
-                grupo2.Visible = false;
+                Habilitar.Visible = false;
                 TxtSala.Enabled = true;
                 TxtNom.Text = "";
                 TxtSala.Text = "";
                 ComboSucu.Text = "";
-                
                 TxtCod.Text = "";
                 trabajadoresTree.Enabled = true;
                 btnDer.Visible = true;
                 btnIzq.Visible = true;
+                trabajadoresTree.EndUpdate();
             }
         }
 
@@ -171,7 +209,6 @@ namespace Bases_RM
                         TxtSala.Text = "";
                         ComboSucu.Text = "";
                         TxtCod.Text = "";
-                       
 
                     }
                  catch (Exception ex)
@@ -194,6 +231,7 @@ namespace Bases_RM
                     try
                    {
                         String SucuSucu = ComboSucu.Text;
+                        //trabajadoresTree.SelectedNode.BeginEdit();
                         String Nombre = trabajadoresTree.SelectedNode.Text;
                         trab = Conexion_DB.obtener_Trabajador(Nombre.Trim());
                         Conexion_DB.modificacionTrabajador(obtener_TrabajadorID(Nombre), TxtNom.Text, double.Parse(TxtSala.Text), obtener_IDSucu(SucuSucu),int.Parse(TxtCod.Text));
@@ -201,7 +239,8 @@ namespace Bases_RM
                         TxtNom.Text = "";
                         TxtSala.Text = "";
                         ComboSucu.Text = "";
-
+                        TxtCod.Text = "";
+                        //trabajadoresTree.SelectedNode.EndEdit(true);
                     }
                     catch (Exception ex)
                     {
@@ -212,6 +251,49 @@ namespace Bases_RM
 
                 }
             }
+            trabajadoresTree.BeginUpdate();
+            trabajadoresTree.Nodes.Clear();
+            trabajadoresTree.EndUpdate();
+            iniciar();
+        }
+        private void deshabilitadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            trabajadoresTree.BeginUpdate();
+            trabajadoresTree.Nodes.Clear();
+            trabajadoresTree.EndUpdate();
+            Habilitar.Visible = true;
+            button2.Visible = false;
+            btnMG.Visible = false;
+            btnEC.Visible = false;
+            TxtSala.Enabled = false;
+            TxtCod.Enabled = true;
+            TxtNom.Enabled = false;
+            ComboSucu.Enabled = false;
+            TxtSala.Text = "";
+            TxtCod.Text = "";
+            TxtNom.Text = "";
+            ComboSucu.Text = "";
+            iniciar2();
+
+        }
+        private void habilitadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TxtSala.Text = "";
+            TxtCod.Text = "";
+            TxtNom.Text = "";
+            ComboSucu.Text = "";
+            TxtSala.Enabled = true;
+            TxtCod.Enabled = true;
+            TxtNom.Enabled = true;
+            ComboSucu.Enabled = true;
+            trabajadoresTree.BeginUpdate();
+            trabajadoresTree.Nodes.Clear();
+            trabajadoresTree.EndUpdate();
+            Habilitar.Visible = false;
+            button2.Visible = true;
+            btnMG.Visible = true;
+            btnEC.Visible = true;
+            iniciar();
         }
         public int obtener_IDSucu(String Nom)
         {
@@ -275,10 +357,11 @@ namespace Bases_RM
                     {
                         String cadenita = TxtNom.Text;
                         Conexion_DB.eliminacionTrabajadores(cadenita);
-                        MessageBox.Show("Trabajador Eliminado ya ");
-                        //TxtNom.Text = "";
-                        //TxtSala.Text = "";
-                        //ComboSucu.Text = "";
+                        MessageBox.Show("Trabajador Deshabilitado ");
+                        TxtNom.Text = "";
+                        TxtSala.Text = "";
+                        ComboSucu.Text = "";
+                        TxtCod.Text = "";
                     }
                     catch (Exception ex)
                     {
@@ -288,6 +371,10 @@ namespace Bases_RM
 
 
             }
+            trabajadoresTree.BeginUpdate();
+            trabajadoresTree.Nodes.Clear();
+            trabajadoresTree.EndUpdate();
+            iniciar();
         }
 
         private void exportarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -314,6 +401,55 @@ namespace Bases_RM
         {
             Pagos pg = new Pagos(null);
             pg.Show();
+        }
+
+        private void trabajadoresTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+    
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (campos_vacios())
+            {
+                MessageBox.Show("Codigo no puede ser ''-1'' ", "Error");
+            }
+            else
+            {
+                try
+                {
+                    String SucuSucu = ComboSucu.Text;
+                    if(TxtCod.Text == ""){
+                        MessageBox.Show("Ingrese codigo de trabajador...", "Error");
+                    }
+                    else
+                    {
+                        string hola = TxtCod.Text;
+                        Conexion_DB.HabilitarUsuario(trabajadoresTree.SelectedNode.Text, hola);   /////////////////////////
+                        MessageBox.Show("Trabajador Habilitado");
+                        TxtNom.Text = "";
+                        TxtSala.Text = "";
+                        ComboSucu.Text = "";
+                        TxtCod.Text = "";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            trabajadoresTree.BeginUpdate();
+            trabajadoresTree.Nodes.Clear();
+            trabajadoresTree.EndUpdate();
+            iniciar2();
+        }
+
+        private void TxtCod_TextChanged(object sender, EventArgs e)
+        {
+            if (TxtCod.Text!="")
+            {
+                Habilitar.Enabled = true;
+            }
         }
     }
 }
