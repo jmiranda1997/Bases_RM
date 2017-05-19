@@ -19,7 +19,7 @@ namespace Bases_RM
 
             Constructor_Conexion.Server = "localhost";//"25.3.39.210";//Direccion IP del servidor
             Constructor_Conexion.UserID = "root";//Ususario de la base de datos
-            Constructor_Conexion.Password = "@Sistemas2017";//Contraseña para la base de datos 
+            Constructor_Conexion.Password = "blackdiamond";//Contraseña para la base de datos 
             Constructor_Conexion.Database = "rm_db";//Nombre de la base de datos
             Variable_Conexion = new MySqlConnection(Constructor_Conexion.ToString());//creacion de variable de conexion
         }
@@ -2440,6 +2440,45 @@ namespace Bases_RM
             return saldo;
         }
         /// <summary>
+        /// Funcion que genera una matriz de cadenas de Nx4 que contiene en sus columnas 0,1,2,3 
+        /// El nombre,apellido,id, sucursal de la deuda de un cliente respectivamente
+        /// La consulta devuelve los datos necesarios de un cliente y la sucursal con la que tiene deuda
+        /// 1- Si el cliente no tiene deuda en ninguna sucursal, se añade, pero sin sucursal
+        /// 2- SI un cliente tiene deudas en varias sucursales, regresa un registro para cada caso
+        /// </summary>
+        /// <returns>Matriz de Strings de Clientes-sucursales</returns>
+        public String[,] obtener_clientes_sucursal()
+        {
+            String[,] clientes = null;
+            int total;
+            comando = Variable_Conexion.CreateCommand();//Inicializacion del comando 
+            comando.CommandText = "SELECT contarClienteSucursal()";//Consulta para la base, obtener el numero de registros
+            //que tiene la consulta de clientes y sucursales
+            Variable_Conexion.Open();//se abre la conexion a la base
+            Variable_Lectura = comando.ExecuteReader();//se guarda el conteo en la variable de lectura
+            if (Variable_Lectura.Read())//se verifica si se obtiene algun dato de la base
+            {
+                total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
+                clientes = new String[total, 4];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
+                comando.CommandText = "SELECT c.Nombre,c.Apellido,c.id,s.Nombre AS Sucursal FROM cliente c LEFT JOIN "+
+                    "deuda d ON c.id = d.Cliente_id LEFT JOIN sucursal s ON  s.id=d.Sucursal_id GROUP BY s.id, c.id HAVING SUM(c.Habilitado)>0;";
+                Variable_Conexion.Close();//se cierra la conexion
+                Variable_Conexion.Open();
+                Variable_Lectura = comando.ExecuteReader();
+                int contador = 0;
+                while (Variable_Lectura.Read())
+                {
+                    clientes[contador, 0] = Variable_Lectura["Nombre"].ToString();
+                    clientes[contador, 1] = Variable_Lectura["Apellido"].ToString();
+                    clientes[contador, 2] = Variable_Lectura["id"].ToString();
+                    clientes[contador, 3] = Variable_Lectura["Sucursal"].ToString();
+                    contador++;
+                }
+            }
+            Variable_Conexion.Close();//se cierra la conexion
+            return clientes;
+        }
+        /// <summary>
         /// FUncion que devueve una matriz String de N x 3 que contiene el nombre, apellido e id de cada cliente 
         /// </summary>
         /// <returns></returns>
@@ -2455,7 +2494,7 @@ namespace Bases_RM
             {
                 total = int.Parse(Variable_Lectura[0].ToString());//se convierte el objeto reader en una cadena y luego un entero
                 clientes = new String[total,3];//se crea un arreglo de cadenas del tamaño del conteo obtenido de clientes
-                comando.CommandText = "SELECT Nombre,Apellido,id FROM cliente ORDER BY Apellido ASC;";
+                comando.CommandText = "SELECT Nombre,Apellido,id FROM cliente WHERE Habilitado>0 ORDER BY Apellido ASC;";
                 Variable_Conexion.Close();//se cierra la conexion
                 Variable_Conexion.Open();
                 Variable_Lectura = comando.ExecuteReader();

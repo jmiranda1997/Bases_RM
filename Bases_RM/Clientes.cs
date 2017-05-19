@@ -25,6 +25,19 @@ namespace Bases_RM
             filtroGeneral();
             
         }
+        public void actualizar(int id)
+        {
+            int i=0;
+            while(int.Parse(clientes[i,2])!=id)
+            {
+                i++;
+            }
+            if (rbtnGeneral.Checked)
+                filtroGeneral();
+            else
+                filtroSucursal();
+            cargarClientes(i);
+        }
         /// <summary>
         /// Metodo que llena el TreeNode con los nombres y apellidos de los clientes en forma secuencial
         /// recibe por medio de la conexion una matriz String de n x 3, donde la primera columna tiene 
@@ -32,14 +45,61 @@ namespace Bases_RM
         /// </summary>
         private void filtroGeneral()
         {
+            arbolClientes.Nodes.Clear();
             clientes = conexion.obtener_clientes();
-            if (clientes != null)
+            if (clientes.Length>0)
             {
                 for (int i = 0; i < clientes.Length / 3; i++)
                 {
                     arbolClientes.Nodes.Add(clientes[i, 0].ToString()+" "+clientes[i,1].ToString());
                 }
 
+            }
+        }
+        /// <summary>
+        /// Metodo que llena el TreeNode con las sucursales y dentro de esos nodos, todos los clientes
+        /// que tienen deudas dentro de ellas
+        /// </summary>
+        private void filtroSucursal()
+        {
+            arbolClientes.Nodes.Clear();//limpia el arbol
+            clientes = conexion.obtener_clientes_sucursal();//LLama al metodo de conexion para obtener clientes y sucursales
+            if (clientes.Length > 0)//Si la matriz obtenida tiene elementos, se ejecuta
+            {
+                bool bandera = false;//La bandera sirve para indicar si al menos hay un cliente que puede realizar
+                TreeNode nodo;
+                if (!String.IsNullOrEmpty(clientes[0, 3]))
+                    nodo = new TreeNode(clientes[0, 3]);//si la primera sucursal de la matriz esta en blanco, significa que 
+                    //el cliente aun no ha adquirido ninguna deuda
+                else
+                    nodo = new TreeNode("SIN DEUDAS");
+                for (int i = 0; i < clientes.Length / 4; i++)
+                {
+                    if(!bandera)
+                        nodo.Name = (i).ToString();// le coloca nombre al nodo  padre (sucursal), su nombre sera
+                    //la primera posicion en la que se encontro esta sucursal en la matriz
+                    if ((nodo.Text.Equals("SIN DEUDAS") && String.IsNullOrEmpty(clientes[i, 3]))||nodo.Text.Equals(clientes[i, 3]))//si el nombre de la sucursal concuerda con el nodo padre actual
+                    //añade
+                    {
+                        nodo.Nodes.Add(clientes[i, 0].ToString() + " " + clientes[i, 1].ToString());//añade nodos al nodo padre (sucursal)
+                        //y los nodos agregados son Clientes
+                        bandera = true;
+                    }
+                    else//si no coincide se debe agregar la nueva sucursal
+                    {
+                        if (bandera)
+                        {
+                            arbolClientes.Nodes.Add(nodo);//se añade el nodo padre (sucursal) al TreeNode (arbol)
+                            bandera = false;
+                        }
+                        nodo = new TreeNode(clientes[i, 3]);//se genera un nuevo nodo padre
+                        i--;//se resta uno del iterador para volver a analizar el cliente que pertencia a otra sucursal
+                    }
+                }
+                if (bandera)
+                {
+                    arbolClientes.Nodes.Add(nodo);//añade el ultimo nodo
+                }
             }
         }
         private void label1_Click(object sender, EventArgs e)
@@ -79,7 +139,7 @@ namespace Bases_RM
             {
                 if (double.Parse(TxtDeuda.Text) > 0)
                 {
-                    formulario = new AbonoDeuda(false, cliente_actual);
+                    formulario = new AbonoDeuda(false, cliente_actual,this);
                     formulario.ShowDialog();
                 }
                 else
@@ -99,7 +159,7 @@ namespace Bases_RM
         {
             if (cliente_actual != null)
             {
-                formulario = new AbonoDeuda(true, cliente_actual);
+                formulario = new AbonoDeuda(true, cliente_actual,this);
                 formulario.ShowDialog();
             }
             else
@@ -109,26 +169,41 @@ namespace Bases_RM
         /// Metodo que carga el cliente de la posicion indicada en los campos del formulario
         /// </summary>
         /// <param name="posicion"></param>posicion del cliente en la matriz
-        public void cargarClientes(int posicion)
+        private void cargarClientes(int posicion)
         {
 
-
-            if (clientes.Length>0 && rbtnGeneral.Checked)
-
-
+            int columnas;//Variable que indica el numero de columnas de la matriz de clientes (depende del filtro)
+            if (rbtnGeneral.Checked)
             {
-                if(posicion<clientes.Length/3)
-                cliente_actual = conexion.getCliente(clientes[posicion, 2]);//se llama  a la funcion get cliente, enviandole la id
-                //se llenan los campos con los datos extraidos de la base
-                TxtApe.Text = cliente_actual.apellido;
-                TxtNom.Text = cliente_actual.nombre;
-                TxtDias.Text = cliente_actual.dias.ToString();
-                TxtNit.Text = cliente_actual.dpi;
-                TxtLimic.Text = cliente_actual.limite.ToString("N2");
-                TxtDeuda.Text = conexion.obtener_saldoTotal(cliente_actual.id, 0).ToString("N2");
-                cbSucursal.Text = "";
+                columnas = 3;//Si el filtro es general la matriz tiene 3 columnas
+                
             }
+            else
+            {
+                columnas = 4;//si no, el filtro tiene 4
+                
+            }
+            if (clientes.Length > 0)
+            {
+                if (posicion < clientes.Length / columnas)//se comprueba que la posicion no sobrepase el numero de filas
+                {//si no hay un objeto de cliente actual
+                    cliente_actual = conexion.getCliente(clientes[posicion, 2]);//se llama  a la funcion get cliente, enviandole la id
+                    //se llenan los campos con los datos extraidos de la base
+                    TxtApe.Text = cliente_actual.apellido;
+                    TxtNom.Text = cliente_actual.nombre;
+                    TxtDias.Text = cliente_actual.dias.ToString();
+                    TxtNit.Text = cliente_actual.dpi;
+                    TxtLimic.Text = cliente_actual.limite.ToString("N2");
+                    TxtDeuda.Text = conexion.obtener_saldoTotal(cliente_actual.id, 0).ToString("N2");
+                    cbSucursal.Text = "";
+
+                }
+            }
+
         }
+        /// <summary>
+        /// Cargar cliente actual, llena los campos del formulario con los datos del cliente ya cargado
+        /// </summary>
         private void cargarClientesActual()
         {
             if (cliente_actual!=null)
@@ -150,7 +225,6 @@ namespace Bases_RM
             }
             cargarClientes(0);    
         }
-
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(!nuevo)//Si la bandera es falsa, el formulario esta en modo ver, cambia a nuevo bloquea los textbox
@@ -234,7 +308,10 @@ namespace Bases_RM
                         {
                             conexion.ingresoCliente(TxtNit.Text, TxtNom.Text, TxtApe.Text, int.Parse(TxtDias.Text), Double.Parse(TxtLimic.Text));// llama al ingreso de clientes
                             arbolClientes.Nodes.Clear();//Limpia el TreeNode
-                            filtroGeneral();//vuelve a carga a los clientes
+                            if (rbtnGeneral.Checked)
+                                filtroGeneral();//vuelve a carga a los clientes
+                            else
+                                filtroSucursal();
                             nuevoToolStripMenuItem_Click(sender, e);//Vuelve a colocar el formulario en modo visualizacion de datos
                             MessageBox.Show("Se ha añadido correctamente");
                         }
@@ -242,7 +319,10 @@ namespace Bases_RM
                         {
                             conexion.modificacionCliente(TxtNom.Text, TxtApe.Text, int.Parse(TxtDias.Text), double.Parse(TxtLimic.Text), cliente_actual.id);//llama al UPDATE de clientes de la clase conexion
                             arbolClientes.Nodes.Clear();//Limpia el TreeNode
-                            filtroGeneral();//vuelve a cargar los clientes
+                            if (rbtnGeneral.Checked)
+                                filtroGeneral();//vuelve a cargar los clientes
+                            else
+                                filtroSucursal();
                             modificar = false;//cambia la bandera de modificacion
                             modo_vista();//poine el formulario en modo vista
                             cliente_actual = conexion.getCliente(cliente_actual.id.ToString());//actualiza el cliente actual
@@ -307,6 +387,11 @@ namespace Bases_RM
                 if(rbtnGeneral.Checked)
                 {
                     cargarClientes(arbolClientes.SelectedNode.Index);
+                }
+                if (rbtnSucursal.Checked)
+                {
+                    if (arbolClientes.SelectedNode.Parent != null)
+                        cargarClientes(int.Parse(arbolClientes.SelectedNode.Parent.Name) + arbolClientes.SelectedNode.Index);
                 }
             }
             catch(Exception ex)
@@ -400,6 +485,18 @@ namespace Bases_RM
             {
                 MessageBox.Show("Ocurrio un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void rbtnSucursal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnSucursal.Checked)
+                filtroSucursal();
+        }
+
+        private void rbtnGeneral_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnGeneral.Checked)
+                filtroGeneral();
         }
     }
 }

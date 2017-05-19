@@ -17,8 +17,10 @@ namespace Bases_RM
         Conexion_DB conexion = new Conexion_DB();
         String[,] sucursales;
         Cliente cliente = null;
-        public AbonoDeuda(bool deuda, Cliente persona)
+        Clientes form;
+        public AbonoDeuda(bool deuda, Cliente persona, Clientes form)
         {
+            this.form = form;
             this.deuda=deuda;
             cliente = persona;
             InitializeComponent();
@@ -70,6 +72,7 @@ namespace Bases_RM
                                 conexion.modificacionDeuda(idDeuda, Datetimepic.Value, double.Parse(TxtMonto.Text));
                             }
                             MessageBox.Show("Deuda ingresada con exito", "Deuda");
+                            form.actualizar(cliente.id);
                             this.Close();
                         }
                         catch (Exception ex)
@@ -85,6 +88,7 @@ namespace Bases_RM
                             {
                                 conexion.ingresoPagoDeuda(Datetimepic.Value, double.Parse(TxtMonto.Text), cliente.id, int.Parse(sucursales[cbSucursales.SelectedIndex, 1]));
                                 MessageBox.Show("Pago ingresado con exito", "Pago");
+                                form.actualizar(cliente.id);
                                 this.Close();
                             }
                             else
