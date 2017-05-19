@@ -50,11 +50,12 @@
             this.lblCod = new System.Windows.Forms.Label();
             this.TxtCod = new System.Windows.Forms.TextBox();
             this.grupo1 = new System.Windows.Forms.GroupBox();
-            this.Habilitar = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.grupo2 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip2.SuspendLayout();
             this.grupo1.SuspendLayout();
+            this.grupo2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNom
@@ -115,7 +116,7 @@
             // 
             // btnEC
             // 
-            this.btnEC.Location = new System.Drawing.Point(509, 273);
+            this.btnEC.Location = new System.Drawing.Point(474, 271);
             this.btnEC.Name = "btnEC";
             this.btnEC.Size = new System.Drawing.Size(109, 26);
             this.btnEC.TabIndex = 9;
@@ -184,7 +185,7 @@
             // nuevoToolStripMenuItem1
             // 
             this.nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
-            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
             this.nuevoToolStripMenuItem1.Text = "&Nuevo";
             this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
             // 
@@ -194,26 +195,24 @@
             this.habilitadosToolStripMenuItem,
             this.deshabilitadosToolStripMenuItem});
             this.consultaToolStripMenuItem.Name = "consultaToolStripMenuItem";
-            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.consultaToolStripMenuItem.Text = "&Consulta";
             // 
             // habilitadosToolStripMenuItem
             // 
             this.habilitadosToolStripMenuItem.Name = "habilitadosToolStripMenuItem";
-            this.habilitadosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.habilitadosToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.habilitadosToolStripMenuItem.Text = "&Habilitados";
-            this.habilitadosToolStripMenuItem.Click += new System.EventHandler(this.habilitadosToolStripMenuItem_Click);
             // 
             // deshabilitadosToolStripMenuItem
             // 
             this.deshabilitadosToolStripMenuItem.Name = "deshabilitadosToolStripMenuItem";
-            this.deshabilitadosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deshabilitadosToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.deshabilitadosToolStripMenuItem.Text = "&Deshabilitados";
-            this.deshabilitadosToolStripMenuItem.Click += new System.EventHandler(this.deshabilitadosToolStripMenuItem_Click);
             // 
             // btnMG
             // 
-            this.btnMG.Location = new System.Drawing.Point(390, 273);
+            this.btnMG.Location = new System.Drawing.Point(364, 271);
             this.btnMG.Name = "btnMG";
             this.btnMG.Size = new System.Drawing.Size(104, 26);
             this.btnMG.TabIndex = 14;
@@ -237,11 +236,9 @@
             this.TxtCod.Name = "TxtCod";
             this.TxtCod.Size = new System.Drawing.Size(79, 20);
             this.TxtCod.TabIndex = 16;
-            this.TxtCod.TextChanged += new System.EventHandler(this.TxtCod_TextChanged);
             // 
             // grupo1
             // 
-            this.grupo1.Controls.Add(this.Habilitar);
             this.grupo1.Controls.Add(this.lblNom);
             this.grupo1.Controls.Add(this.TxtCod);
             this.grupo1.Controls.Add(this.lbSala);
@@ -259,20 +256,27 @@
             this.grupo1.TabStop = false;
             this.grupo1.Enter += new System.EventHandler(this.grupo1_Enter);
             // 
-            // Habilitar
+            // grupo2
             // 
-            this.Habilitar.Enabled = false;
-            this.Habilitar.Location = new System.Drawing.Point(266, 183);
-            this.Habilitar.Name = "Habilitar";
-            this.Habilitar.Size = new System.Drawing.Size(104, 26);
-            this.Habilitar.TabIndex = 20;
-            this.Habilitar.Text = "Habilitar";
-            this.Habilitar.UseVisualStyleBackColor = true;
-            this.Habilitar.Click += new System.EventHandler(this.button1_Click_1);
+            this.grupo2.Controls.Add(this.button1);
+            this.grupo2.Location = new System.Drawing.Point(202, 26);
+            this.grupo2.Name = "grupo2";
+            this.grupo2.Size = new System.Drawing.Size(200, 100);
+            this.grupo2.TabIndex = 18;
+            this.grupo2.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(27, 36);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(141, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Habilitar";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(295, 274);
+            this.button2.Location = new System.Drawing.Point(229, 271);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(81, 23);
             this.button2.TabIndex = 19;
@@ -280,23 +284,13 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(204, 274);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Abono";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
             // Trabajadores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 306);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.grupo2);
             this.Controls.Add(this.grupo1);
             this.Controls.Add(this.btnMG);
             this.Controls.Add(this.btnEC);
@@ -304,11 +298,11 @@
             this.Controls.Add(this.menuStrip2);
             this.Name = "Trabajadores";
             this.Text = "Trabajadores";
-            this.Load += new System.EventHandler(this.Trabajadores_Load);
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.grupo1.ResumeLayout(false);
             this.grupo1.PerformLayout();
+            this.grupo2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,8 +332,8 @@
         private System.Windows.Forms.ToolStripMenuItem habilitadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deshabilitadosToolStripMenuItem;
         private System.Windows.Forms.GroupBox grupo1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button Habilitar;
+        private System.Windows.Forms.GroupBox grupo2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
