@@ -339,10 +339,22 @@ namespace Bases_RM
 
         private void exportarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Exportar ex = new Exportar();
-            ex.ShowDialog();
-            DataTable tabla = Conexion_DB.obtenerPedido(ex.idProveedor, ex.idPedido);
-            String direccion = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "// "+ex.nombreprov + "PEDIDO:" + ex.Nombreped;
+            Exportar exp = new Exportar();
+            exp.ShowDialog();
+            try
+            {
+                SaveFileDialog fichero = new SaveFileDialog();
+                fichero.Filter = "Excel (*.xls)|*.xls";
+                if (fichero.ShowDialog() == DialogResult.OK)
+                {
+                    Conexion_DB.exportar(Conexion_DB.obtenerPedido(exp.idProveedor, exp.idPedido), fichero.FileName);
+                    MessageBox.Show("Se ha guardado correctamente", "Exportar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrio un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }       
     }
 }

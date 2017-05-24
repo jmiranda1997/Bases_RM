@@ -15,13 +15,12 @@ namespace Bases_RM
     {
         private Conexion_DB conexion=new Conexion_DB();
         private Usuario user;
-        private String clave = "3JOR";
+        private String clave = "";
         private bool modificacion = false;
         public Seguridad(Usuario user)
         {
             InitializeComponent();
             this.user = user;
-            //user = new Usuario("a", "q", null, null, null, null);
         }
         private void modificaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -29,7 +28,6 @@ namespace Bases_RM
             
             if (usuarios.Length != 0)
             {
-                cargarCheckBoxes(conexion.obtenerPermisos(user.Nombre));
                 for (int i = 0; i < usuarios.Length; i++)
                 {
                     userCombo.Items.Add(usuarios[i]);
@@ -44,25 +42,107 @@ namespace Bases_RM
         }
         private void cargarCheckBoxes(String[,] cadena)
         {
-            String usuario = cadena[0, 0];
-            String clientes = cadena[0, 1];
-            String pedidos = cadena[0, 2];
-            String trabajadores = cadena[0, 3];
+            Char[] usuario = cadena[0, 0].ToCharArray();
+            Char[] clientes = cadena[0, 1].ToCharArray();
+            Char[] pedidos = cadena[0, 2].ToCharArray();
+            Char[] trabajadores = cadena[0, 3].ToCharArray();
+            //Carga de los accesos de usuarios
+            if (usuario[0] == '1')
+                uIngresoCheck.Checked = true;
+            if (usuario[1] == '1')
+                uModificacionCheck.Checked = true;
+            if (usuario[2] == '1')
+                uEliminacionCheck.Checked = true;
+            //Carga de accesos de clientes
+            if (clientes[0] == '1')
+                cIngresoCheck.Checked = true;
+            if (clientes[1] == '1')
+                cModificacionCheck.Checked = true;
+            if (clientes[2] == '1')
+                cExportarCheck.Checked = true;
+            if (clientes[3] == '1')
+                cIDeudasCheck.Checked = true;
+            if (clientes[4] == '1')
+                cIPagosCheck.Checked = true;
+            if (clientes[5] == '1')
+                cMDeudasCheck.Checked = true;
+            if (clientes[6] == '1')
+                cMPagosCheck.Checked = true;
+            if (clientes[7] == '1')
+                cADeudasCheck.Checked = true;
+            if (clientes[8] == '1')
+                cAPagosCheck.Checked = true;
+            if (clientes[9] == '1')
+                cCuentaCheck.Checked = true;
+            //Carga de accesos de pedidos
+            if (pedidos[0] == '1')
+                pIngresoCheck.Checked = true;
+            if (pedidos[1] == '1')
+                pModificacionCheck.Checked = true;
+            if (pedidos[2] == '1')
+                pConsultaCheck.Checked = true;
+            if (pedidos[3] == '1')
+                pExportarCheck.Checked = true;
+            //Carga de accesos de trabajadores
+            if (trabajadores[0] == '1')
+                tIngresoCheck.Checked = true;
+            if (trabajadores[1] == '1')
+                tModificacionCheck.Checked = true;
+            if (trabajadores[2] == '1')
+                tEliminacionCheck.Checked = true;
+            if (trabajadores[3] == '1')
+                tIPrestamoCheck.Checked = true;
+            if (trabajadores[4] == '1')
+                tIPagosCheck.Checked = true;
+            if (trabajadores[5] == '1')
+                tMPrestamoCheck.Checked = true;
+            if (trabajadores[6] == '1')
+                tMPagosCheck.Checked = true;
+            if (trabajadores[7] == '1')
+                tAPrestamoCheck.Checked = true;
+            if (trabajadores[8] == '1')
+                tAPagoCheck.Checked = true;
+
         }
         private void userCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((userCombo.SelectedIndex != -1)&&modificacion)
             {
                 todoGroup.Enabled = true;
+                uIngresoCheck.Checked = false;
+                uModificacionCheck.Checked = false;
+                uEliminacionCheck.Checked = false;
+                cIngresoCheck.Checked = false;
+                cModificacionCheck.Checked = false;
+                cExportarCheck.Checked = false;
+                cIDeudasCheck.Checked = false;
+                cIPagosCheck.Checked = false;
+                cMDeudasCheck.Checked = false;
+                cMPagosCheck.Checked = false;
+                cADeudasCheck.Checked = false;
+                cAPagosCheck.Checked = false;
+                cCuentaCheck.Checked = false;
+                pIngresoCheck.Checked = false;
+                pModificacionCheck.Checked = false;
+                pConsultaCheck.Checked = false;
+                pExportarCheck.Checked = false;
+                tIngresoCheck.Checked = false;
+                tModificacionCheck.Checked = false;
+                tEliminacionCheck.Checked = false;
+                tIPrestamoCheck.Checked = false;
+                tIPagosCheck.Checked = false;
+                tMPrestamoCheck.Checked = false;
+                tMPagosCheck.Checked = false;
+                tAPrestamoCheck.Checked = false;
+                tAPagoCheck.Checked = false;
+                cargarCheckBoxes(conexion.obtenerPermisos(userCombo.Text));
             }
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             limpiar();
-            Seguridad1 nuevo = new Seguridad1(user);
             this.Close();
-            nuevo.Show();
         }
 
         private void ingresoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,7 +158,7 @@ namespace Bases_RM
         {
             if (ingresoPanel.Visible)
             {
-                if ((contraText1.Text == contraText2.Text)&&!contraText1.Text.Equals(""))
+                if ((contraText1.Text == contraText2.Text)&&!contraText1.Text.Trim().Equals(""))
                 {
                     if (contraText1.Text.Length < 45)
                     {
@@ -198,20 +278,19 @@ namespace Bases_RM
                         if (!usuarios.Equals("000") || !clientes.Equals("0000000000") || !pedidos.Equals("0000") || !trabajadores.Equals("000000000"))
                         {
                             Vigenere seg = new Vigenere();
-                            seg.cifrar(usuarios, clave);
-                            String sUsuarios = seg.getMC();
-                            seg.cifrar(clientes, clave);
-                            String sClientes = seg.getMC();
-                            seg.cifrar(pedidos, clave);
-                            String sPedidos = seg.getMC();
-                            seg.cifrar(trabajadores, clave);
-                            String sTrabajadores = seg.getMC();
+                            clave = "";
+                            int ascii = userText.Text.ElementAt(0);
+                            clave += ascii.ToString();
+                            for (int i = 0; i < userText.Text.Length; i++)
+                            {
+                                clave += userText.Text.ElementAt(userText.Text.Length - 1 - i);
+                            }
+                            ascii = userText.Text.ElementAt(userText.Text.Length - 1);
+                            clave += ascii.ToString();
                             try
                             {
-                                seg.cifrar(contraText1.Text, clave);
-
-                                String contra = seg.getMC();
-                                conexion.ingresoUsuario(userText.Text, contra, sPedidos, sClientes, sTrabajadores, sUsuarios);
+                                conexion.ingresoUsuario(userText.Text, contraText1.Text/*, sPedidos, sClientes, sTrabajadores, sUsuarios*/);
+                                conexion.ingresaPermisos(usuarios, clientes, pedidos, trabajadores, clave, userText.Text);
                                 MessageBox.Show("Ingreso exitoso", "Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 limpiar();
                             }
@@ -358,18 +437,18 @@ namespace Bases_RM
                  //Comprobación de que por lo menos tenga 1 permiso
                 if (!usuarios.Equals("000") || !clientes.Equals("0000000000") || !pedidos.Equals("0000") || !trabajadores.Equals("000000000"))
                 {
-                    Vigenere seg = new Vigenere();
-                    seg.cifrar(usuarios, clave);
-                    String sUsuarios = seg.getMC();
-                    seg.cifrar(clientes, clave);
-                    String sClientes = seg.getMC();
-                    seg.cifrar(pedidos, clave);
-                    String sPedidos = seg.getMC();
-                    seg.cifrar(trabajadores, clave);
-                    String sTrabajadores = seg.getMC();
                     try
                     {
-                        conexion.modificacionUsuario(userCombo.Text, sPedidos, sClientes, sTrabajadores, sUsuarios);
+                        clave = "";
+                        int ascii = userCombo.Text.ElementAt(0);
+                        clave += ascii.ToString();
+                        for (int i = 0; i < userCombo.Text.Length; i++)
+                        {
+                            clave += userCombo.Text.ElementAt(userCombo.Text.Length - 1 - i);
+                        }
+                        ascii = userCombo.Text.ElementAt(userCombo.Text.Length - 1);
+                        clave += ascii.ToString();
+                        conexion.ingresaPermisos(usuarios, clientes, pedidos, trabajadores, clave, userCombo.Text);
                         MessageBox.Show("Modificación exitosa", "Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         limpiar();
                     }catch(Exception ex)
@@ -556,9 +635,38 @@ namespace Bases_RM
 
         private void Seguridad_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Seguridad1 anterior = new Seguridad1(user);
-            anterior.Show();
+            limpiar();
+            //Seguridad1 nuevo = new Seguridad1(user);
+            //nuevo.Show();
         }
-        
+
+        private void Seguridad_Load(object sender, EventArgs e)
+        {
+            //Carga los permisos del usuario
+            user.obtenerPermisos();
+            if (user.pUsuarios.ElementAt(0) == user.pUsuarios.ElementAt(1) && user.pUsuarios.ElementAt(1) == user.pUsuarios.ElementAt(2) && user.pUsuarios.ElementAt(2) == false)
+            {
+                MessageBox.Show("No tiene los permisos para ingresar a la Administración de Seguridad", "Error de permisos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Close();
+                limpiar();
+                //Seguridad1 nuevo = new Seguridad1(user);
+                //nuevo.Show();
+            }
+            else
+            {
+                ingresoToolStripMenuItem.Enabled = user.pUsuarios.ElementAt(0);
+                modificaciónToolStripMenuItem.Enabled = user.pUsuarios.ElementAt(1);
+                eliminarToolStripMenuItem.Enabled = user.pUsuarios.ElementAt(2);
+                clave = "";
+                int ascii = user.Nombre.ElementAt(0);
+                clave += ascii.ToString();
+                for (int i = 0; i < user.Nombre.Length; i++)
+                {
+                    clave += user.Nombre.ElementAt(user.Nombre.Length - 1 - i);
+                }
+                ascii = user.Nombre.ElementAt(user.Nombre.Length - 1);
+                clave += ascii.ToString();
+            }
+        }
     }
 }
